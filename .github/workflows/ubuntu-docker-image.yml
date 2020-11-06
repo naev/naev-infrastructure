@@ -29,7 +29,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           file: naev-ubuntu1604/Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/386
           push: ${{ github.event_name != 'pull_request' }}
           tags: projectsynchro/synchros_sexy_docker_images/naev-ubuntu1604:latest
 
@@ -39,7 +38,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           file: naev-ubuntu1804/Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/386
           push: ${{ github.event_name != 'pull_request' }}
           tags: projectsynchro/synchros_sexy_docker_images/naev-ubuntu1804:latest
 
@@ -49,7 +47,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           file: naev-ubuntu2004/Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/386
           push: ${{ github.event_name != 'pull_request' }}
           tags: projectsynchro/synchros_sexy_docker_images/naev-ubuntu2004:latest
 
@@ -59,6 +56,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           file: naev-ubuntu2010/Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/386
           push: ${{ github.event_name != 'pull_request' }}
           tags: projectsynchro/synchros_sexy_docker_images/naev-ubuntu2010:latest
