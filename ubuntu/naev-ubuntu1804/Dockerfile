@@ -2,6 +2,7 @@ FROM ubuntu:18.04
 
 LABEL Jack Greiner <jack@emoss.org>
 
+RUN add-apt-repository ppa:git-core/ppa
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint binutils-dev build-essential gettext git intltool libfreetype6-dev libgl1-mesa-dev libiberty-dev libluajit-5.1-dev libopenal-dev libpng-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsuitesparse-dev libvorbis-dev libxml2-dev ninja-build python3-pip python3-setuptools python3-wheel
