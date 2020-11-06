@@ -15,7 +15,7 @@ jobs:
             tagname: naev-ubuntu1804
           - os: ubuntu-latest
             dockerfile: "ubuntu/naev-ubuntu2004"
-            tagname: naev-ubuntu1604
+            tagname: naev-ubuntu2004
           - os: ubuntu-latest
             dockerfile: "ubuntu/naev-ubuntu2010"
             tagname: naev-ubuntu2010
