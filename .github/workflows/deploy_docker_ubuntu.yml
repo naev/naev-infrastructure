@@ -1,0 +1,36 @@
+name: Publish Naev Ubuntu Docker Images
+on: [push]
+
+jobs:
+  "Build_Ubuntu":
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - os: ubuntu-latest
+            dockerfile: "ubuntu/naev-ubuntu1604"
+            tagname: naev-ubuntu1604
+          - os: ubuntu-latest
+            dockerfile: "ubuntu/naev-ubuntu1804"
+            tagname: naev-ubuntu1804
+          - os: ubuntu-latest
+            dockerfile: "ubuntu/naev-ubuntu2004"
+            tagname: naev-ubuntu1604
+          - os: ubuntu-latest
+            dockerfile: "ubuntu/naev-ubuntu2010"
+            tagname: naev-ubuntu2010
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@master
+
+    - name: Build ${{ matrix.tagname }} and Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: projectsynchro/synchros_sexy_docker_images
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        workdir: ${{ matrix.dockerfile }}
+        tags: ${{ matrix.tagname }}
