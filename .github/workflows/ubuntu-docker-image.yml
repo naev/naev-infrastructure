@@ -1,4 +1,4 @@
-name: Docker Image Build and Publish
+name: Ubuntu Images Build and Publish
 
 on:
   push:
