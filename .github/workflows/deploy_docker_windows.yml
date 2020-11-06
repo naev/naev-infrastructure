@@ -1,0 +1,30 @@
+name: Publish Naev Windows Docker Images
+on: [push]
+
+jobs:
+  "Build_Windows":
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - os: windows-latest
+            dockerfile: "windows/naev-windows1909"
+            tagname: naev-windows1909
+          - os: windows-latest
+            dockerfile: "windows/naev-windows2004"
+            tagname: naev-windows2004
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@master
+
+    - name: Build ${{ matrix.tagname }} and Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: projectsynchro/synchros_sexy_docker_images
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        workdir: ${{ matrix.dockerfile }}
+        tags: ${{ matrix.tagname }}
