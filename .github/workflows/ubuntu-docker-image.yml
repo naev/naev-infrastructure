@@ -30,7 +30,7 @@ jobs:
         with:
           file: naev-ubuntu1604/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: projectsynchro/synchros_sexy_docker_images/naev-ubuntu1604:latest
+          tags: synchros_sexy_docker_images/naev-ubuntu1604:latest
 
       -
         name: Build and push Ubuntu 18.04 Image
@@ -39,7 +39,7 @@ jobs:
         with:
           file: naev-ubuntu1804/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: projectsynchro/synchros_sexy_docker_images/naev-ubuntu1804:latest
+          tags: synchros_sexy_docker_images/naev-ubuntu1804:latest
 
       -
         name: Build and push Ubuntu 20.04 Image
@@ -48,7 +48,7 @@ jobs:
         with:
           file: naev-ubuntu2004/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: projectsynchro/synchros_sexy_docker_images/naev-ubuntu2004:latest
+          tags: synchros_sexy_docker_images/naev-ubuntu2004:latest
 
       -
         name: Build and push Ubuntu 20.10 Image
@@ -57,4 +57,4 @@ jobs:
         with:
           file: naev-ubuntu2010/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: projectsynchro/synchros_sexy_docker_images/naev-ubuntu2010:latest
+          tags: synchros_sexy_docker_images/naev-ubuntu2010:latest
