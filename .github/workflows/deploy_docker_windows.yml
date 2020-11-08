@@ -23,4 +23,4 @@ jobs:
       -
         name: Build and push
         run: |
-          docker build ${{ matrix.dockerfile }} -t windows2019
+          docker build ${{ matrix.dockerfile }}/Dockerfile -t windows2019
