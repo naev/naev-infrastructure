@@ -1,21 +1,27 @@
 FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
-# Make sure we're in temp for the downloads
-WORKDIR c:/windows/temp
+LABEL Description="Windows Server Core development environment for Naev, Chocolatey and various dependencies for testing meson and autotools as well as additional Naev functionality."
+LABEL Author="Jack Greiner <jack@emoss.org>"
 
-# Switch to PowerShell
-SHELL ["powershell", "-command"] 
+# Disable crash dialog for release-mode runtimes
+RUN reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f
+RUN reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v DontShowUI /t REG_DWORD /d 1 /f
 
-RUN Invoke-WebRequest -UserAgent 'DockerCI' -outfile 7zsetup.exe http://www.7-zip.org/a/7z1604-x64.exe
-RUN Invoke-WebRequest -UserAgent 'DockerCI' -outfile msys2-x86_64-latest.tar.xz http://repo.msys2.org/distrib/msys2-x86_64-latest.tar.xz 
+RUN powershell -NoProfile -ExecutionPolicy Bypass -Command \
+    $Env:chocolateyVersion = '0.10.8' ; \
+    $Env:chocolateyUseWindowsCompression = 'false' ; \
+    "[Net.ServicePointManager]::SecurityProtocol = \"tls12, tls11, tls\"; iex ((New-Object System.Net.WebClient).DownloadString('http://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 
 
-RUN Start-Process .\7zsetup -ArgumentList '/S /D=c:/7zip' -Wait
-RUN C:\7zip\7z e msys2-x86_64-latest.tar.xz -Wait
-RUN C:\7zip\7z x msys2-x86_64-latest.tar -o"C:\\" 
-RUN del *
+RUN choco install -y python && \
+    choco install -y 7zip --version 19.0 && \
+    choco install -y git --version 2.24.0 --params "/GitAndUnixToolsOnPath" && \
+    choco install -y msys2
 
-#ENV PATH C:\msys64\usr\bin;C:\Windows;C:\Windows\System32
-ENV MSYSTEM MSYS2
 
-CMD powershell
+
+SHELL ["C:\\tools\\msys64\\autorebase.bat"]
+
+RUN pacman -Syu && pacman -Su
+
+CMD C:\tools\msys64\autorebase.bat

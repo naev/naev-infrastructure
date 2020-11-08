@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/windows/servercore:ltsc2016
 
-LABEL Description="Windows Server Core development environment for Qbs with Qt, Chocolatey and various dependencies for testing Qbs modules and functionality"
+LABEL Description="Windows Server Core development environment for Naev, Chocolatey and various dependencies for testing meson and autotools as well as additional Naev functionality."
+LABEL Author="Jack Greiner <jack@emoss.org>"
 
 # Disable crash dialog for release-mode runtimes
 RUN reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f
