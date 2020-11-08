@@ -4,7 +4,7 @@ LABEL Description="Ubuntu development environment for Naev, various dependencies
 LABEL Author="Jack Greiner <jack@emoss.org>"
 
 RUN apt-get update && apt-get install -y software-properties-common && \
-    apt-add-repository ppa:git-core/ppa && add-apt-repository ppa:deadsnakes/ppa && \
+    apt-add-repository ppa:git-core/ppa && \
     apt-get update
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint binutils-dev \
