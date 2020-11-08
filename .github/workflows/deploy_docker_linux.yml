@@ -1,4 +1,4 @@
-name: Publish Naev Ubuntu Docker Images
+name: Publish Naev Linux Docker Images
 on: [push]
 
 jobs:
@@ -16,9 +16,12 @@ jobs:
           - os: ubuntu-latest
             dockerfile: "ubuntu/naev-ubuntu2004"
             tagname: naev-ubuntu2004
-          - os: ubuntu-latest
+            - os: ubuntu-latest
             dockerfile: "ubuntu/naev-ubuntu2010"
             tagname: naev-ubuntu2010
+            - os: ubuntu-latest
+            dockerfile: "steam"
+            tagname: naev-steamruntime
 
     runs-on: ${{ matrix.os }}
 
