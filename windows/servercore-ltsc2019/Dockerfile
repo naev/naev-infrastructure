@@ -1,4 +1,5 @@
-FROM microsoft/windowsservercore:2004
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
+
 # Make sure we're in temp for the downloads
 WORKDIR c:/windows/temp
 

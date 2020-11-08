@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/servercore:2019
+FROM mcr.microsoft.com/windows/servercore:ltsc2016
 
 LABEL Description="Windows Server Core development environment for Qbs with Qt, Chocolatey and various dependencies for testing Qbs modules and functionality"
 

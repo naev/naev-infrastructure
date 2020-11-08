@@ -7,12 +7,12 @@ jobs:
       fail-fast: true
       matrix:
         include:
-          - os: windows-latest
-            dockerfile: "windows/1909"
-            tagname: naev-windows1909
-          - os: windows-latest
-            dockerfile: "windows/2004"
-            tagname: naev-windows2004
+          - os: windows-2016
+            dockerfile: "windows/servercore-ltsc2016"
+            tagname: naev-windowsltsc2016
+          - os: windows-2019
+            dockerfile: "windows/servercore-ltsc2019"
+            tagname: naev-windowsltsc2019
 
     runs-on: ${{ matrix.os }}
 
@@ -21,7 +21,7 @@ jobs:
         name: Checkout Repository
         uses: actions/checkout@master
       -
-        name: Build and push
+        name: Build
         run: |
           cd ${{ matrix.dockerfile }}
-          docker build . -t windows2019
+          docker build . -t ${{ matrix.tagname }}
