@@ -3,8 +3,9 @@ FROM ubuntu:20.04
 LABEL Description="Ubuntu development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
 LABEL Author="Jack Greiner <jack@emoss.org>"
 
-RUN apt-get install software-properties-common && apt-add-repository ppa:git-core/ppa && \
-    add-apt-repository ppa:deadsnakes/ppa && apt-get update
+RUN apt-get update && apt-get install -y software-properties-common && \
+    apt-add-repository ppa:git-core/ppa && add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get update
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint binutils-dev \
     build-essential clang gettext git intltool libfreetype6-dev libgl1-mesa-dev \
