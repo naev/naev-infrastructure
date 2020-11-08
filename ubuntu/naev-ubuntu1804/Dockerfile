@@ -1,6 +1,7 @@
 FROM ubuntu:18.04
 
-LABEL Jack Greiner <jack@emoss.org>
+LABEL Description="Ubuntu development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
+LABEL Author="Jack Greiner <jack@emoss.org>"
 
 RUN apt-get update
 RUN apt-get install -y software-properties-common && apt-add-repository ppa:git-core/ppa
