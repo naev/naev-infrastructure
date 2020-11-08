@@ -8,10 +8,10 @@ jobs:
       matrix:
         include:
           - os: windows-latest
-            dockerfile: "windows/naev-windows1909"
+            dockerfile: "windows/1909"
             tagname: naev-windows1909
           - os: windows-latest
-            dockerfile: "windows/naev-windows2004"
+            dockerfile: "windows/2004"
             tagname: naev-windows2004
 
     runs-on: ${{ matrix.os }}
