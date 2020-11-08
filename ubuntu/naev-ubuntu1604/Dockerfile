@@ -11,11 +11,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint binutils-dev \
     build-essential clang gettext git intltool libfreetype6-dev libgl1-mesa-dev \
     libiberty-dev libluajit-5.1-dev libopenal-dev libpng-dev libsdl2-dev \
     libsdl2-image-dev libsdl2-mixer-dev libsuitesparse-dev libvorbis-dev \
-    libxml2-dev llvm python3.9 python3-pip python3-setuptools python3-wheel \
-    lua-ldoc graphviz doxygen
+    libxml2-dev llvm python3-pip python3-setuptools python3-wheel lua-ldoc \
+    graphviz doxygen
 
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1 && \
-    DEBIAN_FRONTEND=noninteractive apt-get -t xenial-backports install -y ninja-build && \
+RUN DEBIAN_FRONTEND=noninteractive apt-get -t xenial-backports install -y ninja-build && \
     python3 -m pip install meson
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
