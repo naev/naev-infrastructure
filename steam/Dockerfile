@@ -5,7 +5,7 @@ LABEL Author="Jack Greiner <jack@emoss.org>"
 
 RUN apt-get update
 RUN echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint binutils-dev build-essential clang gettext git intltool libfreetype6-dev libgl1-mesa-dev libiberty-dev libluajit-5.1-dev libopenal-dev libpng-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsuitesparse-dev libvorbis-dev libxml2-dev lld-8 python3-pip python3-setuptools python3-wheel ninja-build
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint binutils-dev build-essential clang gettext git intltool libfreetype6-dev libgl1-mesa-dev libluajit-5.1-dev libopenal-dev libpng-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsuitesparse-dev libvorbis-dev libxml2-dev lld-8 python3-setuptools ninja-build
 RUN pip3 install meson
 
 RUN apt-get clean
