@@ -6,7 +6,7 @@ LABEL Author="Jack Greiner <jack@emoss.org>"
 RUN echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
 
 RUN apt-get update 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes git ninja-build autoconf-archive autopoint
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes git ninja-build autoconf-archive autopoint intltool
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 1
 RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && python3 get-pip.py
 RUN python3 -m pip install meson
