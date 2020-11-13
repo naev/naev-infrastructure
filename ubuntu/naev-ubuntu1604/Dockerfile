@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y software-properties-common && \
     apt-add-repository ppa:git-core/ppa && add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint binutils-dev \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf-archive binutils-dev \
     build-essential clang gettext git intltool libfreetype6-dev libgl1-mesa-dev \
     libiberty-dev libluajit-5.1-dev libopenal-dev libpng-dev libsdl2-dev \
     libsdl2-image-dev libsdl2-mixer-dev libsuitesparse-dev libvorbis-dev \
