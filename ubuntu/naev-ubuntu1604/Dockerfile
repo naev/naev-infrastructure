@@ -12,7 +12,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf-archive
     libiberty-dev libluajit-5.1-dev libopenal-dev libpng-dev libsdl2-dev \
     libsdl2-image-dev libsdl2-mixer-dev libsuitesparse-dev libvorbis-dev \
     libxml2-dev llvm python3-pip python3-setuptools python3-wheel lua-ldoc \
-    graphviz doxygen
+    graphviz doxygen wget
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -t xenial-backports install -y ninja-build && \
     python3 -m pip install meson
