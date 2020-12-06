@@ -3,7 +3,7 @@ FROM ubuntu:16.04
 LABEL Description="Ubuntu development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
 LABEL Author="Jack Greiner <jack@emoss.org>"
 
-# Add stable git PPA, deadsnakes ppa for python builds and brightbox ppa, llvm apt repository for ruby (no building from source yay!)
+# Add stable git PPA, deadsnakes ppa for python builds, brightbox ppa for ruby, and llvm apt repository (no building from source yay!)
 RUN apt-get update && apt-get install -y software-properties-common wget apt-transport-https && \
     apt-add-repository ppa:git-core/ppa && add-apt-repository ppa:deadsnakes/ppa && \
     add-apt-repository ppa:brightbox/ruby-ng && \
