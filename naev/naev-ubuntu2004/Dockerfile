@@ -3,19 +3,18 @@ FROM ubuntu:20.04
 LABEL Description="Ubuntu development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
 LABEL Author="Jack Greiner <jack@emoss.org>"
 
-# Add stable git PPA, deadsnakes ppa for python builds and brightbox ppa, llvm apt repository for ruby (no building from source yay!)
-RUN apt-get update && apt-get install -y software-properties-common wget apt-transport-https && \
+# Add stable git PPA, deadsnakes ppa for python builds, and llvm apt repository (no building from source yay!)
+RUN apt-get update && apt-get install -y software-properties-common curl apt-transport-https && \
     apt-add-repository ppa:git-core/ppa && add-apt-repository ppa:deadsnakes/ppa && \
-    add-apt-repository ppa:brightbox/ruby-ng && \
+    curl -sL https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
     add-apt-repository -s 'deb http://apt.llvm.org/focal/ llvm-toolchain-focal main' && \
-    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key| apt-key add - && \
     apt-get update
 
 # Install Build dependencies and utilities.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf-archive binutils-dev \
     build-essential doxygen clang git graphviz intltool lldb lld libfreetype6-dev libluajit-5.1-dev \
     libopenal-dev libpng-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsuitesparse-dev libvorbis-dev \
-    libxml2-dev lua-ldoc nano ninja-build vim xvfb
+    libxml2-dev lua-ldoc nano ninja-build vim wget xvfb
 
 # Install Python 3.9.* from deadsnakes PPA.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3.9-dev python3.9-venv
@@ -37,7 +36,7 @@ COPY Gemfile /tmp
 
 # Install Website Build dependencies and gems.
 WORKDIR /tmp
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y ruby2.7 ruby2.7-dev tidy && \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y ruby ruby-dev tidy && \
     gem install bundler && bundle install -j"$(nproc --all)" && rm Gemfile
 
 # Cleanup apt cache and remove lists.

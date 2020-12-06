@@ -4,18 +4,18 @@ LABEL Description="Ubuntu development environment for Naev, various dependencies
 LABEL Author="Jack Greiner <jack@emoss.org>"
 
 # Add stable git PPA, deadsnakes ppa for python builds, brightbox ppa for ruby, and llvm apt repository (no building from source yay!)
-RUN apt-get update && apt-get install -y software-properties-common wget apt-transport-https && \
+RUN apt-get update && apt-get install -y software-properties-common curl apt-transport-https && \
     apt-add-repository ppa:git-core/ppa && add-apt-repository ppa:deadsnakes/ppa && \
     add-apt-repository ppa:brightbox/ruby-ng && \
+    curl -sL 'https://apt.llvm.org/llvm-snapshot.gpg.key' | apt-key add - && \
     add-apt-repository -s 'deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial main' && \
-    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key| apt-key add - && \
     apt-get update
 
 # Install Build dependencies and utilities.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf-archive binutils-dev \
     build-essential doxygen clang git graphviz intltool lldb lld libfreetype6-dev libluajit-5.1-dev \
     libopenal-dev libpng-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsuitesparse-dev libvorbis-dev \
-    libxml2-dev lua-ldoc nano ninja-build=1.7.1-1~ubuntu16.04.1 vim xvfb
+    libxml2-dev lua-ldoc nano ninja-build=1.7.1-1~ubuntu16.04.1 vim wget xvfb
 
 # Install Python 3.9.* from deadsnakes PPA.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3.9-dev python3.9-venv
