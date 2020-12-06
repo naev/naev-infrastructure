@@ -3,17 +3,47 @@ FROM ubuntu:20.04
 LABEL Description="Ubuntu development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
 LABEL Author="Jack Greiner <jack@emoss.org>"
 
-RUN apt-get update && apt-get install -y software-properties-common && \
+# Add stable git PPA, deadsnakes ppa for python builds and brightbox ppa, llvm apt repository for ruby (no building from source yay!)
+RUN apt-get update && apt-get install -y software-properties-common wget apt-transport-https && \
     apt-add-repository ppa:git-core/ppa && add-apt-repository ppa:deadsnakes/ppa && \
+    add-apt-repository ppa:brightbox/ruby-ng && \
+    add-apt-repository -s 'deb http://apt.llvm.org/focal/ llvm-toolchain-focal main' && \
+    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key| apt-key add - && \
     apt-get update
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint binutils-dev \
-    build-essential clang gettext git intltool libfreetype6-dev libgl1-mesa-dev \
-    libiberty-dev libluajit-5.1-dev libopenal-dev libpng-dev libsdl2-dev \
-    libsdl2-image-dev libsdl2-mixer-dev libsuitesparse-dev libvorbis-dev \
-    libxml2-dev llvm ninja-build python3-pip python3-setuptools python3-distutils \
-    python3-wheel lua-ldoc graphviz doxygen
+# Install Build dependencies and utilities.
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf-archive binutils-dev \
+    build-essential doxygen clang git graphviz intltool lldb lld libfreetype6-dev libluajit-5.1-dev \
+    libopenal-dev libpng-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsuitesparse-dev libvorbis-dev \
+    libxml2-dev lua-ldoc nano ninja-build vim xvfb
 
-RUN python3 -m pip install meson
+# Install Python 3.9.* from deadsnakes PPA.
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3.9-dev python3.9-venv
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1 && \
+    python3 -m ensurepip --upgrade && python3 -m pip install --upgrade pip && \
+    echo "Verifying python install" && \
+    which python3 && \
+    python3 --version && \
+    echo "Verifying pip install" && \
+    python3 -m pip --version
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Install meson via pip.
+RUN python3 -m pip install meson && \
+    echo "Verifying meson install" && \
+    which meson && \
+    meson --version
+
+COPY Gemfile /tmp
+
+# Install Website Build dependencies and gems.
+WORKDIR /tmp
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y ruby2.7 ruby2.7-dev tidy && \
+    gem install bundler && bundle install -j"$(nproc --all)" && rm Gemfile
+
+# Cleanup apt cache and remove lists.
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set WORKDIR when you spin up the image.
+RUN mkdir -p /tmp/naevBuild
+WORKDIR /tmp/naevBuild
