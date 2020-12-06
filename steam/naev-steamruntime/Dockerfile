@@ -9,8 +9,8 @@ RUN echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu precise main " | sudo
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E1DD270288B4E6030699E45FA1715D88E1DF1F24
 
 # Install m4 macros, autopoint for autotools, and cpanminus to install the XML::Parser module
-RUN apt-get update 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes git autoconf-archive autopoint cpanminus
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    apt-get install -y --force-yes git autoconf-archive autopoint cpanminus
 
 # Install perl module XML::Parser (Installing this via the package libxml-parser-perl throws us into dependency hell.)
 RUN cpanm XML::Parser --force
@@ -19,32 +19,36 @@ RUN cpanm XML::Parser --force
 WORKDIR /usr/src
 RUN curl "https://launchpadlibrarian.net/199705878/intltool-0.51.0.tar.gz" -o "intltool-0.51.0.tar.gz" && \
     tar -xvf intltool-0.51.0.tar.gz && rm intltool-0.51.0.tar.gz
+
 WORKDIR /usr/src/intltool-0.51.0
 RUN ./configure --prefix=/usr && \
     make install -j"$(nproc --all)"
 
-# Compile OpenSSL from source (required for Python >=3.7).
+# Compile OpenSSL 1.0.2 from source (required for Python >=3.7).
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes checkinstall 
+
 WORKDIR /usr/local/src
 RUN curl "https://www.openssl.org/source/old/1.0.2/openssl-1.0.2u.tar.gz" -o "openssl-1.0.2u.tar.gz" && \
     tar -xvf openssl-1.0.2u.tar.gz && rm openssl-1.0.2u.tar.gz
-WORKDIR /usr/local/src/openssl-1.0.2u
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes build-essential checkinstall zlib1g-dev
+WORKDIR /usr/local/src/openssl-1.0.2u
 RUN ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared zlib && \
     make -j"$(nproc --all)" && \
     make install
 
+WORKDIR /usr/local/ssl/bin
 RUN echo "Verifying openssl install" && \
-    which /usr/local/ssl/bin/openssl && \
-    /usr/local/ssl/bin/openssl version -a
+    which openssl && \
+    openssl version -a
 
 # Compile Python 3.9.0 from source.
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes build-essential \
-        libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev \
-        wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes \
+    libreadline-dev libsqlite3-dev llvm tk-dev
+
 WORKDIR /usr/local/src
 RUN curl "https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz" -o "Python-3.9.0.tgz" && \
     tar -xvf Python-3.9.0.tgz && rm Python-3.9.0.tgz
+
 WORKDIR /usr/local/src/Python-3.9.0
 RUN PATH="/usr/local/ssl:$PATH"  CPPFLAGS="-I/usr/local/ssl/include" CFLAGS="-I/usr/local/ssl/include/" \
     LDFLAGS="-L/usr/local/ssl/lib -Wl,-rpath,/usr/local/ssl/lib" LD_LIBRARY_PATH=/usr/local/ssl/lib:$LD_LIBRARY_PATH \
@@ -53,23 +57,24 @@ RUN PATH="/usr/local/ssl:$PATH"  CPPFLAGS="-I/usr/local/ssl/include" CFLAGS="-I/
     make -j"$(nproc --all)" && \
     make altinstall
 
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python3.9 1
-
-RUN echo "Verifying python install" && \
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python3.9 1 && \
+    echo "Verifying python install" && \
     which python3 && \
     python3 --version
 
 # Install meson via pip.
-RUN python3 -m pip install meson
-
-RUN echo "Verifying meson install" && \
+RUN python3 -m pip install --upgrade pip && \
+    python3 -m pip install meson && \
+    echo "Verifying meson install" && \
     which meson && \
     meson --version
 
 # Cleanup apt cache and remove lists.
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/*
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Set WORKDIR when you spin up the image.
 RUN mkdir -p /tmp/naevBuild
 WORKDIR /tmp/naevBuild
+
+ENTRYPOINT DICKS=DICKS /usr/bin/bash
