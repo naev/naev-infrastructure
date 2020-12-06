@@ -76,5 +76,3 @@ RUN apt-get clean && \
 # Set WORKDIR when you spin up the image.
 RUN mkdir -p /tmp/naevBuild
 WORKDIR /tmp/naevBuild
-
-ENTRYPOINT DICKS=DICKS /usr/bin/bash
