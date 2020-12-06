@@ -4,7 +4,7 @@ LABEL Description="Steam runtime development environment for Naev, various depen
 LABEL Author="Jack Greiner <jack@emoss.org>"
 
 # Add stable git PPA to sources, as well as the signing key to silence warnings
-RUN echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu precise main " | sudo tee -a /etc/apt/sources.list && \
+RUN echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu precise main" | sudo tee -a /etc/apt/sources.list && \
     echo "deb-src http://ppa.launchpad.net/git-core/ppa/ubuntu precise main" | sudo tee -a /etc/apt/sources.list && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E1DD270288B4E6030699E45FA1715D88E1DF1F24
 
