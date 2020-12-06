@@ -24,42 +24,43 @@ RUN ./configure --prefix=/usr && \
     make install -j"$(nproc --all)"
 
 # Compile OpenSSL from source (required for Python >=3.7).
-#WORKDIR /tmp
-#RUN curl "https://www.openssl.org/source/old/1.0.2/openssl-1.0.2u.tar.gz" -o "openssl-1.0.2u.tar.gz" && \
-#    tar -xvf openssl-1.0.2u.tar.gz && rm openssl-1.0.2u.tar.gz
-#WORKDIR /tmp/openssl-1.0.2u
-#
-#RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes build-essential checkinstall zlib1g-dev
-#RUN ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared zlib && \
-#    make -j"$(nproc --all)" && \
-#    make install
-#
-#RUN echo '/usr/local/ssl/lib' | sudo tee -a /etc/ld.so.conf.d/openssl-1.0.2u.conf && ldconfig -v
-#RUN export PATH=/usr/local/ssl/bin:$PATH
-#
-#RUN echo "Verifying openssl install" && \
-#    which openssl && \
-#    openssl version -a
+WORKDIR /tmp
+RUN curl "https://www.openssl.org/source/old/1.0.2/openssl-1.0.2u.tar.gz" -o "openssl-1.0.2u.tar.gz" && \
+    tar -xvf openssl-1.0.2u.tar.gz && rm openssl-1.0.2u.tar.gz
+WORKDIR /tmp/openssl-1.0.2u
 
-# Compile Python 3.6.12 from source.
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes build-essential checkinstall zlib1g-dev
+RUN ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared zlib && \
+    make -j"$(nproc --all)" && \
+    make install
+
+RUN echo "Verifying openssl install" && \
+    which /usr/local/ssl/bin/openssl && \
+    /usr/local/ssl/bin/openssl version -a
+
+# Compile Python 3.9.0 from source.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes build-essential \
         libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev \
         wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
-
 WORKDIR /tmp
-RUN curl "https://www.python.org/ftp/python/3.6.12/Python-3.6.12.tgz" -o "Python-3.6.12.tgz" && \
-    tar -xvf Python-3.6.12.tgz && rm Python-3.6.12.tgz
-WORKDIR /tmp/Python-3.6.12
-RUN ./configure --with-ensurepip=install && \
+RUN curl "https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz" -o "Python-3.9.0.tgz" && \
+    tar -xvf Python-3.9.0.tgz && rm Python-3.9.0.tgz
+WORKDIR /tmp/Python-3.9.0
+RUN PATH="/usr/local/ssl:$PATH"  CPPFLAGS="-I/usr/local/ssl/include" CFLAGS="-I/usr/local/ssl/include/" \
+    LDFLAGS="-L/usr/local/ssl/lib -Wl,-rpath,/usr/local/ssl/lib" LD_LIBRARY_PATH=/usr/local/ssl/lib:$LD_LIBRARY_PATH \
+    LD_RUN_PATH="/usr/local/ssl/lib" CONFIGURE_OPTS="--with-openssl=/usr/local/ssl" PYTHON_CONFIGURE_OPTS="--enable-shared" \
+    ./configure --with-ensurepip=install && \
     make -j"$(nproc --all)" && \
     make altinstall
 
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python3.9 1
+
 RUN echo "Verifying python install" && \
-    which python3.6 && \
-    python3.6 --version
+    which python3 && \
+    python3 --version
 
 # Install meson via pip.
-RUN python3.6 -m pip install meson
+RUN python3 -m pip install meson
 
 RUN echo "Verifying meson install" && \
     which meson && \
@@ -69,7 +70,6 @@ RUN echo "Verifying meson install" && \
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
-# Set WORKDIR when you spin up the image, and set CFLAGS so that autotools just works (tm).
+# Set WORKDIR when you spin up the image.
 RUN mkdir -p /tmp/naevBuild
-RUN export CFLAGS="-std=gnu11"
 WORKDIR /tmp/naevBuild
