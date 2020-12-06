@@ -8,19 +8,13 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            dockerfile: "ubuntu/naev-ubuntu1604"
+            dockerfile: "naev/naev-ubuntu1604"
             tagname: naev-ubuntu1604
           - os: ubuntu-latest
-            dockerfile: "ubuntu/naev-ubuntu1804"
-            tagname: naev-ubuntu1804
-          - os: ubuntu-latest
-            dockerfile: "ubuntu/naev-ubuntu2004"
+            dockerfile: "naev/naev-ubuntu2004"
             tagname: naev-ubuntu2004
           - os: ubuntu-latest
-            dockerfile: "ubuntu/naev-ubuntu2010"
-            tagname: naev-ubuntu2010
-          - os: ubuntu-latest
-            dockerfile: "steam/naev-steamruntime"
+            dockerfile: "naev/naev-steamruntime"
             tagname: naev-steamruntime
 
     runs-on: ${{ matrix.os }}
