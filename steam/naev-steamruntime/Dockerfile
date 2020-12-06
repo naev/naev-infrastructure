@@ -16,18 +16,18 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes git autoconf-a
 RUN cpanm XML::Parser --force
 
 # Install intltool (ditto on the dependency hell).
-WORKDIR /tmp
+WORKDIR /usr/src
 RUN curl "https://launchpadlibrarian.net/199705878/intltool-0.51.0.tar.gz" -o "intltool-0.51.0.tar.gz" && \
     tar -xvf intltool-0.51.0.tar.gz && rm intltool-0.51.0.tar.gz
-WORKDIR /tmp/intltool-0.51.0
+WORKDIR /usr/src/intltool-0.51.0
 RUN ./configure --prefix=/usr && \
     make install -j"$(nproc --all)"
 
 # Compile OpenSSL from source (required for Python >=3.7).
-WORKDIR /tmp
+WORKDIR /usr/local/src
 RUN curl "https://www.openssl.org/source/old/1.0.2/openssl-1.0.2u.tar.gz" -o "openssl-1.0.2u.tar.gz" && \
     tar -xvf openssl-1.0.2u.tar.gz && rm openssl-1.0.2u.tar.gz
-WORKDIR /tmp/openssl-1.0.2u
+WORKDIR /usr/local/src/openssl-1.0.2u
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes build-essential checkinstall zlib1g-dev
 RUN ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared zlib && \
@@ -42,10 +42,10 @@ RUN echo "Verifying openssl install" && \
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes build-essential \
         libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev \
         wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
-WORKDIR /tmp
+WORKDIR /usr/local/src
 RUN curl "https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz" -o "Python-3.9.0.tgz" && \
     tar -xvf Python-3.9.0.tgz && rm Python-3.9.0.tgz
-WORKDIR /tmp/Python-3.9.0
+WORKDIR /usr/local/src/Python-3.9.0
 RUN PATH="/usr/local/ssl:$PATH"  CPPFLAGS="-I/usr/local/ssl/include" CFLAGS="-I/usr/local/ssl/include/" \
     LDFLAGS="-L/usr/local/ssl/lib -Wl,-rpath,/usr/local/ssl/lib" LD_LIBRARY_PATH=/usr/local/ssl/lib:$LD_LIBRARY_PATH \
     LD_RUN_PATH="/usr/local/ssl/lib" CONFIGURE_OPTS="--with-openssl=/usr/local/ssl" PYTHON_CONFIGURE_OPTS="--enable-shared" \
