@@ -37,7 +37,7 @@ RUN python3 -m pip install meson && \
     which meson && \
     meson --version
 
-COPY ../Gemfile /tmp
+COPY Gemfile /tmp
 
 # Install Website Build dependencies and gems.
 WORKDIR /tmp
