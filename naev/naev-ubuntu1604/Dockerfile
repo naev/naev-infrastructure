@@ -16,7 +16,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf-archive
     build-essential doxygen clang git graphviz intltool lldb lld libfreetype6-dev libluajit-5.1-dev \
     libopenal-dev libpng-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsuitesparse-dev libvorbis-dev \
     libxml2-dev lua-ldoc nano ninja-build=1.7.1-1~ubuntu16.04.1 vim wget xvfb
-    
+
 # Install and activate FUSE kernel module, and group for AppImages.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install fuse && \
     modprobe fuse && groupadd fuse && user="$(whoami)" && \
@@ -39,7 +39,7 @@ RUN python3 -m pip install meson && \
     which meson && \
     meson --version
 
-COPY Gemfile /tmp
+COPY ../Gemfile /tmp
 
 # Install Website Build dependencies and gems.
 WORKDIR /tmp
