@@ -17,10 +17,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf-archive
     libxml2-dev lua-ldoc nano ninja-build vim wget xvfb
 
 # Install and activate FUSE kernel module, and group for AppImages.
-RUN apt-get install fuse && \
-    modprobe fuse && \
-    groupadd fuse && \
-    user="$(whoami)" && \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install fuse && \
+    modprobe fuse && groupadd fuse && user="$(whoami)" && \
     usermod -a -G fuse $user
 
 # Install Python 3.9.* from deadsnakes PPA.
