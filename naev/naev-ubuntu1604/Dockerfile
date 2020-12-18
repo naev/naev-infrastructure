@@ -14,15 +14,9 @@ RUN apt-get update && apt-get install -y software-properties-common curl apt-tra
 # Install Build dependencies and utilities.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf-archive binutils-dev \
     build-essential doxygen clang git graphviz intltool lldb lld libfreetype6-dev libluajit-5.1-dev \
-    libopenal-dev libpng-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsuitesparse-dev libvorbis-dev \
+    libopenal-dev libpng-dev libsdl2-dev libsdl2-image-dev libsuitesparse-dev libvorbis-dev \
     libxml2-dev lua-ldoc nano ninja-build=1.7.1-1~ubuntu16.04.1 vim wget xvfb
     
-# Install and activate FUSE kernel module, and group for AppImages.
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y fuse && \
-    modprobe fuse && groupadd fuse && user="$(whoami)" && \
-    usermod -a -G fuse $user
-
-
 # Install Python 3.9.* from deadsnakes PPA.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3.9-dev python3.9-venv
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1 && \
