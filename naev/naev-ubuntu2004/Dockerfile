@@ -17,7 +17,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf-archive
     libxml2-dev lua-ldoc nano ninja-build vim wget xvfb
 
 # Install and activate FUSE kernel module, and group for AppImages.
-RUN DEBIAN_FRONTEND=noninteractive apt-get install fuse && \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y fuse && \
     modprobe fuse && groupadd fuse && user="$(whoami)" && \
     usermod -a -G fuse $user
 
