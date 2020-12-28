@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y software-properties-common curl apt-tra
     apt-add-repository ppa:git-core/ppa && add-apt-repository ppa:deadsnakes/ppa && \
     curl -sL https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
     add-apt-repository -s 'deb http://apt.llvm.org/focal/ llvm-toolchain-focal main' && \
+    apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main' && \
     apt-get update
 
 # Install Build dependencies and utilities.

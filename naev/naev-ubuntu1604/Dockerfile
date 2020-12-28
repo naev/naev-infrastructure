@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y software-properties-common curl apt-tra
     add-apt-repository ppa:brightbox/ruby-ng && \
     curl -sL 'https://apt.llvm.org/llvm-snapshot.gpg.key' | apt-key add - && \
     add-apt-repository -s 'deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial main' && \
+    apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main' && \
     apt-get update
 
 # Install Build dependencies and utilities.
