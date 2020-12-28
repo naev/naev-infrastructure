@@ -8,9 +8,9 @@ RUN echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu precise main" | sudo 
     echo "deb-src http://ppa.launchpad.net/git-core/ppa/ubuntu precise main" | sudo tee -a /etc/apt/sources.list && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E1DD270288B4E6030699E45FA1715D88E1DF1F24
 
-# Install m4 macros, autopoint for autotools, and cpanminus to install the XML::Parser module
+# Install git, mercurial, m4 macros (deprecated but still needed for 0.8.* releases), autopoint for autotools, and cpanminus to install the XML::Parser module
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
-    apt-get install -y --force-yes git autoconf-archive autopoint cpanminus
+    apt-get install -y --force-yes git mercurial autoconf-archive autopoint cpanminus 
 
 # Install perl module XML::Parser (Installing this via the package libxml-parser-perl throws us into dependency hell.)
 RUN cpanm XML::Parser --force
