@@ -1,4 +1,4 @@
-FROM registry.gitlab.steamos.cloud/steamrt/scout/sdk:latest-steam-client-general-availability
+FROM registry.gitlab.steamos.cloud/steamrt/scout/sdk:latest
 
 LABEL Description="Steam runtime development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
 LABEL Author="Jack Greiner <jack@emoss.org>"
