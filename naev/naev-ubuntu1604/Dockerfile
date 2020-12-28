@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y software-properties-common curl apt-tra
     apt-add-repository ppa:git-core/ppa && add-apt-repository ppa:deadsnakes/ppa && \
     add-apt-repository ppa:brightbox/ruby-ng && \
     curl -sL 'https://apt.llvm.org/llvm-snapshot.gpg.key' | apt-key add - && \
+    curl -sL https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
     add-apt-repository -s 'deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial main' && \
     apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main' && \
     apt-get update
