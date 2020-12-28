@@ -7,7 +7,7 @@ LABEL Author="Jack Greiner <jack@emoss.org>"
 RUN apt-get update && apt-get install -y software-properties-common curl apt-transport-https && \
     apt-add-repository ppa:git-core/ppa && add-apt-repository ppa:deadsnakes/ppa && \
     curl -sL https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
-    curl -sL https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
+    curl -sL https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
     add-apt-repository -s 'deb http://apt.llvm.org/focal/ llvm-toolchain-focal main' && \
     apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main' && \
     apt-get update
