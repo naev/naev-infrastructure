@@ -16,6 +16,9 @@ jobs:
           - os: ubuntu-latest
             dockerfile: "naev/naev-steamruntime"
             tagname: naev-steamruntime
+          - os: ubuntu-latest
+            dockerfile: "naev/naev-windows"
+            tagname: naev-windows
 
     runs-on: ${{ matrix.os }}
 
