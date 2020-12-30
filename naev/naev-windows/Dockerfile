@@ -21,7 +21,8 @@ RUN apt-get update && apt-get install -y software-properties-common curl apt-tra
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --install-recommends winehq-stable nsis
 
 # Configure Wine
-RUN winecfg
+RUN mkdir -p /github/home/.wine && \
+    WINEPREFIX=/github/home/.wine winecfg
 
 # Install MXE packages.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mxe-x86-64-w64-mingw32.shared-cmake \
