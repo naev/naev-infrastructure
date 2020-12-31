@@ -42,8 +42,19 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1 
     echo "Verifying pip install" && \
     python3 -m pip --version
 
+# Install Mercurial to get physfs submodule.
+RUN python3 -m pip install mercurial
+
 # Install meson via pip.
 RUN python3 -m pip install meson && \
     echo "Verifying meson install" && \
     which meson && \
     meson --version
+
+# Cleanup apt cache and remove lists.
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set WORKDIR when you spin up the image.
+RUN mkdir -p /tmp/naevBuild
+WORKDIR /tmp/naevBuild

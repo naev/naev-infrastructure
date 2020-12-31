@@ -10,7 +10,7 @@ RUN echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu precise main" | sudo 
 
 # Install git, mercurial, m4 macros (deprecated but still needed for 0.8.* releases), autopoint for autotools, and cpanminus to install the XML::Parser module
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
-    apt-get install -y --force-yes git mercurial autoconf-archive autopoint cpanminus 
+    apt-get install -y --force-yes git autoconf-archive autopoint cpanminus 
 
 # Install perl module XML::Parser (Installing this via the package libxml-parser-perl throws us into dependency hell.)
 RUN cpanm XML::Parser --force
@@ -62,9 +62,22 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python
     which python3 && \
     python3 --version
 
-# Install meson via pip.
+# Update pip
 RUN python3 -m pip install --upgrade pip && \
-    python3 -m pip install meson && \
+    echo "Verifying python install" && \
+    which python3 && \
+    python3 --version && \
+    echo "Verifying pip install" && \
+    python3 -m pip --version
+
+# Install Mutagen for soundtrack generation via pip.
+RUN python3 -m pip install mutagen
+
+# Install Mercurial to get physfs submodule.
+RUN python3 -m pip install mercurial
+
+# Install meson via pip.
+RUN python3 -m pip install meson && \
     echo "Verifying meson install" && \
     which meson && \
     meson --version
