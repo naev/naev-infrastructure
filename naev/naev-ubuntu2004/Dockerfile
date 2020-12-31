@@ -28,6 +28,9 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1 
     echo "Verifying pip install" && \
     python3 -m pip --version
 
+# Install Mutagen for soundtrack generation via pip.
+RUN python3 -m pip install mutagen
+
 # Install meson via pip.
 RUN python3 -m pip install meson && \
     echo "Verifying meson install" && \
