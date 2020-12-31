@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y software-properties-common curl apt-tra
 # Install Wine and friends
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --install-recommends winehq-stable nsis
 
-# Configure Wine
+# Configure Wine prefix
 RUN mkdir -p /tmp/.wine && \
     WINEPREFIX=/tmp/.wine winecfg
 
