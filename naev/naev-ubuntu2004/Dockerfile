@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y software-properties-common curl apt-tra
 
 # Install Build dependencies and utilities.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf-archive binutils-dev \
-    build-essential doxygen clang cmake git graphviz intltool lldb lld libfreetype6-dev libluajit-5.1-dev \
+    build-essential doxygen clang cmake ffmpeg git graphviz intltool lldb lld libfreetype6-dev libluajit-5.1-dev \
     libopenal-dev libpng-dev libsdl2-dev libsdl2-image-dev libsuitesparse-dev libvorbis-dev \
     libxml2-dev lua-ldoc mercurial nano ninja-build vim wget xvfb
 
