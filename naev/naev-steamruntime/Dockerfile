@@ -8,7 +8,7 @@ RUN echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu precise main" | sudo 
     echo "deb-src http://ppa.launchpad.net/git-core/ppa/ubuntu precise main" | sudo tee -a /etc/apt/sources.list && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E1DD270288B4E6030699E45FA1715D88E1DF1F24
 
-# Install git, mercurial, m4 macros (deprecated but still needed for 0.8.* releases), autopoint for autotools, and cpanminus to install the XML::Parser module
+# Install git, m4 macros (deprecated but still needed for 0.8.* releases), autopoint for autotools, and cpanminus to install the XML::Parser module
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     apt-get install -y --force-yes git autoconf-archive autopoint cpanminus 
 
@@ -41,6 +41,10 @@ RUN echo "Verifying openssl install" && \
     which openssl && \
     openssl version -a
 
+RUN echo "Directing local openssl to system certificates" && \
+    rmdir /usr/local/ssl/certs; \
+    ln -s /etc/ssl/certs /usr/local/ssl/certs
+
 # Compile Python 3.9.0 from source.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes \
     libreadline-dev libsqlite3-dev llvm tk-dev
@@ -72,9 +76,6 @@ RUN python3 -m pip install --upgrade pip && \
 
 # Install Mutagen for soundtrack generation via pip.
 RUN python3 -m pip install mutagen
-
-# Install Mercurial to get physfs submodule.
-RUN python3 -m pip install mercurial
 
 # Install meson via pip.
 RUN python3 -m pip install meson && \

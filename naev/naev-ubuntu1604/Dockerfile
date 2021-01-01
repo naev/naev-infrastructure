@@ -32,9 +32,6 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1 
 # Install Mutagen for soundtrack generation via pip.
 RUN python3 -m pip install mutagen
 
-# Install Mercurial to get physfs submodule.
-RUN python3 -m pip install mercurial
-
 # Install meson via pip.
 RUN python3 -m pip install meson && \
     echo "Verifying meson install" && \

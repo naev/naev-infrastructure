@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y software-properties-common curl apt-tra
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf-archive binutils-dev \
     build-essential doxygen clang cmake ffmpeg git graphviz intltool lldb lld libfreetype6-dev libluajit-5.1-dev \
     libopenal-dev libpng-dev libsdl2-dev libsdl2-image-dev libsuitesparse-dev libvorbis-dev \
-    libxml2-dev lua-ldoc mercurial nano ninja-build vim wget xvfb
+    libxml2-dev lua-ldoc nano ninja-build vim wget xvfb
 
 # Install Python 3.9.* from deadsnakes PPA.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3.9-dev python3.9-venv python3-pip
@@ -30,9 +30,6 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1 
     
 # Install Mutagen for soundtrack generation via pip.
 RUN python3 -m pip install mutagen
-
-# Install Mercurial to get physfs submodule.
-RUN python3 -m pip install mercurial
 
 # Install meson via pip.
 RUN python3 -m pip install meson && \
