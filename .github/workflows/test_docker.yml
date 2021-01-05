@@ -1,4 +1,4 @@
-name: Publish Naev Build/Dev Docker Images
+name: Test Naev Build/Dev Docker Images
 on: [push]
 
 jobs:
