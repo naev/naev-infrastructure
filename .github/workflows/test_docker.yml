@@ -19,6 +19,9 @@ jobs:
           - os: ubuntu-latest
             dockerfile: "naev/naev-windows"
             tagname: naev-windows
+          - os: ubuntu-latest
+            dockerfile: "naev/naev-macos"
+            tagname: naev-macos
 
     runs-on: ${{ matrix.os }}
 
