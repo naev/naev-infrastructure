@@ -51,9 +51,6 @@ ENV PATH "$PATH:/usr/lib/osxcross/bin"
 # Install required build dependencies
 RUN UNATTENDED=1 osxcross-macports install binutils freetype libsdl2 libsdl2_image libsdl2_mixer libpng libvorbis libxml2 luajit openal-soft
 
-# Copy header patch to /tmp
-COPY libxmlHeaderPaths.patch /tmp
-
 # Horrible hack: ensure a hardcoded header file path resolves.  
 RUN rmdir /opt && ln -s /usr/lib/osxcross/macports/pkgs/opt /opt 
 
