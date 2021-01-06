@@ -54,10 +54,8 @@ RUN UNATTENDED=1 osxcross-macports install binutils freetype libsdl2 libsdl2_ima
 # Copy header patch to /tmp
 COPY libxmlHeaderPaths.patch /tmp
 
-# Apply header patch to encoding.h
-WORKDIR /usr/lib/osxcross/macports/pkgs/opt/local/include/libxml2/libxml/
-RUN patch -u encoding.h -i /tmp/libxmlHeaderPaths.patch && \
-    rm /tmp/libxmlHeaderPaths.patch
+# Horrible hack: ensure a hardcoded header file path resolves.  
+RUN rmdir /opt && ln -s /usr/lib/osxcross/macports/pkgs/opt /opt 
 
 # Set CC and CXX env variables, set $HOST for use with configure.
 ENV CC "o64-clang"
