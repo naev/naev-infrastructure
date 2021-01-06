@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y software-properties-common curl apt-tra
     apt-get update
 
 # Install Build dependencies and utilities.
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf autoconf-archive bash clang cmake git intltool patch libssl-dev llvm-dev lzma-dev libxml2-dev ninja-build wget pkg-config
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf autoconf-archive bash clang cmake git intltool patch libssl-dev llvm-dev lzma-dev libxml2-dev nano ninja-build wget pkg-config vim zip
 
 # Install Python 3.9.* from deadsnakes PPA.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3.9-dev python3.9-venv python3-pip
@@ -49,7 +49,20 @@ RUN TARGET_DIR=/usr/lib/osxcross UNATTENDED=1 ./build.sh
 ENV PATH "$PATH:/usr/lib/osxcross/bin"
 
 # Install required build dependencies
-RUN UNATTENDED=1 osxcross-macports install binutils freetype libsdl2 libpng libvorbis libxml2 openal-soft
+RUN UNATTENDED=1 osxcross-macports install binutils freetype libsdl2 libsdl2_image libsdl2_mixer libpng libvorbis libxml2 luajit openal-soft
+
+# Copy header patch to /tmp
+COPY libxmlHeaderPaths.patch /tmp
+
+# Apply header patch to encoding.h
+WORKDIR /usr/lib/osxcross/macports/pkgs/opt/local/include/libxml2/libxml/
+RUN patch -u encoding.h -i /tmp/libxmlHeaderPaths.patch && \
+    rm /tmp/libxmlHeaderPaths.patch
+
+# Set CC and CXX env variables, set $HOST for use with configure.
+ENV CC "o64-clang"
+ENV CCX "o64-clang++"
+ENV HOST "x86_64-apple-darwin17"
 
 # Set WORKDIR when you spin up the image.
 RUN mkdir -p /tmp/naevBuild

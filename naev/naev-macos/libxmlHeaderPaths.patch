@@ -1,0 +1,19 @@
+--- original/encoding.h       2021-01-06 16:48:06.881169595 +0000
++++ fixed/encoding.h  2021-01-06 16:49:27.511341762 +0000
+@@ -25,14 +25,14 @@
+ #include <libxml/xmlversion.h>
+ 
+ #ifdef LIBXML_ICONV_ENABLED
+-#include </opt/local/include/iconv.h>
++#include <iconv.h>
+ #endif
+ #ifdef LIBXML_ICU_ENABLED
+ /* ICU C++ API requires C++11 */
+ #if defined(__cplusplus) && __cplusplus < 201103L
+ #define U_SHOW_CPLUSPLUS_API 0
+ #endif
+-#include </opt/local/include/unicode/ucnv.h>
++#include <unicode/ucnv.h>
+ #endif
+ #ifdef __cplusplus
+ extern "C" {
