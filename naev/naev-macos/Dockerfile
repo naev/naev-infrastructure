@@ -39,12 +39,18 @@ RUN git clone https://github.com/tpoechtrager/osxcross.git
 WORKDIR /usr/local/src/osxcross/tarballs
 RUN wget https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.13.sdk.tar.xz
 
+# Set MACOSX_DEPLOYMENT_TARGET
+ENV MACOSX_DEPLOYMENT_TARGET "10.13"
+
 # Build toolchain
 WORKDIR /usr/local/src/osxcross
 RUN TARGET_DIR=/usr/lib/osxcross UNATTENDED=1 ./build.sh
 
 # Add osxcross to PATH
 ENV PATH "$PATH:/usr/lib/osxcross/bin"
+
+# Install required build dependencies
+RUN UNATTENDED=1 osxcross-macports install binutils freetype libsdl2 libpng libvorbis libxml2 openal-soft
 
 # Set WORKDIR when you spin up the image.
 RUN mkdir -p /tmp/naevBuild
