@@ -24,6 +24,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --install-recommends wineh
 RUN mkdir -p /tmp/.wine && \
     WINEPREFIX=/tmp/.wine winecfg
 
+# Set WINEPREFIX variable
+ENV WINEPREFIX "/tmp/.wine"
+
 # Install MXE packages.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mxe-x86-64-w64-mingw32.shared-cmake \
     mxe-x86-64-w64-mingw32.shared-gcc mxe-x86-64-w64-mingw32.shared-freetype \
@@ -31,6 +34,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mxe-x86-64-w64-mingw32.sha
     mxe-x86-64-w64-mingw32.shared-openal mxe-x86-64-w64-mingw32.shared-pkgconf \
     mxe-x86-64-w64-mingw32.shared-physfs mxe-x86-64-w64-mingw32.shared-sdl2 \
     mxe-x86-64-w64-mingw32.shared-mingw-w64 mxe-x86-64-w64-mingw32.shared-suitesparse
+
+
+# Add MXE to PATH
+ENV PATH "$PATH:/usr/lib/mxe/usr/bin"
 
 # Install Python 3.9.* from deadsnakes PPA.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y ninja-build python3.9-dev python3.9-venv python3-pip
