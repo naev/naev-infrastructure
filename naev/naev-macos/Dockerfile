@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y software-properties-common curl apt-tra
     apt-get update
 
 # Install Build dependencies and utilities.
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y bash clang cmake git patch libssl-dev llvm-dev lzma-dev libxml2-dev ninja-build
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y bash clang cmake git patch libssl-dev llvm-dev lzma-dev libxml2-dev ninja-build wget
 
 # Install Python 3.9.* from deadsnakes PPA.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3.9-dev python3.9-venv python3-pip
@@ -30,6 +30,21 @@ RUN python3 -m pip install meson && \
     echo "Verifying meson install" && \
     which meson && \
     meson --version
+
+# Git clone osxcross repo
+WORKDIR /usr/local/src
+RUN git clone https://github.com/tpoechtrager/osxcross.git
+
+# Download MacOS SDK tarball
+WORKDIR /usr/local/src/osxcross/tarballs
+RUN wget https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.13.sdk.tar.xz
+
+# Build toolchain
+WORKDIR /usr/local/src/osxcross
+RUN TARGET_DIR=/usr/lib/osxcross UNATTENDED=1 ./build.sh
+
+# Add osxcross to PATH
+ENV PATH "$PATH:/usr/lib/osxcross/target/bin"
 
 # Set WORKDIR when you spin up the image.
 RUN mkdir -p /tmp/naevBuild
