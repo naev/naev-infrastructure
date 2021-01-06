@@ -44,7 +44,7 @@ WORKDIR /usr/local/src/osxcross
 RUN TARGET_DIR=/usr/lib/osxcross UNATTENDED=1 ./build.sh
 
 # Add osxcross to PATH
-ENV PATH "$PATH:/usr/lib/osxcross/target/bin"
+ENV PATH "$PATH:/usr/lib/osxcross/bin"
 
 # Set WORKDIR when you spin up the image.
 RUN mkdir -p /tmp/naevBuild
