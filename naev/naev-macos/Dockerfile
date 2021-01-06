@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y software-properties-common curl apt-tra
     apt-get update
 
 # Install Build dependencies and utilities.
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y bash clang cmake git patch libssl-dev llvm-dev lzma-dev libxml2-dev ninja-build wget
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf autoconf-archive bash clang cmake git intltool patch libssl-dev llvm-dev lzma-dev libxml2-dev ninja-build wget pkg-config
 
 # Install Python 3.9.* from deadsnakes PPA.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3.9-dev python3.9-venv python3-pip
@@ -35,9 +35,8 @@ RUN python3 -m pip install meson && \
 WORKDIR /usr/local/src
 RUN git clone https://github.com/tpoechtrager/osxcross.git
 
-# Download MacOS SDK tarball
-WORKDIR /usr/local/src/osxcross/tarballs
-RUN wget https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.13.sdk.tar.xz
+# Copy MacOS SDK tarball
+COPY MacOSX10.13.sdk.tar.xz /usr/local/src/osxcross/tarballs
 
 # Set MACOSX_DEPLOYMENT_TARGET
 ENV MACOSX_DEPLOYMENT_TARGET "10.13"
