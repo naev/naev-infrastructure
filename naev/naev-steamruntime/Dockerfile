@@ -1,7 +1,8 @@
 FROM registry.gitlab.steamos.cloud/steamrt/scout/sdk:latest
 
-LABEL Description="Steam runtime development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
-LABEL Author="Jack Greiner <jack@emoss.org>"
+LABEL org.opencontainers.image.authors "Jack Greiner <jack@emoss.org>" 
+LABEL org.opencontainers.image.source "https://github.com/ProjectSynchro/synchros-sexy-docker-containers" 
+LABEL org.opencontainers.image.description "Steam runtime development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
 
 # Add stable git PPA to sources, as well as the signing key to silence warnings
 RUN echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu precise main" | sudo tee -a /etc/apt/sources.list && \

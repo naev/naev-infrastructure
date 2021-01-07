@@ -1,7 +1,8 @@
 FROM ubuntu:18.04
 
-LABEL Description="Windows cross-compile development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
-LABEL Author="Jack Greiner <jack@emoss.org>"
+LABEL org.opencontainers.image.authors "Jack Greiner <jack@emoss.org>" 
+LABEL org.opencontainers.image.source "https://github.com/ProjectSynchro/synchros-sexy-docker-containers" 
+LABEL org.opencontainers.image.description "Windows cross-compile development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
 
 # Enable i386 arch in dpkg
 RUN dpkg --add-architecture i386 
