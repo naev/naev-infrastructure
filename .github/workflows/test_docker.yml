@@ -42,9 +42,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}
-      - name: Copy Gemfile to context
-        run: |
-          cp naev/Gemfile ${{ matrix.context }}
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2

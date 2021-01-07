@@ -36,16 +36,20 @@ RUN python3 -m pip install meson && \
     echo "Verifying meson install" && \
     which meson && \
     meson --version
-COPY Gemfile /tmp
+
+# Clone naev-website git repository
+WORKDIR /tmp
+RUN git clone https://github.com/naev/naev-website.git
 
 # Install Website Build dependencies and gems.
-WORKDIR /tmp
+WORKDIR /tmp/naev-website
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y ruby ruby-dev tidy && \
-    gem install bundler && bundle install -j"$(nproc --all)" && rm Gemfile
+    gem install bundler && bundle install -j"$(nproc --all)"
 
-# Cleanup apt cache and remove lists.
+# Cleanup apt cache, remove APT lists, and temporary git repo.
 RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /tmp/naev-website
 
 # Set WORKDIR when you spin up the image.
 RUN mkdir -p /tmp/naevBuild
