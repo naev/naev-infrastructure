@@ -5,7 +5,27 @@ on:
       - "v*.*.*"
 
 jobs:
+  "Create_Release":
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Changelog
+        uses: heinrichreimer/github-changelog-generator-action@v2.1.1
+        id: changelog
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          dueTag: ${{ github.ref }}
+
+      - name: Create Github Release
+        uses: ncipollo/release-action@v1
+        with:
+          body: |
+            ${{ steps.changelog.outputs.changelog }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: false
+
   "Build_Publish_Images":
+    needs: Create_Release
     strategy:
       fail-fast: true
       matrix:
@@ -45,21 +65,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}
-
-      - name: Create Changelog
-        uses: heinrichreimer/github-changelog-generator-action@v2.1.1
-        id: changelog
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          dueTag: ${{ github.ref }}
-
-      - name: Create Github Release
-        uses: ncipollo/release-action@v1
-        with:
-          body: |
-            ${{ steps.changelog.outputs.changelog }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          prerelease: false
 
       - name: Build and push
         id: docker_build
