@@ -27,7 +27,12 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1 
     python3 -m pip --version
     
 # Install meson via pip.
-RUN python3 -m pip install meson && \
+WORKDIR /usr/local/src
+RUN git clone https://github.com/dcbaker/meson.git
+
+WORKDIR /usr/local/src/meson
+RUN git checkout 7760177531dd8f48d8007547169c63349abf2974 && \
+    python3 -m pip install . && \
     echo "Verifying meson install" && \
     which meson && \
     meson --version
