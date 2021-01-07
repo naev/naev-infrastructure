@@ -9,12 +9,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: tenhaus/get-release-or-tag@v2
+        id: tag
+
       - name: Create Changelog
         uses: heinrichreimer/github-changelog-generator-action@v2.1.1
         id: changelog
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          dueTag: ${{ github.ref }}
+          dueTag: ${{ steps.tag.outputs.tag }}
 
       - name: Create Github Release
         uses: ncipollo/release-action@v1
