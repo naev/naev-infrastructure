@@ -60,6 +60,9 @@ RUN UNATTENDED=1 osxcross-macports install binutils freetype libsdl2 libsdl2_ima
 # Horrible hack: ensure a hardcoded header file path resolves.  
 RUN rmdir /opt && ln -s /usr/lib/osxcross/macports/pkgs/opt /opt 
 
+# Set $HOST for use with bundle.py.
+ENV HOST "x86_64-apple-darwin17"
+
 # Set WORKDIR when you spin up the image.
 RUN mkdir -p /tmp/naevBuild
 WORKDIR /tmp/naevBuild
