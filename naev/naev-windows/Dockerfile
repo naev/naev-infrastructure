@@ -20,12 +20,12 @@ RUN apt-get update && apt-get install -y software-properties-common curl apt-tra
 # Install Wine and friends
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --install-recommends winehq-stable nsis
 
-# Configure Wine prefix
-RUN mkdir -p /tmp/.wine && \
-    WINEPREFIX=/tmp/.wine winecfg
-
 # Set WINEPREFIX variable
 ENV WINEPREFIX "/tmp/.wine"
+
+# Configure Wine prefix
+RUN mkdir -p /tmp/.wine && \
+    winecfg
 
 # Install MXE packages.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mxe-x86-64-w64-mingw32.shared-cmake \
