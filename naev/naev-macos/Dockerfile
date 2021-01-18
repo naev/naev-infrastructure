@@ -26,12 +26,13 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1 
     echo "Verifying pip install" && \
     python3 -m pip --version
     
-# Install meson via pip.
+# Install a development version of Meson which fixes https://github.com/mesonbuild/meson/issues/8165
 WORKDIR /usr/local/src
-RUN git clone https://github.com/dcbaker/meson.git -b wip/2021-01/framework-dependency-fix
+RUN git clone https://github.com/mesonbuild/meson.git
 
 WORKDIR /usr/local/src/meson
-RUN python3 -m pip install . && \
+RUN git checkout e6a167ce092a36017a4ff56b3fb045be62377a25 && \
+    python3 -m pip install . && \
     echo "Verifying meson install" && \
     which meson && \
     meson --version
