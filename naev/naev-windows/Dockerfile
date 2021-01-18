@@ -34,8 +34,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mxe-x86-64-w64-mingw32.sha
     mxe-x86-64-w64-mingw32.shared-vorbis mxe-x86-64-w64-mingw32.shared-libxml2 \
     mxe-x86-64-w64-mingw32.shared-openal mxe-x86-64-w64-mingw32.shared-pkgconf \
     mxe-x86-64-w64-mingw32.shared-physfs mxe-x86-64-w64-mingw32.shared-sdl2 \
-    mxe-x86-64-w64-mingw32.shared-sdl2-mixer mxe-x86-64-w64-mingw32.shared-mingw-w64 \
-    mxe-x86-64-w64-mingw32.shared-suitesparse
+    mxe-x86-64-w64-mingw32.shared-sdl2-image mxe-x86-64-w64-mingw32.shared-sdl2-mixer \
+    mxe-x86-64-w64-mingw32.shared-mingw-w64 mxe-x86-64-w64-mingw32.shared-suitesparse
 
 
 # Add MXE to PATH
