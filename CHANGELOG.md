@@ -1,3 +1,6 @@
+### v1.3.1:
+Added MXE packaged luajit to naev-windows image.
+
 ### v1.3.0 (Long gap, can't fully remember what we did in between):
 This 'release' bumps our MXE Windows Cross-compile environment base image to Ubuntu 20.04.
 
