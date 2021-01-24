@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 LABEL org.opencontainers.image.authors "Jack Greiner <jack@emoss.org>" 
 LABEL org.opencontainers.image.source "https://github.com/ProjectSynchro/synchros-sexy-docker-containers" 
@@ -7,15 +7,13 @@ LABEL org.opencontainers.image.description "Windows cross-compile development en
 # Enable i386 arch in dpkg
 RUN dpkg --add-architecture i386 
 
-# Add stable git PPA, deadsnakes ppa for python builds, mxe apt repo for prebuilt binary packages, winehq builds for ubuntu 18.04, faudio OBS repository for wine (no building from source yay!)
+# Add stable git PPA, deadsnakes ppa for python builds, mxe apt repo for prebuilt binary packages, winehq builds for ubuntu 20.04
 RUN apt-get update && apt-get install -y software-properties-common curl apt-transport-https && \
     apt-add-repository ppa:git-core/ppa && add-apt-repository ppa:deadsnakes/ppa && \
     curl -sL https://pkg.mxe.cc/repos/apt/client-conf/mxeapt.gpg 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/mxeapt.gpg >/dev/null && \
-    add-apt-repository 'deb https://pkg.mxe.cc/repos/apt bionic main' && \
+    add-apt-repository 'deb https://pkg.mxe.cc/repos/apt focal main' && \
     curl -sL https://dl.winehq.org/wine-builds/winehq.key 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/winehq.gpg >/dev/null && \
-    add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main' && \
-    curl -sL https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/Release.key 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/faudio.gpg >/dev/null && \
-    add-apt-repository 'deb https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/ ./' && \
+    add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main' && \
     apt-get update
 
 # Install Wine and friends
