@@ -9,17 +9,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Create Changelog
-        uses: heinrichreimer/github-changelog-generator-action@v2.2
-        id: changelog
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
       - name: Create Github Release
         uses: ncipollo/release-action@v1
         with:
-          body: |
-            ${{ steps.changelog.outputs.changelog }}
+          bodyFile: "CHANGELOG.md"
           token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: false
 
