@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.description "Naev Linux (LTS) development/testing
 RUN yum -y install epel-release
 
 # Enable RPMFusion, End Point repository for additional up-to-date tools.
-RUN yum -y localinstall --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-7.noarch.rpm https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
+RUN yum -y localinstall --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm
 
 # Install Build dependencies and utilities.
 RUN yum -y groupinstall "Development Tools"
