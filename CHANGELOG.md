@@ -1,5 +1,6 @@
 ### v1.4.0:
 Changed the naev-ubuntu2004 and naev-ubuntu1604 names to more distro-agnostic ones (naev-linux-latest and naev-linux-lts respectively).
+Changed naev-linux-lts image base to centos:7 (Additionally remove ruby and website generation tools from image.)
 
 ### v1.3.2:
 Pinned the version of Meson to use in Ubuntu 16.04. 
