@@ -52,6 +52,9 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/naev-website
 
+# Force appimages to run in extract mode since FUSE is not available
+ENV APPIMAGE_EXTRACT_AND_RUN 1
+
 # Set WORKDIR when you spin up the image.
 RUN mkdir -p /tmp/naevBuild
 WORKDIR /tmp/naevBuild
