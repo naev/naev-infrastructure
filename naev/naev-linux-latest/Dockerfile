@@ -1,35 +1,34 @@
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 LABEL org.opencontainers.image.authors "Jack Greiner <jack@emoss.org>" 
 LABEL org.opencontainers.image.source "https://github.com/ProjectSynchro/synchros-sexy-docker-containers" 
-LABEL org.opencontainers.image.description "Ubuntu 16.04 development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
+LABEL org.opencontainers.image.description "Naev Linux (Latest) development/testing environment for Naev (For CI and testing)"
 
-# Add stable git PPA, deadsnakes ppa for python builds, brightbox ppa for ruby, and llvm apt repository (no building from source yay!)
+# Add stable git PPA, deadsnakes ppa for python builds, and llvm apt repository (no building from source yay!)
 RUN apt-get update && apt-get install -y software-properties-common curl apt-transport-https && \
     apt-add-repository ppa:git-core/ppa && add-apt-repository ppa:deadsnakes/ppa && \
-    add-apt-repository ppa:brightbox/ruby-ng && \
-    curl -sL 'https://apt.llvm.org/llvm-snapshot.gpg.key' | apt-key add - && \
+    curl -sL https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
     curl -sL https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
-    add-apt-repository -s 'deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial main' && \
-    apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main' && \
+    add-apt-repository -s 'deb http://apt.llvm.org/focal/ llvm-toolchain-focal main' && \
+    apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main' && \
     apt-get update
 
 # Install Build dependencies and utilities.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf-archive binutils-dev \
     build-essential doxygen clang cmake ffmpeg git graphviz intltool lldb lld libfreetype6-dev libluajit-5.1-dev \
-    libopenal-dev libpng-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libvorbis-dev \
-    libxml2-dev lua-ldoc nano ninja-build=1.7.1-1~ubuntu16.04.1 vim wget xvfb
+    libopenal-dev libpng-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsuitesparse-dev libvorbis-dev \
+    libxml2-dev lua-ldoc nano ninja-build vim wget xvfb
 
 # Install Python 3.9.* from deadsnakes PPA.
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3.9-dev python3.9-venv
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3.9-dev python3.9-venv python3-pip
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1 && \
-    python3 -m ensurepip --upgrade && python3 -m pip install --upgrade pip && \
+    python3 -m pip install --upgrade pip && \
     echo "Verifying python install" && \
     which python3 && \
     python3 --version && \
     echo "Verifying pip install" && \
     python3 -m pip --version
-
+    
 # Install Mutagen for soundtrack generation via pip.
 RUN python3 -m pip install mutagen
 
@@ -45,7 +44,7 @@ RUN git clone https://github.com/naev/naev-website.git
 
 # Install Website Build dependencies and gems.
 WORKDIR /tmp/naev-website
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y ruby2.7 ruby2.7-dev tidy && \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y ruby ruby-dev tidy && \
     gem install bundler && bundle install -j"$(nproc --all)"
 
 # Cleanup apt cache, remove APT lists, and temporary git repo.

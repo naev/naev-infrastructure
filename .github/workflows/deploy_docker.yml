@@ -25,10 +25,10 @@ jobs:
       fail-fast: true
       matrix:
         include:
-          - context: "naev/naev-ubuntu1604"
-            imagename: "naev-ubuntu1604"
-          - context: "naev/naev-ubuntu2004"
-            imagename: "naev-ubuntu2004"
+          - context: "naev/naev-linux-lts"
+            imagename: "naev-linux-lts"
+          - context: "naev/naev-linux-latest"
+            imagename: "naev-linux-latest"
           - context: "naev/naev-steamruntime"
             imagename: "naev-steamruntime"
           - context: "naev/naev-windows"
