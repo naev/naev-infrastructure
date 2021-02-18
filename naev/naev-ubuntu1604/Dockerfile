@@ -34,7 +34,8 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1 
 RUN python3 -m pip install mutagen
 
 # Install meson via pip.
-RUN python3 -m pip install meson && \
+# The 0.57 release requires ninja-build >=1.8.2
+RUN python3 -m pip install meson==0.56 && \
     echo "Verifying meson install" && \
     which meson && \
     meson --version

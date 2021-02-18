@@ -1,3 +1,6 @@
+### v1.3.2:
+Pinned the version of Meson to use in Ubuntu 16.04. This situation is temporary; 16.04 will stop being the base system for AppImage builds by late April. Refs: <https://packages.ubuntu.com/source/xenial-backports/ninja-build> <https://docs.appimage.org/reference/best-practices.html#binaries-compiled-on-old-enough-base-system>
+
 ### v1.3.1:
 Added MXE packaged luajit to naev-windows image.
 Returned to official Meson releases in the naev-macos image, now that a key bug-fix is released.
