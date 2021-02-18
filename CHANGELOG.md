@@ -1,5 +1,6 @@
 ### v1.4.0:
 Changed the naev-ubuntu2004 and naev-ubuntu1604 names to more distro-agnostic ones (naev-linux-latest and naev-linux-lts respectively).
+Changed naev-linux-latest image base to fedora:rawhide
 Changed naev-linux-lts image base to centos:7 (Additionally remove ruby and website generation tools from image.)
 Add suitesparse to naev-linux-lts image (previously ommitted due to packaging issues)
 Add APPIMAGE_EXTRACT_AND_RUN to ENV of all images since this is required to run any appimage in a docker container.
