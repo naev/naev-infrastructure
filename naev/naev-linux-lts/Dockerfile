@@ -1,57 +1,38 @@
-FROM ubuntu:16.04
+FROM centos:7
 
 LABEL org.opencontainers.image.authors "Jack Greiner <jack@emoss.org>" 
 LABEL org.opencontainers.image.source "https://github.com/ProjectSynchro/synchros-sexy-docker-containers" 
 LABEL org.opencontainers.image.description "Naev Linux (LTS) development/testing environment for Naev (releases and testing)"
 
-# Add stable git PPA, deadsnakes ppa for python builds, brightbox ppa for ruby, and llvm apt repository (no building from source yay!)
-RUN apt-get update && apt-get install -y software-properties-common curl apt-transport-https && \
-    apt-add-repository ppa:git-core/ppa && add-apt-repository ppa:deadsnakes/ppa && \
-    add-apt-repository ppa:brightbox/ruby-ng && \
-    curl -sL 'https://apt.llvm.org/llvm-snapshot.gpg.key' | apt-key add - && \
-    curl -sL https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
-    add-apt-repository -s 'deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial main' && \
-    apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main' && \
-    apt-get update
+# Enable extras, repository and activate the EPEL repository
+RUN yum -y install epel-release
+
+# Enable RPMFusion, End Point repository for additional up-to-date tools.
+RUN yum -y localinstall --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-7.noarch.rpm https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
 
 # Install Build dependencies and utilities.
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf-archive binutils-dev \
-    build-essential doxygen clang cmake ffmpeg git graphviz intltool lldb lld libfreetype6-dev libluajit-5.1-dev \
-    libopenal-dev libpng-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libvorbis-dev \
-    libxml2-dev lua-ldoc nano ninja-build=1.7.1-1~ubuntu16.04.1 vim wget xvfb
+RUN yum -y groupinstall "Development Tools"
 
-# Install Python 3.9.* from deadsnakes PPA.
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3.9-dev python3.9-venv
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1 && \
-    python3 -m ensurepip --upgrade && python3 -m pip install --upgrade pip && \
-    echo "Verifying python install" && \
+RUN yum install -y gettext-devel autoconf-archive binutils-devel \
+    doxygen clang cmake ffmpeg git graphviz intltool lldb llvm freetype-devel luajit-devel \
+    openal-soft-devel libpng-devel lua-devel lua-filesystem luarocks SDL2-devel SDL2_image-devel SDL2_mixer-devel libvorbis-devel \
+    libxml2-devel meson nano ninja-build python-mutagen vim wget xorg-x11-server-Xvfb
+
+# Install ldoc from luarocks
+RUN luarocks install ldoc
+
+# Verify python version and install location.
+RUN echo "Verifying python install" && \
     which python3 && \
-    python3 --version && \
-    echo "Verifying pip install" && \
-    python3 -m pip --version
+    python3 --version
 
-# Install Mutagen for soundtrack generation via pip.
-RUN python3 -m pip install mutagen
-
-# Install meson via pip.
-RUN python3 -m pip install meson && \
-    echo "Verifying meson install" && \
+# Verify meson version and installation.
+RUN echo "Verifying meson install" && \
     which meson && \
     meson --version
 
-# Clone naev-website git repository
-WORKDIR /tmp
-RUN git clone https://github.com/naev/naev-website.git
-
-# Install Website Build dependencies and gems.
-WORKDIR /tmp/naev-website
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y ruby2.7 ruby2.7-dev tidy && \
-    gem install bundler && bundle install -j"$(nproc --all)"
-
-# Cleanup apt cache, remove APT lists, and temporary git repo.
-RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /tmp/naev-website
+# Cleanup yum cache and temporary git repo.
+RUN yum clean all
 
 # Set WORKDIR when you spin up the image.
 RUN mkdir -p /tmp/naevBuild
