@@ -1,3 +1,6 @@
+### v1.4.3
+Install mesa-libGLU-devel on the naev-linux-latest and naev-linux-lts images.
+
 ### v1.4.2:
 Revert adding MXE packaged luajit to naev-windows image.
 
