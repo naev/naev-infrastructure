@@ -1,3 +1,6 @@
+### v1.4.1:
+Ensure a repository for Git 2.x is included in the naev-linux-lts image.
+
 ### v1.4.0:
 Changed the naev-ubuntu2004 and naev-ubuntu1604 names to more distro-agnostic ones (naev-linux-latest and naev-linux-lts respectively).
 Changed naev-linux-latest image base to fedora:rawhide
