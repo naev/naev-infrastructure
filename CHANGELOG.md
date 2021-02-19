@@ -1,3 +1,6 @@
+### v1.4.2:
+Revert adding MXE packaged luajit to naev-windows image.
+
 ### v1.4.1:
 Ensure a repository for Git 2.x is included in the naev-linux-lts image.
 
