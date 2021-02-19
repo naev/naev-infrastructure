@@ -1,3 +1,6 @@
+### v1.4.4
+Set APPIMAGE_EXTRACT_AND_RUN to 1 in the naev-steamruntime image.
+
 ### v1.4.3
 Install mesa-libGLU-devel on the naev-linux-latest and naev-linux-lts images.
 
