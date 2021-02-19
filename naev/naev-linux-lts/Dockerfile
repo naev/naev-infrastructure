@@ -31,6 +31,11 @@ RUN echo "Verifying meson install" && \
     which meson && \
     meson --version
 
+# Verify git version and installation.
+RUN echo "Verifying meson install" && \
+    which git && \
+    git --version
+
 # Cleanup yum cache
 RUN yum clean all
 
