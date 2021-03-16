@@ -22,6 +22,32 @@ RUN yum install -y gettext-devel autoconf-archive binutils-devel \
 # Install ldoc from luarocks
 RUN luarocks install ldoc
 
+# Install SteamCMD and friends
+RUN yum install -y glibc.i686 libstdc++.i686 SDL2.i686
+
+WORKDIR /tmp
+RUN wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz && \
+    mkdir -p /opt/steamcmd && \
+    tar -xvzf steamcmd_linux.tar.gz -C /opt/steamcmd
+
+WORKDIR /opt/steamcmd
+RUN mv steam.sh steam && mv steamcmd.sh steamcmd
+
+# Add SteamCMD to PATH
+ENV PATH "$PATH:/opt/steamcmd"
+
+# Install itch.io butler
+WORKDIR /tmp
+RUN wget https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default -O butler.zip && \
+    mkdir -p /opt/butler && \
+    unzip butler.zip -d /opt/butler
+
+WORKDIR /opt/butler
+RUN chmod +x butler
+
+# Add Butler to PATH
+ENV PATH "$PATH:/opt/butler"
+
 # Verify python version and install location.
 RUN echo "Verifying python install" && \
     which python3 && \
@@ -33,12 +59,24 @@ RUN echo "Verifying meson install" && \
     meson --version
 
 # Verify git version and installation.
-RUN echo "Verifying meson install" && \
+RUN echo "Verifying git install" && \
     which git && \
     git --version
 
-# Cleanup yum cache
-RUN yum clean all
+# Verify SteamCMD version and installation.
+RUN echo "Verifying steamcmd install" && \
+    which steamcmd && \
+    steamcmd +quit
+
+# Verify Butler version and installation.
+RUN echo "Verifying butler install" && \
+    which butler && \
+    butler -V
+    
+# Cleanup yum cache and utility temp files
+RUN yum clean all && \
+    rm /tmp/butler.zip && \
+    rm /tmp/steamcmd_linux.tar.gz
 
 # Force appimages to run in extract mode since FUSE is not available
 ENV APPIMAGE_EXTRACT_AND_RUN 1

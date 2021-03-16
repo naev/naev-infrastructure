@@ -1,3 +1,6 @@
+### v1.4.5
+Added [SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD) and [itch.io butler](https://itch.io/docs/butler/) to `naev-linux-latest` and `naev-linux-lts` images. (Available on PATH)
+
 ### v1.4.4
 Set APPIMAGE_EXTRACT_AND_RUN to 1 in the naev-steamruntime image.
 
