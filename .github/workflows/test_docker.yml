@@ -1,4 +1,4 @@
-name: Test Naev Build/Dev Docker Images
+name: Naev Infrastructure Testing
 on: [push, pull_request]
 
 jobs:
