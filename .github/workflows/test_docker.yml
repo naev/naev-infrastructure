@@ -7,15 +7,15 @@ jobs:
       fail-fast: true
       matrix:
         include:
-          - context: "naev/naev-linux-lts"
+          - context: "naev-linux-lts"
             imagename: "naev-linux-lts"
-          - context: "naev/naev-linux-latest"
+          - context: "naev-linux-latest"
             imagename: "naev-linux-latest"
-          - context: "naev/naev-steamruntime"
+          - context: "naev-steamruntime"
             imagename: "naev-steamruntime"
-          - context: "naev/naev-windows"
+          - context: "naev-windows"
             imagename: "naev-windows"
-          - context: "naev/naev-macos"
+          - context: "naev-macos"
             imagename: "naev-macos"
 
     runs-on: ubuntu-latest
