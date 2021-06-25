@@ -1,9 +1,13 @@
 ### Overview:
+`naev-linux-archaic` (Used for appimage, and old release builds)
 `naev-linux-lts` (Used for appimage, and release builds. oldest targetted glibc platform)
 `naev-linux-latest` (Used for CI, and testing. near-upstream platform)
 `naev-steamruntime` (Used to generate builds and for CI in the steamruntime (soldier) environment)
 `naev-windows` (Used to cross compile Windows releases, and CI)
 `naev-macos` (Used to cross compile macOS releases, and CI)
+
+### v1.4.6
+Add webp library to non-"ancient" images. 
 
 ### v1.4.5
 Added [SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD) and [itch.io butler](https://itch.io/docs/butler/) to `naev-linux-latest` and ``naev-linux-lts`` images. (Available on PATH)
