@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 
-LABEL org.opencontainers.image.authors "Jack Greiner <jack@emoss.org>" 
-LABEL org.opencontainers.image.source "https://github.com/ProjectSynchro/synchros-sexy-docker-containers" 
+LABEL org.opencontainers.image.authors "Jack Greiner <jack@emoss.org>"
+LABEL org.opencontainers.image.source "https://github.com/ProjectSynchro/synchros-sexy-docker-containers"
 LABEL org.opencontainers.image.description "Naev Linux (Archaic) build/testing environment for Naev (ancient releases.)"
 
 # Update APT repositories
@@ -17,7 +17,7 @@ libsdl2-image-dev libxml2-dev libglu1-mesa libglu1-mesa-dev libfreetype6-dev lib
 RUN echo "Verifying git install" && \
     which git && \
     git --version
-  
+
 # Cleanup yum cache and utility temp files
 RUN apt-get clean
 
