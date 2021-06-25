@@ -22,6 +22,9 @@ RUN python3 -m pip install meson --upgrade && \
     which meson && \
     meson --version
 
+# Naughty: we need libwebp, not in the SDK... though only at runtime, dynamically loaded by SDL2_mixer.
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libwebp-dev
+
 # Cleanup apt cache and remove lists.
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
