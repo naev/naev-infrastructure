@@ -1,5 +1,5 @@
 ### Overview:
-`naev-linux-archaic` (Used for appimage, and old release builds)
+`naev-linux-archaic` (Used for old release builds)
 `naev-linux-lts` (Used for appimage, and release builds. oldest targetted glibc platform)
 `naev-linux-latest` (Used for CI, and testing. near-upstream platform)
 `naev-steamruntime` (Used to generate builds and for CI in the steamruntime (soldier) environment)

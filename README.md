@@ -2,6 +2,7 @@
 This repository contains Dockerfiles for all of the [Naev Project](https://github.com/naev/naev)'s CI and CD build images.
 
 ### Overview:
+- `naev-linux-archaic` (Used for old release builds)
 - `naev-linux-lts` (Used for appimage, and release builds. oldest targetted glibc platform)
 - `naev-linux-latest` (Used for CI, and testing. near-upstream platform)
 - `naev-steamruntime` (Used to generate builds and for CI in the steamruntime (soldier) environment)
