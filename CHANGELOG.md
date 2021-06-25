@@ -6,6 +6,9 @@
 `naev-windows` (Used to cross compile Windows releases, and CI)
 `naev-macos` (Used to cross compile macOS releases, and CI)
 
+### v1.4.7
+Added `naev-linux-archaic` image used for building *very* old Naev releases. 
+
 ### v1.4.6
 Add webp library to non-"ancient" images. 
 
