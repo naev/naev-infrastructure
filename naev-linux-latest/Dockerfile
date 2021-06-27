@@ -11,7 +11,7 @@ RUN dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-rele
 RUN dnf -y groupinstall "Development Tools"
 
 RUN dnf -y install gettext-devel autoconf-archive binutils-devel \
-    doxygen clang cmake ffmpeg git graphviz intltool lldb llvm freetype-devel luajit-devel \
+    doxygen clang cmake ffmpeg git glpk-devel graphviz intltool lldb llvm freetype-devel luajit-devel \
     openal-soft-devel libpng-devel libwebp-devel lua-ldoc SDL2-devel SDL2_image-devel \
     SDL2_mixer-devel libvorbis-devel \
     libxml2-devel meson mesa-libGLU-devel nano ninja-build physfs-devel python-mutagen \

@@ -29,6 +29,7 @@ RUN mkdir -p /tmp/.wine && \
 # Install MXE packages.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mxe-x86-64-w64-mingw32.shared-cmake \
     mxe-x86-64-w64-mingw32.shared-gcc mxe-x86-64-w64-mingw32.shared-freetype \
+    mxe-x86-64-w64-mingw32.shared-glpk \
     mxe-x86-64-w64-mingw32.shared-vorbis mxe-x86-64-w64-mingw32.shared-libxml2 \
     mxe-x86-64-w64-mingw32.shared-openal mxe-x86-64-w64-mingw32.shared-pkgconf \
     mxe-x86-64-w64-mingw32.shared-physfs mxe-x86-64-w64-mingw32.shared-sdl2 \
