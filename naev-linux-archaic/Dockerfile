@@ -10,6 +10,7 @@ RUN apt-get update
 # Install Build dependencies and utilities.
 RUN apt-get -y install build-essential
 
+# Install libararies and various development packages.
 RUN apt-get -y install git libsdl1.2-dev libsdl-mixer1.2-dev libsdl-image1.2-dev libsdl2-dev libsdl2-mixer-dev \
 libsdl2-image-dev libxml2-dev libglu1-mesa libglu1-mesa-dev libfreetype6-dev libpng-dev libopenal-dev libvorbis-dev
 
