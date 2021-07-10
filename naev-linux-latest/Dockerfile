@@ -13,9 +13,8 @@ RUN dnf -y groupinstall "Development Tools"
 RUN dnf -y install gettext-devel autoconf-archive binutils-devel \
     doxygen clang cmake ffmpeg git glpk-devel graphviz intltool lldb llvm freetype-devel luajit-devel \
     openal-soft-devel libpng-devel libwebp-devel lua-ldoc SDL2-devel SDL2_image-devel \
-    SDL2_mixer-devel libvorbis-devel \
-    libxml2-devel meson mesa-libGLU-devel nano ninja-build physfs-devel python-mutagen \
-    suitesparse-devel tidy vim wget xorg-x11-server-Xvfb
+    SDL2_mixer-devel libvorbis-devel libxml2-devel meson mesa-libGLU-devel nano ninja-build \
+    physfs-devel python-mutagen suitesparse-devel tidy optipng nodejs ImageMagick vim wget xorg-x11-server-Xvfb
 
 # Install SteamCMD and friends
 RUN dnf -y install glibc.i686 libstdc++.i686 SDL2.i686
@@ -44,7 +43,7 @@ RUN chmod +x butler
 ENV PATH "$PATH:/opt/butler"
 
 # Install Ruby and Rubygems packages
-RUN dnf -y --nogpgcheck install redhat-rpm-config ruby-devel rubygem-bundler rubygem-json rubygem-ffi rubygem-racc
+RUN dnf -y install redhat-rpm-config ruby-devel rubygem-bundler rubygem-json rubygem-ffi rubygem-racc
 
 # Verify python version and install location.
 RUN echo "Verifying python install" && \
@@ -76,17 +75,19 @@ RUN echo "Verifying butler install" && \
     which butler && \
     butler -V
 
-# Clone naev-website git repository
+# Copy Gemfile
 WORKDIR /tmp
-RUN git clone https://github.com/naev/naev-website.git
+RUN mkdir websiteTemp
+
+COPY Gemfile /tmp/websiteTemp
 
 # Install Website Build dependencies and gems.
-WORKDIR /tmp/naev-website
+WORKDIR /tmp/websiteTemp
 RUN bundle install -j"$(nproc --all)"
 
 # Cleanup dnf cache
 RUN dnf clean all && \
-    rm -rf /tmp/naev-website && \
+    rm -rf /tmp/websiteTemp && \
     rm /tmp/butler.zip && \
     rm /tmp/steamcmd_linux.tar.gz
 
