@@ -6,6 +6,9 @@
 `naev-windows` (Used to cross compile Windows releases, and CI)
 `naev-macos` (Used to cross compile macOS releases, and CI)
 
+### v1.4.9
+Added more SuiteSparse libraries to `naev-macos`.
+
 ### v1.4.8
 Fixed website builds on the `naev-linux-latest` image.
 
@@ -20,7 +23,7 @@ Add webp library to non-"ancient" images.
 Added [SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD) and [itch.io butler](https://itch.io/docs/butler/) to `naev-linux-latest` and ``naev-linux-lts`` images. (Available on PATH)
 
 ### v1.4.4
-Set APPIMAGE_EXTRACT_AND_RUN to 1 in the `naev-steamruntime` image.
+Set `APPIMAGE_EXTRACT_AND_RUN` to 1 in the `naev-steamruntime` image.
 
 ### v1.4.3
 Install mesa-libGLU-devel on the `naev-linux-latest` and `naev-linux-lts` images.
@@ -36,7 +39,7 @@ Changed the `naev-ubuntu2004` and `naev-ubuntu1604` names to more distro-agnosti
 Changed `naev-linux-latest` image base to fedora:rawhide
 Changed `naev-linux-lts` image base to centos:7 (Additionally remove ruby and website generation tools from image.)
 Add suitesparse to `naev-linux-lts` image (previously ommitted due to packaging issues)
-Add APPIMAGE_EXTRACT_AND_RUN to ENV of all images since this is required to run any appimage in a docker container.
+Add `APPIMAGE_EXTRACT_AND_RUN` to ENV of all images since this is required to run any appimage in a docker container.
 
 ### v1.3.2:
 Pinned the version of Meson to use in Ubuntu 16.04. 
@@ -52,17 +55,17 @@ Returned to official Meson releases in the `naev-macos` image, now that a key bu
 This 'release' bumps our MXE Windows Cross-compile environment base image to Ubuntu 20.04.
 
 ### v1.2.3:
-Add sdl2_image to naev-indows build.
+Add `sdl2_image` to naev-indows build.
 Update to Steam runtime (soldier) from scout in `naev-steamruntime`
 
 ### v1.2.2:
-Update osxcross packages: drop libxml2 in favor of the SDK one (saves ~50MB due to icudata), switch SuiteSparse_CSparse -> SuiteSparse_CXSparse, as the latter includes the necessary headers in `naev-macos`.
+Update osxcross packages: drop libxml2 in favor of the SDK one (saves ~50MB due to icudata), switch `SuiteSparse_CSparse` -> `SuiteSparse_CXSparse`, as the latter includes the necessary headers in `naev-macos`.
 
 ### v1.2.1:
 Add physfs, SuiteSparse to macports in `naev-macos`.
 
 ### v1.2.0:
-Set OSXCROSS_MP_INC as 1 to auto set include paths in `naev-macos`.
+Set `OSXCROSS_MP_INC` as 1 to auto set include paths in `naev-macos`.
 Remove luajit from macports, ENV variables in `naev-macos`.
 Install patched meson for cross builds in `naev-macos`.
 
