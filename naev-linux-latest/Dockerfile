@@ -1,8 +1,8 @@
 FROM fedora:rawhide
 
-LABEL org.opencontainers.image.authors "Jack Greiner <jack@emoss.org>" 
-LABEL org.opencontainers.image.source "https://github.com/ProjectSynchro/synchros-sexy-docker-containers" 
-LABEL org.opencontainers.image.description "Naev Linux (Latest) development/testing environment for Naev (For CI and testing)"
+LABEL org.opencontainers.image.authors "Naev Dev Team"
+LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
+LABEL org.opencontainers.image.description "Naev Linux (Latest) development/testing environment for Naev (For CI, testing and website builds)"
 
 # Enable RPMFusion for additional up-to-date tools.
 RUN dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm

@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
-LABEL org.opencontainers.image.authors "Jack Greiner <jack@emoss.org>" 
-LABEL org.opencontainers.image.source "https://github.com/ProjectSynchro/synchros-sexy-docker-containers" 
+LABEL org.opencontainers.image.authors "Naev Dev Team"
+LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
 LABEL org.opencontainers.image.description "MacOS cross-compile development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
 
 # Add stable git PPA, deadsnakes ppa for python builds, and llvm apt repository (no building from source yay!)

@@ -1,7 +1,7 @@
 FROM centos:7
 
-LABEL org.opencontainers.image.authors "Jack Greiner <jack@emoss.org>" 
-LABEL org.opencontainers.image.source "https://github.com/ProjectSynchro/synchros-sexy-docker-containers" 
+LABEL org.opencontainers.image.authors "Naev Dev Team"
+LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
 LABEL org.opencontainers.image.description "Naev Linux (LTS) development/testing environment for Naev (releases and testing)"
 
 # Enable the EPEL repository
