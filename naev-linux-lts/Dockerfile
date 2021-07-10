@@ -18,7 +18,7 @@ RUN yum install -y gettext-devel autoconf-archive binutils-devel \
     openal-soft-devel libpng-devel libwebp-devel lua-devel luarocks SDL2-devel \
     SDL2_image-devel SDL2_mixer-devel libvorbis-devel \
     libxml2-devel meson mesa-libGL-devel mesa-libGLU-devel nano ninja-build python-mutagen suitesparse-devel tidy \
-    vim wget xorg-x11-server-Xvfb
+    optipng nodejs ImageMagick rsync vim wget xorg-x11-server-Xvfb
 
 # Install ldoc from luarocks
 RUN luarocks install ldoc
