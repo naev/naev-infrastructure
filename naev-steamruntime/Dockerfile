@@ -4,6 +4,9 @@ LABEL org.opencontainers.image.authors "Jack Greiner <jack@emoss.org>"
 LABEL org.opencontainers.image.source "https://github.com/ProjectSynchro/synchros-sexy-docker-containers" 
 LABEL org.opencontainers.image.description "Steam runtime (Soldier) development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
 
+# Update APT repositories
+RUN apt-get update
+
 # Install pip from steam/debian repositories.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip
 RUN python3 -m pip install --upgrade pip && \
