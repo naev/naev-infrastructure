@@ -6,6 +6,9 @@
 `naev-windows` (Used to cross compile Windows releases, and CI)
 `naev-macos` (Used to cross compile macOS releases, and CI)
 
+### v1.4.11
+Add OpenBLAS.
+
 ### v1.4.10
 Add rsync to naev-linux-latest and lts images.
 

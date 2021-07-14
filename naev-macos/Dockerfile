@@ -52,7 +52,7 @@ ENV PATH "$PATH:/usr/lib/osxcross/bin"
 ENV OSXCROSS_MP_INC "1"
 
 # Install required build dependencies
-RUN UNATTENDED=1 osxcross-macports install binutils freetype glpk libsdl2 libsdl2_image libsdl2_mixer libpng libvorbis openal-soft physfs SuiteSparse_CHOLMOD SuiteSparse_CXSparse webp
+RUN UNATTENDED=1 osxcross-macports install binutils freetype cblas glpk libsdl2 libsdl2_image libsdl2_mixer libpng libvorbis openal-soft OpenBLAS physfs SuiteSparse_CHOLMOD SuiteSparse_CXSparse webp
 
 # Horrible hack: ensure a hardcoded header file path resolves.  
 RUN rmdir /opt && ln -s /usr/lib/osxcross/macports/pkgs/opt /opt 
