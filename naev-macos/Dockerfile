@@ -4,6 +4,9 @@ LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
 LABEL org.opencontainers.image.description "MacOS cross-compile development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
 
+# Allows for determining what container scripts are run in.
+ENV IMAGE_NAME "naev-macos"
+
 # Add stable git PPA, deadsnakes ppa for python builds, and llvm apt repository (no building from source yay!)
 RUN apt-get update && apt-get install -y software-properties-common curl apt-transport-https && \
     apt-add-repository ppa:git-core/ppa && add-apt-repository ppa:deadsnakes/ppa && \

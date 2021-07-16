@@ -4,6 +4,9 @@ LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
 LABEL org.opencontainers.image.description "Naev Linux (LTS) development/testing environment for Naev (releases and testing)"
 
+# Allows for determining what container scripts are run in.
+ENV IMAGE_NAME "naev-linux-lts"
+
 # Enable the EPEL repository
 RUN yum -y install epel-release
 

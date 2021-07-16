@@ -4,6 +4,9 @@ LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
 LABEL org.opencontainers.image.description "Steam runtime (Soldier) development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
 
+# Allows for determining what container scripts are run in.
+ENV IMAGE_NAME "naev-steamruntime"
+
 # Install pip from steam/debian repositories.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip
 RUN python3 -m pip install --upgrade pip && \

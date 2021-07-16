@@ -4,6 +4,9 @@ LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
 LABEL org.opencontainers.image.description "Naev Linux (Latest) development/testing environment for Naev (For CI, testing and website builds)"
 
+# Allows for determining what container scripts are run in.
+ENV IMAGE_NAME "naev-linux-latest"
+
 # Enable RPMFusion for additional up-to-date tools.
 RUN dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 
