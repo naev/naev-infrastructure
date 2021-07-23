@@ -25,8 +25,8 @@ RUN python3 -m pip install meson --upgrade && \
     which meson && \
     meson --version
 
-# Naughty: we need libwebp, not in the SDK... though only at runtime, dynamically loaded by SDL2_mixer.
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libopenblas-dev
+# Naughty: we need libwebp, and libopenblas, not in the SDK.... Both are statically linked when building with the steamruntime option in meson set to true.
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libopenblas-dev libwebp-dev
 
 # Cleanup apt cache and remove lists.
 RUN apt-get clean && \
