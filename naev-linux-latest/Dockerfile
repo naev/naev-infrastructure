@@ -20,7 +20,7 @@ RUN dnf -y install gettext-devel autoconf-archive binutils-devel \
     physfs-devel python-mutagen suitesparse-devel tidy optipng nodejs ImageMagick rsync vim wget xorg-x11-server-Xvfb
 
 # Install SteamCMD and friends
-RUN dnf -y install glibc.i686 libstdc++.i686 SDL2.i686
+RUN dnf -y install glibc.i686 SDL2.i686
 
 WORKDIR /tmp
 RUN wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz && \
