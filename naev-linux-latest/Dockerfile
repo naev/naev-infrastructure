@@ -1,4 +1,4 @@
-FROM fedora:34
+FROM fedora:rawhide
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
