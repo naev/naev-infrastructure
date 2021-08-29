@@ -6,8 +6,11 @@
 `naev-windows` (Used to cross compile Windows releases, and CI)
 `naev-macos` (Used to cross compile macOS releases, and CI)
 
+### v1.4.14
+I am 14 and this is naev-infrastructure. Add libunibreak where available.
+
 ### v1.4.13
-Make it go up to 13 (we should probably find out a nicer way to do this...). Add libwebp for use with a custom build of SDL2_image.
+Make it go up to 13 (we should probably find out a nicer way to do this...). Add libwebp for use with a custom build of `SDL2_image`.
 
 ### v1.4.12
 Make it go up to 12. Add ENV Var for determining what image we are running with scripts.
