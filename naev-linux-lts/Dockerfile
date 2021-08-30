@@ -27,7 +27,7 @@ RUN yum install -y gettext-devel autoconf-archive binutils-devel \
 RUN luarocks install ldoc
 
 # Install SteamCMD and friends
-RUN yum install -y glibc.i686 libstdc++.i686 SDL2.i686
+RUN yum install -y glibc.i686 libgcc.i686 SDL2.i686
 
 WORKDIR /tmp
 RUN wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz && \
