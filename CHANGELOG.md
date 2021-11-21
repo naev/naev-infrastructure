@@ -6,6 +6,9 @@
 `naev-windows` (Used to cross compile Windows releases, and CI)
 `naev-macos` (Used to cross compile macOS releases, and CI)
 
+### v1.4.15
+Beware the Ides of... OK, never mind, the key benefit is having the "luacheck" linter in at least one image, which lets us make it a CI step.
+
 ### v1.4.14
 I am 14 and this is naev-infrastructure. Add libunibreak where available. Temporarily pin neav-linux-latest to Fedora 34 due to https://github.com/moby/moby/issues/42680.
 

@@ -25,6 +25,8 @@ RUN yum install -y gettext-devel autoconf-archive binutils-devel \
 
 # Install ldoc from luarocks
 RUN luarocks install ldoc
+# Install luacheck from luarocks
+RUN luarocks install luacheck
 
 # Install SteamCMD and friends
 RUN yum install -y glibc.i686 libgcc.i686 SDL2.i686
