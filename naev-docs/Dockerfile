@@ -10,7 +10,7 @@ ENV IMAGE_NAME "naev-docs"
 # Install Ruby packages
 RUN microdnf -y install automake findutils gcc g++ make redhat-rpm-config ruby-devel rubygem-bundler rubygem-json rubygem-ffi rubygem-racc \
 # Install utilities
-    meson ninja-build git GraphicsMagick optipng rsync tidy unzip wget which zip \
+    meson ninja-build git GraphicsMagick optipng rsync tidy tar unzip wget which zip \
 # Install luarocks deps
     compat-lua compat-lua-devel ncurses-devel libevent-devel readline-devel && \
     microdnf clean all && \
@@ -21,22 +21,22 @@ RUN microdnf -y install automake findutils gcc g++ make redhat-rpm-config ruby-d
     ./configure --prefix=/opt/luarocks --lua-version=5.1 --lua-suffix=-5.1 --versioned-rocks-dir && \
     make && \
     make install && \
-    rm -rf /tmp/luarocks-3.8.0 && \
-    rm /tmp/luarocks-3.8.0.tar.gz && \
-    cd /tmp
+    cd /tmp && \
+    rm -rf /tmp/*
 
+# Add luarocks to PATH
+ENV PATH "$PATH:/opt/luarocks/bin"
+
+# Install ldoc and luacheck lua rocks.
+RUN luarocks install ldoc
 
 # Copy Gemfile
-WORKDIR /tmp
-RUN mkdir websiteTemp
-RUN git clone --recurse https://github.com/naev/naev-website.git websiteTemp
-
+RUN mkdir websiteTemp && \
+    git clone --recurse https://github.com/naev/naev-website.git websiteTemp && \
 # Install Website Build dependencies and gems.
-WORKDIR /tmp/websiteTemp
-RUN bundle install -j"$(nproc --all)" && \
+    cd websiteTemp && \
+    bundle install -j"$(nproc --all)" && \
     rm -rf /tmp/websiteTemp
-
-
 
 # Verify tool versions and install locations.
 RUN echo "Verifying ruby install" && \
@@ -44,8 +44,10 @@ RUN echo "Verifying ruby install" && \
     ruby --version && \
     echo "Verifying bundler install" && \
     which bundle && \
-    bundle --version
-
+    bundle --version && \
+    echo "Verifying ldoc install" && \
+    which python3
+    
 # Force appimages to run in extract mode since FUSE is not available
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
