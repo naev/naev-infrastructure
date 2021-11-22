@@ -59,6 +59,9 @@ RUN python3 -m pip install meson && \
     which meson && \
     meson --version
 
+# Install PyYAML via pip.
+RUN python3 -m pip install PyYAML
+
 # Cleanup apt cache and remove lists.
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*

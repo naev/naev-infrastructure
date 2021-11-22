@@ -59,6 +59,9 @@ RUN echo "Verifying python install" && \
     which python3 && \
     python3 --version
 
+# Install PyYAML via pip.
+RUN python3 -m pip install PyYAML
+
 # Verify meson version and installation.
 RUN echo "Verifying meson install" && \
     which meson && \

@@ -6,6 +6,12 @@
 `naev-windows` (Used to cross compile Windows releases, and CI)
 `naev-macos` (Used to cross compile macOS releases, and CI)
 
+### v1.4.17
+I said "Added PyYAML", CentOS 7...
+
+### v1.4.16
+Added PyYAML, because Pythons should be able to ingest that.
+
 ### v1.4.15
 Beware the Ides of... OK, never mind, the key benefit is having the "luacheck" linter in at least one image, which lets us make it a CI step.
 
