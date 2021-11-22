@@ -19,16 +19,12 @@ RUN curl -L -O https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-
 # Install utilities
     git ffmpeg nano python3-pyyaml python3-mutagen tar which xz unzip zip \
 # Install luarocks deps
-    compat-lua compat-lua-devel lua-devel ncurses-devel libevent-devel readline-devel && \
+    lua-devel ncurses-devel libevent-devel readline-devel && \
     microdnf clean all && \
 # Build luarocks (In this case for lua 5.1 and lua latest)
     curl -L -O https://luarocks.org/releases/luarocks-3.8.0.tar.gz && \
     tar zxpf luarocks-3.8.0.tar.gz && \
     cd luarocks-3.8.0 && \
-    ./configure --prefix=/opt/luarocks --lua-version=5.1 --lua-suffix=-5.1 --versioned-rocks-dir && \
-    make && \
-    make install && \
-    make clean && \
     ./configure --prefix=/opt/luarocks --versioned-rocks-dir && \
     make && \
     make install && \
@@ -40,8 +36,7 @@ RUN curl -L -O https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-
 ENV PATH "$PATH:/opt/luarocks/bin"
 
 # Install ldoc and luacheck lua rocks.
-RUN luarocks --lua-version 5.1 install ldoc && \
-    luarocks install luacheck
+RUN luarocks install luacheck
 
 # Verify tool versions and install locations.
 RUN echo "Verifying python install" && \
@@ -50,8 +45,6 @@ RUN echo "Verifying python install" && \
     echo "Verifying luacheck install" && \
     which luacheck && \
     luacheck --version && \
-    echo "Verifying ldoc install" && \
-    which ldoc && \
     echo "Verifying meson install" && \
     which meson && \
     meson --version
