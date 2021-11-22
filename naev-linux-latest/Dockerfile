@@ -1,4 +1,4 @@
-FROM fedora:34
+FROM registry.fedoraproject.org/fedora-minimal:rawhide
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
@@ -8,91 +8,53 @@ LABEL org.opencontainers.image.description "Naev Linux (Latest) development/test
 ENV IMAGE_NAME "naev-linux-latest"
 
 # Enable RPMFusion for additional up-to-date tools.
-RUN dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-
-# Install Build dependencies and utilities.
-RUN dnf -y groupinstall "Development Tools"
-
-RUN dnf -y install gettext-devel autoconf-archive binutils-devel \
-    doxygen clang cmake ffmpeg git glpk-devel graphviz intltool lldb llvm freetype-devel luajit-devel \
-    openal-soft-devel openblas-devel libpng-devel libwebp-devel lua-ldoc SDL2-devel SDL2_image-devel \
-    SDL2_mixer-devel libunibreak-devel libvorbis-devel libxml2-devel meson mesa-libGLU-devel nano ninja-build \
-    physfs-devel python-mutagen suitesparse-devel tidy optipng nodejs ImageMagick rsync vim wget xorg-x11-server-Xvfb
-
-# Install SteamCMD and friends
-RUN dnf -y install glibc.i686 SDL2.i686
-
 WORKDIR /tmp
-RUN wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz && \
-    mkdir -p /opt/steamcmd && \
-    tar -xvzf steamcmd_linux.tar.gz -C /opt/steamcmd
+RUN curl -L -O https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-rawhide.noarch.rpm && \
+    rpm -i rpmfusion-free-release-rawhide.noarch.rpm && \
+    rm -rf /tmp/rpmfusion-free-release-rawhide.noarch.rpm && \
+# Install Build dependencies.
+    microdnf -y install make findutils meson ninja-build gcc clang binutils-devel fontconfig-devel freetype-devel glpk-devel \
+    libpng12-devel libxml2-devel libvorbis-devel libwebp-devel libunibreak-devel luajit-devel openal-soft-devel \
+    openblas-devel physfs-devel SDL2-devel SDL2_image-devel suitesparse-devel \
+# Install utilities
+    git ffmpeg nano python3-pyyaml python3-mutagen tar which xz unzip zip \
+# Install luarocks deps
+    compat-lua compat-lua-devel lua-devel ncurses-devel libevent-devel readline-devel && \
+    microdnf clean all && \
+# Build luarocks (In this case for lua 5.1 and lua latest)
+    curl -L -O https://luarocks.org/releases/luarocks-3.8.0.tar.gz && \
+    tar zxpf luarocks-3.8.0.tar.gz && \
+    cd luarocks-3.8.0 && \
+    ./configure --prefix=/opt/luarocks --lua-version=5.1 --lua-suffix=-5.1 --versioned-rocks-dir && \
+    make && \
+    make install && \
+    make clean && \
+    ./configure --prefix=/opt/luarocks --versioned-rocks-dir && \
+    make && \
+    make install && \
+    rm -rf /tmp/luarocks-3.8.0 && \
+    rm /tmp/luarocks-3.8.0.tar.gz && \
+    cd /tmp
 
-WORKDIR /opt/steamcmd
-RUN mv steam.sh steam && mv steamcmd.sh steamcmd
+# Add luarocks to PATH
+ENV PATH "$PATH:/opt/luarocks/bin"
 
-# Add SteamCMD to PATH
-ENV PATH "$PATH:/opt/steamcmd"
+# Install ldoc and luacheck lua rocks.
+RUN luarocks --lua-version 5.1 install ldoc && \
+    luarocks install luacheck
 
-# Install itch.io butler
-WORKDIR /tmp
-RUN wget https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default -O butler.zip && \
-    mkdir -p /opt/butler && \
-    unzip butler.zip -d /opt/butler
-
-WORKDIR /opt/butler
-RUN chmod +x butler
-
-# Add Butler to PATH
-ENV PATH "$PATH:/opt/butler"
-
-# Install Ruby and Rubygems packages
-RUN dnf -y install redhat-rpm-config ruby-devel rubygem-bundler rubygem-json rubygem-ffi rubygem-racc
-
-# Verify python version and install location.
+# Verify tool versions and install locations.
 RUN echo "Verifying python install" && \
     which python3 && \
-    python3 --version
-
-# Verify ruby version and install location.
-RUN echo "Verifying ruby install" && \
-    which ruby && \
-    ruby --version
-
-# Verify bundler version and install location.
-RUN echo "Verifying bundler install" && \
-    which bundle && \
-    bundle --version
-
-# Verify meson version and installation.
-RUN echo "Verifying meson install" && \
+    python3 --version && \
+    echo "Verifying luacheck install" && \
+    which luacheck && \
+    luacheck --version && \
+    echo "Verifying ldoc install" && \
+    which ldoc && \
+    echo "Verifying meson install" && \
     which meson && \
     meson --version
-
-# Verify SteamCMD version and installation.
-RUN echo "Verifying steamcmd install" && \
-    which steamcmd && \
-    steamcmd +quit
-
-# Verify Butler version and installation.
-RUN echo "Verifying butler install" && \
-    which butler && \
-    butler -V
-
-# Copy Gemfile
-WORKDIR /tmp
-RUN mkdir websiteTemp
-
-COPY Gemfile /tmp/websiteTemp
-
-# Install Website Build dependencies and gems.
-WORKDIR /tmp/websiteTemp
-RUN bundle install -j"$(nproc --all)"
-
-# Cleanup dnf cache
-RUN dnf clean all && \
-    rm -rf /tmp/websiteTemp && \
-    rm /tmp/butler.zip && \
-    rm /tmp/steamcmd_linux.tar.gz
 
 # Force appimages to run in extract mode since FUSE is not available
 ENV APPIMAGE_EXTRACT_AND_RUN 1
