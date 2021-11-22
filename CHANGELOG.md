@@ -1,10 +1,16 @@
 ### Overview:
-`naev-linux-archaic` (Used for old release builds)
-`naev-linux-lts` (Used for appimage, and release builds. oldest targetted glibc platform)
-`naev-linux-latest` (Used for CI, and testing. near-upstream platform)
-`naev-steamruntime` (Used to generate builds and for CI in the steamruntime (soldier) environment)
-`naev-windows` (Used to cross compile Windows releases, and CI)
-`naev-macos` (Used to cross compile macOS releases, and CI)
+- `naev-docs` (Used for building website and docs.)
+- `naev-linux-archaic` (Used for old release builds)
+- `naev-linux-latest` (Used for CI, and testing. near-upstream platform)
+- `naev-linux-lts` (Used for appimage, and release builds. oldest targetted glibc platform)
+- `naev-macos` (Used to cross compile macOS releases, and CI)
+- `naev-release` (Used for packaging releases)
+- `naev-steamruntime` (Used to generate builds and for CI in the steamruntime (soldier) environment)
+- `naev-windows` (Used to cross compile Windows releases, and CI)
+
+### v1.5.0
+Changed image base of `naev-linux-latest` to `fedora-minimal`, and slimmed down image considerably.
+Added `naev-docs` and `naev-release` images for building the website and documentation, as well as for packaging releases.
 
 ### v1.4.17
 I said "Added PyYAML", CentOS 7...
