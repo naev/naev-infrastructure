@@ -8,6 +8,10 @@
 - `naev-steamruntime` (Used to generate builds and for CI in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile Windows releases, and CI)
 
+### v1.5.1
+2nd time's the charm!
+added xz to `naev-docs` since our dist is xz'ed.
+
 ### v1.5.0
 Changed image base of `naev-linux-latest` to `fedora-minimal`, and slimmed down image considerably.
 Added `naev-docs` and `naev-release` images for building the website and documentation, as well as for packaging releases.

@@ -10,7 +10,7 @@ ENV IMAGE_NAME "naev-docs"
 # Install Ruby packages
 RUN microdnf -y install automake findutils gcc g++ make redhat-rpm-config ruby-devel rubygem-bundler rubygem-json rubygem-ffi rubygem-racc \
 # Install utilities
-    meson ninja-build git GraphicsMagick optipng rsync tidy tar unzip wget which zip \
+    meson ninja-build git GraphicsMagick optipng rsync tidy tar unzip wget which xz zip \
 # Install luarocks deps
     compat-lua compat-lua-devel ncurses-devel libevent-devel readline-devel && \
     microdnf clean all && \
