@@ -1,39 +1,20 @@
-FROM ubuntu:20.04
-
-LABEL org.opencontainers.image.authors "Naev Dev Team"
-LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
-LABEL org.opencontainers.image.description "MacOS cross-compile development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
-
-# Allows for determining what container scripts are run in.
-ENV IMAGE_NAME "naev-macos"
-
-# Add stable git PPA, deadsnakes ppa for python builds, and llvm apt repository (no building from source yay!)
-RUN apt-get update && apt-get install -y software-properties-common curl apt-transport-https && \
-    apt-add-repository ppa:git-core/ppa && add-apt-repository ppa:deadsnakes/ppa && \
-    curl -sL https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
-    curl -sL https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
-    add-apt-repository -s 'deb http://apt.llvm.org/focal/ llvm-toolchain-focal main' && \
-    apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main' && \
-    apt-get update
+# Build toolchain in build container to save space.
+FROM registry.fedoraproject.org/fedora-minimal AS build 
 
 # Install Build dependencies and utilities.
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y autopoint autoconf autoconf-archive bash clang cmake git intltool patch libssl-dev llvm-dev lzma-dev libxml2-dev nano ninja-build wget pkg-config vim zip
-
-# Install Python 3.9.* from deadsnakes PPA.
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3.9-dev python3.9-venv python3-pip
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1 && \
-    python3 -m pip install --upgrade pip && \
+RUN microdnf --nodocs --setopt=install_weak_deps=1 -y install bzip2 clang cmake git file findutils patch python3 \
+    openssl openssl-devel xz-devel libxml2-devel llvm-devel uuid-devel which unzip tar xz && \
+    microdnf clean all && \
+# Verify tool / language versions versions.
+    echo "Verifying clang install" && \
+    which clang && \
+    clang --version && \
+    echo "Verifying cmake install" && \
+    which cmake && \
+    cmake --version && \
     echo "Verifying python install" && \
     which python3 && \
-    python3 --version && \
-    echo "Verifying pip install" && \
-    python3 -m pip --version
-    
-# Install meson via pip.
-RUN python3 -m pip install meson && \
-    echo "Verifying meson install" && \
-    which meson && \
-    meson --version
+    python3 --version
 
 # Git clone osxcross repo
 WORKDIR /usr/local/src
@@ -55,17 +36,46 @@ ENV PATH "$PATH:/usr/lib/osxcross/bin"
 ENV OSXCROSS_MP_INC "1"
 
 # Install required build dependencies
-RUN UNATTENDED=1 osxcross-macports install binutils freetype glpk libsdl2 libsdl2_image libsdl2_mixer libpng libvorbis openal-soft OpenBLAS physfs SuiteSparse_CHOLMOD SuiteSparse_CXSparse webp
+RUN UNATTENDED=1 osxcross-macports install binutils freetype glpk libsdl2 libsdl2_image libpng \
+    libvorbis openal-soft OpenBLAS physfs SuiteSparse_CHOLMOD SuiteSparse_CXSparse webp
 
-# Horrible hack: ensure a hardcoded header file path resolves.  
-RUN rmdir /opt && ln -s /usr/lib/osxcross/macports/pkgs/opt /opt 
+# Build final container
+FROM registry.fedoraproject.org/fedora-minimal:latest
 
-# Set $HOST for use with bundle.py.
+WORKDIR /
+COPY --from=build /usr/lib/osxcross /usr/lib/osxcross 
+
+LABEL org.opencontainers.image.authors "Naev Dev Team"
+LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
+LABEL org.opencontainers.image.description "MacOS cross-compile development environment for Naev."
+
+# Allows for determining what container scripts are run in.
+ENV IMAGE_NAME "naev-macos"
+
+# Add OSXCROSS to path
+ENV PATH "$PATH:/usr/lib/osxcross/bin"
+
+# Ensure macports includes are enabled by default
+ENV OSXCROSS_MP_INC "1"
+
+# Set MACOSX_DEPLOYMENT_TARGET
+ENV MACOSX_DEPLOYMENT_TARGET "10.13"
+
+# Set HOST for bundle.py script
 ENV HOST "x86_64-apple-darwin17"
 
-# Force appimages to run in extract mode since FUSE is not available
+# Force appimages to extract to get around a lack of FUSE in docker. (without some ####ery at least.)
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
+# Install build tools.
+RUN microdnf --nodocs --setopt=install_weak_deps=1 -y install clang cmake gettext git llvm meson ninja-build python3-pyyaml which unzip tar xz zip && \
+    microdnf clean all && \
+# Verify tool version.
+    echo "Verifying meson install" && \
+    which meson && \
+    meson --version && \
+# Horrible hack: ensure a hardcoded header file path resolves.  
+    rmdir /opt && ln -s /usr/lib/osxcross/macports/pkgs/opt /opt && \
 # Set WORKDIR when you spin up the image.
-RUN mkdir -p /tmp/naevBuild
+    mkdir -p /tmp/naevBuild
 WORKDIR /tmp/naevBuild
