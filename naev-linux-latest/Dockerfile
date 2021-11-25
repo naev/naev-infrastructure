@@ -13,15 +13,15 @@ RUN curl -L -O https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-
     rpm -i rpmfusion-free-release-rawhide.noarch.rpm && \
     rm -rf /tmp/rpmfusion-free-release-rawhide.noarch.rpm && \
 # Install Build dependencies.
-    microdnf -y install make findutils meson ninja-build gcc clang binutils-devel fontconfig-devel freetype-devel gettext-devel glpk-devel \
-    libpng12-devel libxml2-devel libvorbis-devel libwebp-devel libunibreak-devel luajit-devel openal-soft-devel \
-    openblas-devel physfs-devel SDL2-devel SDL2_image-devel suitesparse-devel \
+    microdnf -y install make findutils meson ninja-build gcc clang binutils-devel fontconfig-devel freetype-devel \
+    gettext-devel glpk-devel libpng12-devel libxml2-devel libvorbis-devel libwebp-devel libunibreak-devel \
+    luajit-devel openal-soft-devel openblas-devel physfs-devel SDL2-devel SDL2_image-devel suitesparse-devel \
 # Install utilities
     git ffmpeg nano python3-pyyaml python3-mutagen tar which xz unzip zip \
 # Install luarocks deps
     lua-devel ncurses-devel libevent-devel readline-devel && \
     microdnf clean all && \
-# Build luarocks (In this case for lua 5.1 and lua latest)
+# Build luarocks
     curl -L -O https://luarocks.org/releases/luarocks-3.8.0.tar.gz && \
     tar zxpf luarocks-3.8.0.tar.gz && \
     cd luarocks-3.8.0 && \
