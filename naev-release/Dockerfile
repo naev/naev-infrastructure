@@ -7,19 +7,24 @@ LABEL org.opencontainers.image.description "For packaging releases."
 # Allows for determining what container scripts are run in.
 ENV IMAGE_NAME "naev-release"
 
-# Install utilities
-RUN microdnf -y install git tar xz unzip which zip \
+WORKDIR /tmp
+# Install GH CLI repository and utilities
+RUN gpg --recv-keys C99B11DEB97541F0 && \
+    gpg --export -a -o GH-RPM-GPG-KEY C99B11DEB97541F0 && \
+    rpm --import GH-RPM-GPG-KEY && \
+    curl -L -o /etc/yum.repos.d/gh-cli.repo https://cli.github.com/packages/rpm/gh-cli.repo && \
+    microdnf --nodocs --setopt=install_weak_deps=1 -y install git gh tar xz unzip which zip \
 # Install SteamCMD and friends
     glibc.i686 SDL2.i686 && \
-    microdnf clean all
+    microdnf clean all && \
+    rm GH-RPM-GPG-KEY
 
-WORKDIR /tmp
 RUN curl -L -O http://media.steampowered.com/installer/steamcmd_linux.tar.gz && \
     mkdir -p /opt/steamcmd && \
     tar -xvzf steamcmd_linux.tar.gz -C /opt/steamcmd && \
     mv /opt/steamcmd/steam.sh /opt/steamcmd/steam && \
     mv /opt/steamcmd/steamcmd.sh /opt/steamcmd/steamcmd && \
-    rm /tmp/steamcmd_linux.tar.gz
+    rm steamcmd_linux.tar.gz
 
 # Add SteamCMD to PATH
 ENV PATH "$PATH:/opt/steamcmd"
@@ -29,7 +34,7 @@ RUN curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archi
     mkdir -p /opt/butler && \
     unzip butler.zip -d /opt/butler && \
     chmod +x /opt/butler && \
-    rm /tmp/butler.zip
+    rm butler.zip
 
 # Add Butler to PATH
 ENV PATH "$PATH:/opt/butler"
@@ -46,5 +51,5 @@ RUN echo "Verifying steamcmd install" && \
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
 # Set WORKDIR when you spin up the image.
-RUN mkdir -p /tmp/naevBuild
+RUN mkdir -p naevBuild
 WORKDIR /tmp/naevBuild
