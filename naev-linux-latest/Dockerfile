@@ -1,5 +1,5 @@
 # Build luarocks in build container to save space.
-FROM registry.fedoraproject.org/fedora-minimal AS build 
+FROM registry.fedoraproject.org/fedora-minimal:latest AS build 
 
 # Install luarocks deps
 RUN microdnf --nodocs --setopt=install_weak_deps=1 -y install findutils gcc gzip lua-devel make ncurses-devel libevent-devel readline-devel tar unzip && \
@@ -9,7 +9,7 @@ RUN microdnf --nodocs --setopt=install_weak_deps=1 -y install findutils gcc gzip
     tar zxpf luarocks-3.8.0.tar.gz && \
     cd luarocks-3.8.0 && \
     ./configure --prefix=/opt/luarocks --versioned-rocks-dir && \
-    make && \
+    make -j"$(nproc --all)" && \
     make install
 
 # Add luarocks to PATH and install luacheck

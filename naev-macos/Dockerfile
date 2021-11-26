@@ -1,5 +1,5 @@
 # Build toolchain in build container to save space.
-FROM registry.fedoraproject.org/fedora-minimal AS build 
+FROM registry.fedoraproject.org/fedora-minimal:latest AS build 
 
 # Install Build dependencies and utilities.
 RUN microdnf --nodocs --setopt=install_weak_deps=1 -y install bzip2 clang cmake git file findutils patch python3 \
