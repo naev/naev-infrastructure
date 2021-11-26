@@ -10,7 +10,8 @@
 
 ### v1.5.2
 Slim down `naev-macos` image considerably. (Changed image base to `fedora-minimal`)
-Add GitHub CLI client to `naev-release`
+Slim down `naev-docs` image considerably.
+Add GitHub CLI client, and Meson to `naev-release`
 
 ### v1.5.1
 2nd time's the charm!
