@@ -8,30 +8,19 @@ LABEL org.opencontainers.image.description "Steam runtime (Soldier) development 
 ENV IMAGE_NAME "naev-steamruntime"
 
 # Install pip from steam/debian repositories.
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip
-RUN python3 -m pip install --upgrade pip && \
-    echo "Verifying python install" && \
-    which python3 && \
-    python3 --version && \
-    echo "Verifying pip install" && \
-    python3 -m pip --version
-
-# Install Mutagen for soundtrack generation via pip.
-RUN python3 -m pip install mutagen
-
-# Upgrade meson via pip.
-RUN python3 -m pip install meson --upgrade && \
-    echo "Verifying meson install" && \
-    which meson && \
-    meson --version
-
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip \
 # Naughty: we need libwebp, and libopenblas, not in the SDK.... Both are statically linked when building with the steamruntime option in meson set to true.
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libopenblas-dev libwebp-dev
-
-# Cleanup apt cache and remove lists.
-RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
+    libopenblas-dev libwebp-dev && \
+    apt-get clean && \
+# Upgrade meson via pip.
+    python3 -m pip install meson --upgrade && \
+    echo "Verifying python install" && \
+    command -v python3 && \
+    python3 --version && \
+    echo "Verifying meson install" && \
+    command -v meson && \
+    meson --version
+    
 # Force appimages to run in extract mode since FUSE is not available
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
