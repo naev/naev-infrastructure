@@ -13,7 +13,7 @@ RUN gpg --recv-keys C99B11DEB97541F0 && \
     gpg --export -a -o GH-RPM-GPG-KEY C99B11DEB97541F0 && \
     rpm --import GH-RPM-GPG-KEY && \
     curl -L -o /etc/yum.repos.d/gh-cli.repo https://cli.github.com/packages/rpm/gh-cli.repo && \
-    microdnf --nodocs --setopt=install_weak_deps=1 -y install git gh tar xz unzip which zip \
+    microdnf --nodocs --setopt=install_weak_deps=1 -y install meson ninja-build gcc python3-pyyaml git gh tar xz unzip which zip \
 # Install SteamCMD and friends
     glibc.i686 SDL2.i686 && \
     microdnf clean all && \
