@@ -13,7 +13,7 @@ RUN gpg --recv-keys C99B11DEB97541F0 && \
     gpg --export -a -o GH-RPM-GPG-KEY C99B11DEB97541F0 && \
     rpm --import GH-RPM-GPG-KEY && \
     curl -L -o /etc/yum.repos.d/gh-cli.repo https://cli.github.com/packages/rpm/gh-cli.repo && \
-    microdnf --nodocs --setopt=install_weak_deps=1 -y install meson ninja-build gcc python3-pyyaml git gh tar xz unzip which zip \
+    microdnf --nodocs --setopt=install_weak_deps=1 -y install meson ninja-build gcc python3-pyyaml git gh tar xz unzip zip \
 # Install SteamCMD and friends
     glibc.i686 SDL2.i686 && \
     microdnf clean all && \
@@ -41,10 +41,10 @@ ENV PATH "$PATH:/opt/butler"
 
 # Verify tool versions and installation locations.
 RUN echo "Verifying steamcmd install" && \
-    which steamcmd && \
+    command -v steamcmd && \
     steamcmd +quit && \
     echo "Verifying butler install" && \
-    which butler && \
+    command -v butler && \
     butler -V
 
 # Force appimages to run in extract mode since FUSE is not available

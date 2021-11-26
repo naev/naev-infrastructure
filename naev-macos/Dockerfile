@@ -3,17 +3,17 @@ FROM registry.fedoraproject.org/fedora-minimal:latest AS build
 
 # Install Build dependencies and utilities.
 RUN microdnf --nodocs --setopt=install_weak_deps=1 -y install bzip2 clang cmake git file findutils patch python3 \
-    openssl openssl-devel xz-devel libxml2-devel llvm-devel uuid-devel which unzip tar xz && \
+    openssl openssl-devel xz-devel libxml2-devel llvm-devel uuid-devel unzip tar xz && \
     microdnf clean all && \
 # Verify tool / language versions versions.
     echo "Verifying clang install" && \
-    which clang && \
+    command -v clang && \
     clang --version && \
     echo "Verifying cmake install" && \
-    which cmake && \
+    command -v cmake && \
     cmake --version && \
     echo "Verifying python install" && \
-    which python3 && \
+    command -v python3 && \
     python3 --version
 
 # Git clone osxcross repo
@@ -69,11 +69,11 @@ ENV HOST "x86_64-apple-darwin17"
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
 # Install build tools.
-RUN microdnf --nodocs --setopt=install_weak_deps=1 -y install clang cmake gettext git llvm meson ninja-build python3-pyyaml which unzip tar xz zip && \
+RUN microdnf --nodocs --setopt=install_weak_deps=1 -y install clang cmake gettext git llvm meson ninja-build python3-pyyaml unzip tar xz zip && \
     microdnf clean all && \
 # Verify tool version.
     echo "Verifying meson install" && \
-    which meson && \
+    command -v meson && \
     meson --version && \
 # Horrible hack: ensure a hardcoded header file path resolves.  
     rmdir /opt && ln -s /usr/lib/osxcross/macports/pkgs/opt /opt && \

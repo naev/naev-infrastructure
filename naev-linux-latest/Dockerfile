@@ -38,7 +38,7 @@ RUN curl -L -O https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-
     gettext-devel glpk-devel libpng12-devel libxml2-devel libvorbis-devel libwebp-devel libunibreak-devel \
     luajit-devel openal-soft-devel openblas-devel physfs-devel SDL2-devel SDL2_image-devel suitesparse-devel \
 # Install utilities
-    git ffmpeg libevent lua nano ncurses python3-pyyaml python3-mutagen readline tar which xz unzip zip && \
+    git ffmpeg libevent lua nano ncurses python3-pyyaml python3-mutagen readline tar xz unzip zip && \
     microdnf clean all
 
 # Add luarocks to PATH
@@ -46,13 +46,13 @@ ENV PATH "$PATH:/opt/luarocks/bin"
 
 # Verify tool versions and install locations.
 RUN echo "Verifying python install" && \
-    which python3 && \
+    command -v python3 && \
     python3 --version && \
     echo "Verifying luacheck install" && \
-    which luacheck && \
+    command -v luacheck && \
     luacheck --version && \
     echo "Verifying meson install" && \
-    which meson && \
+    command -v meson && \
     meson --version
 
 # Force appimages to run in extract mode since FUSE is not available
