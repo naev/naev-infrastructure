@@ -58,7 +58,7 @@ ENV PATH "$PATH:/opt/luarocks/bin"
 ENV PATH "$PATH:/opt/ruby/bin"
 
 # Install utilities
-RUN microdnf --nodocs --setopt=install_weak_deps=1 -y install meson ninja-build git GraphicsMagick openssl optipng \
+RUN microdnf --nodocs --setopt=install_weak_deps=1 -y install make meson ninja-build gcc git GraphicsMagick openssl optipng \
     python3-pyyaml rsync tidy tar unzip wget which xz zip \
 # Install luarocks deps
     compat-lua ncurses libevent readline && \
