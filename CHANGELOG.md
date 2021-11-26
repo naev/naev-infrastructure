@@ -8,6 +8,10 @@
 - `naev-steamruntime` (Used to generate builds and for CI in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile Windows releases, and CI)
 
+### v1.5.2
+Slim down `naev-macos` image considerably. (Changed image base to `fedora-minimal`)
+Add GitHub CLI client to `naev-release`
+
 ### v1.5.1
 2nd time's the charm!
 added xz to `naev-docs` since our dist is xz'ed.
