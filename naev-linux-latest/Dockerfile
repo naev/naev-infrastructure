@@ -2,7 +2,7 @@
 FROM registry.fedoraproject.org/fedora-minimal:rawhide AS build 
 
 # Install luarocks deps
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install findutils gcc gzip lua lua-devel make ncurses-devel libevent-devel readline-devel tar unzip && \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install findutils gcc gzip lua lua-devel make ncurses-devel libevent-devel readline-devel tar xz unzip && \
     microdnf clean all && \
 # Build luarocks
     curl -L -O https://luarocks.org/releases/luarocks-3.8.0.tar.gz && \
@@ -16,6 +16,11 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install findutils gcc gzip
 ENV PATH "$PATH:/opt/luarocks/bin"
 RUN luarocks install luacheck
 
+# Download and extract ffmpeg
+RUN mkdir /opt/ffmpeg && \
+    curl -L -O https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz && \
+    tar xvf ffmpeg-release-amd64-static.tar.xz --strip-components 1 -C /opt/ffmpeg
+
 # Build final container
 FROM registry.fedoraproject.org/fedora-minimal:rawhide
 
@@ -28,20 +33,20 @@ ENV IMAGE_NAME "naev-linux-latest"
 
 WORKDIR /
 COPY --from=build /opt/luarocks /opt/luarocks 
+COPY --from=build /opt/ffmpeg /opt/ffmpeg 
 
 # Add luarocks to PATH
 ENV PATH "$PATH:/opt/luarocks/bin"
 
-# Enable RPMFusion for additional up-to-date tools.
-RUN curl -L -O https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-rawhide.noarch.rpm && \
-    rpm -i rpmfusion-free-release-rawhide.noarch.rpm && \
-    rm -rf /tmp/rpmfusion-free-release-rawhide.noarch.rpm && \
+# Add ffmpeg to PATH
+ENV PATH "$PATH:/opt/ffmpeg"
+
 # Install Build dependencies.
-    microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build gcc binutils-devel fontconfig-devel freetype-devel \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build gcc binutils-devel fontconfig-devel freetype-devel \
     gettext-devel glpk-devel file libpng12-devel libxml2-devel libvorbis-devel libwebp-devel libunibreak-devel \
     luajit-devel openal-soft-devel openblas-devel physfs-devel SDL2-devel SDL2_image-devel suitesparse-devel \
 # Install utilities
-    git ffmpeg libevent lua nano ncurses python3-pyyaml python3-mutagen readline tar xz unzip zip && \
+    git libevent lua nano ncurses python3-pyyaml python3-mutagen readline tar xz unzip zip && \
     microdnf clean all && \
 # Verify tool versions and install locations.
     echo "Verifying python install" && \
@@ -52,7 +57,10 @@ RUN curl -L -O https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-
     luacheck --version && \
     echo "Verifying meson install" && \
     command -v meson && \
-    meson --version
+    meson --version && \
+    echo "Verifying ffmpeg install" && \
+    command -v ffmpeg && \
+    ffmpeg -version
 
 # Force appimages to run in extract mode since FUSE is not available
 ENV APPIMAGE_EXTRACT_AND_RUN 1
