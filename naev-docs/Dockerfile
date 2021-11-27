@@ -2,7 +2,7 @@
 FROM registry.fedoraproject.org/fedora-minimal:latest AS build 
 
 # Install luarocks deps
-RUN microdnf --nodocs --setopt=install_weak_deps=1 -y install findutils gcc git gzip compat-lua \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install findutils gcc git gzip compat-lua \
     compat-lua-devel make ncurses-devel libevent-devel openssl openssl-devel readline-devel tar unzip automake findutils g++ && \
     microdnf clean all
 
@@ -58,7 +58,7 @@ ENV PATH "$PATH:/opt/luarocks/bin"
 ENV PATH "$PATH:/opt/ruby/bin"
 
 # Install utilities
-RUN microdnf --nodocs --setopt=install_weak_deps=1 -y install make meson ninja-build gcc git GraphicsMagick openssl optipng \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make meson ninja-build gcc git GraphicsMagick openssl optipng \
     python3-pyyaml rsync tidy tar unzip wget xz zip \
 # Install luarocks deps
     compat-lua ncurses libevent readline && \
