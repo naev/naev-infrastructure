@@ -8,11 +8,8 @@ LABEL org.opencontainers.image.description "Naev Linux (LTS) development/testing
 ENV IMAGE_NAME "naev-linux-lts"
 
 WORKDIR /tmp
-# Enable the EPEL, RPMFusion, End Point repositories for additional up-to-date tools.
+# Enable the EPEL and End Point repositories for additional up-to-date tools.
 RUN yum -y install epel-release && \
-    curl -L -O https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm && \
-    rpm -i rpmfusion-free-release-7.noarch.rpm && \
-    rm -rf /tmp/rpmfusion-free-release-7.noarch.rpm && \
     curl -L -O https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm && \
     rpm -i endpoint-repo-1.7-1.x86_64.rpm && \
     rm -rf /tmp/endpoint-repo-1.7-1.x86_64.rpm && \
@@ -24,7 +21,7 @@ RUN yum -y install epel-release && \
 # Install utilities
     git nano tar xz unzip zip && \
     yum clean all && \
-# Install pyyaml and mutagen
+# Install pyyaml
     python3 -m pip install PyYAML && \
 # Verify python version and install location.
     echo "Verifying python install" && \
