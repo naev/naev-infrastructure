@@ -48,7 +48,7 @@ COPY --from=build /usr/lib/osxcross /usr/lib/osxcross
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
-LABEL org.opencontainers.image.description "MacOS cross-compile development environment for Naev."
+LABEL org.opencontainers.image.description "Used to cross compile for macOS."
 
 # Allows for determining what container scripts are run in.
 ENV IMAGE_NAME "naev-macos"

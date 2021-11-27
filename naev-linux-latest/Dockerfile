@@ -26,7 +26,7 @@ FROM registry.fedoraproject.org/fedora-minimal:rawhide
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
-LABEL org.opencontainers.image.description "Naev Linux (Latest) development/testing environment for Naev."
+LABEL org.opencontainers.image.description "Used for CI, testing and soundtrack builds."
 
 # Allows for determining what container scripts are run in.
 ENV IMAGE_NAME "naev-linux-latest"

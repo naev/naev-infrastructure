@@ -1,12 +1,12 @@
 ### Overview:
 - `naev-docs` (Used for building website and docs.)
 - `naev-linux-archaic` (Used for old release builds)
-- `naev-linux-latest` (Used for CI, and testing. near-upstream platform)
-- `naev-linux-lts` (Used for appimage, and release builds. oldest targetted glibc platform)
-- `naev-macos` (Used to cross compile macOS releases, and CI)
+- `naev-linux-latest` (Used for CI, testing and soundtrack builds.)
+- `naev-linux-lts` (Used for release builds. oldest targetted glibc platform)
+- `naev-macos` (Used to cross compile for macOS.)
 - `naev-release` (Used for packaging releases)
-- `naev-steamruntime` (Used to generate builds and for CI in the steamruntime (soldier) environment)
-- `naev-windows` (Used to cross compile Windows releases, and CI)
+- `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
+- `naev-windows` (Used to cross compile for Windows.)
 
 ### v1.5.2
 Slim down `naev-linux-lts` image considerably.

@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
-LABEL org.opencontainers.image.description "Naev Linux (Archaic) build/testing environment for Naev (ancient releases.)"
+LABEL org.opencontainers.image.description "Used for old release builds"
 
 # Allows for determining what container scripts are run in.
 ENV IMAGE_NAME "naev-linux-archaic"

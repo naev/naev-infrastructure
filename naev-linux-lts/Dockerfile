@@ -2,7 +2,7 @@ FROM centos:7
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
-LABEL org.opencontainers.image.description "Naev Linux (LTS) development/testing environment for Naev (releases and testing)"
+LABEL org.opencontainers.image.description "Used for release builds. oldest targetted glibc platform"
 
 # Allows for determining what container scripts are run in.
 ENV IMAGE_NAME "naev-linux-lts"

@@ -2,7 +2,7 @@ FROM registry.fedoraproject.org/fedora-minimal:latest
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
-LABEL org.opencontainers.image.description "Windows cross-compile development environment for Naev."
+LABEL org.opencontainers.image.description "Used to cross compile for Windows."
 
 # Allows for determining what container scripts are run in.
 ENV IMAGE_NAME "naev-windows"
