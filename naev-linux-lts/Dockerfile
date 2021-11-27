@@ -22,10 +22,10 @@ RUN yum -y install epel-release && \
     libunibreak-devel luajit-devel openal-soft-devel openblas-devel SDL2-devel \
     SDL2_image-devel \
 # Install utilities
-    git ffmpeg nano tar xz unzip zip && \
+    git nano tar xz unzip zip && \
     yum clean all && \
 # Install pyyaml and mutagen
-    python3 -m pip install PyYAML mutagen && \
+    python3 -m pip install PyYAML && \
 # Verify python version and install location.
     echo "Verifying python install" && \
     command -v python3 && \
