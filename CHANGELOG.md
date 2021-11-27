@@ -10,6 +10,7 @@
 
 ### v1.5.2
 Slim down `naev-linux-lts` image considerably.
+Slim down `naev-windows` image by ~5x.
 Shrink `naev-steamruntime` slightly
 Add luacheck to `naev-linux-latest`
 
