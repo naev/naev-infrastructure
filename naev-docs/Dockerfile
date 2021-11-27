@@ -59,7 +59,7 @@ ENV PATH "$PATH:/opt/ruby/bin"
 
 # Install utilities
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make meson ninja-build gcc git GraphicsMagick openssl optipng \
-    python3-pyyaml rsync tidy tar unzip wget xz zip \
+    python3-pyyaml rsync tidy tar unzip xz zip \
 # Install luarocks deps
     compat-lua ncurses libevent readline && \
     microdnf clean all && \
