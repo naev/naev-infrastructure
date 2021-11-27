@@ -1,6 +1,7 @@
 # Build luarocks in build container to save space.
 FROM registry.fedoraproject.org/fedora-minimal:rawhide AS build 
 
+WORKDIR /tmp
 # Install luarocks deps
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install findutils gcc gzip lua lua-devel make ncurses-devel libevent-devel readline-devel tar xz unzip && \
     microdnf clean all && \
@@ -16,9 +17,10 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install findutils gcc gzip
 ENV PATH "$PATH:/opt/luarocks/bin"
 RUN luarocks install luacheck
 
+# Copy ffmpeg tarball to image.
+COPY ffmpeg-release-amd64-static.tar.xz /tmp
 # Download and extract ffmpeg
 RUN mkdir /opt/ffmpeg && \
-    curl -L -O https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz && \
     tar xvf ffmpeg-release-amd64-static.tar.xz --strip-components 1 -C /opt/ffmpeg
 
 # Build final container
