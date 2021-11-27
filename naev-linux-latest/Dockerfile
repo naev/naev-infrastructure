@@ -29,6 +29,9 @@ ENV IMAGE_NAME "naev-linux-latest"
 WORKDIR /
 COPY --from=build /opt/luarocks /opt/luarocks 
 
+# Add luarocks to PATH
+ENV PATH "$PATH:/opt/luarocks/bin"
+
 # Enable RPMFusion for additional up-to-date tools.
 RUN curl -L -O https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-rawhide.noarch.rpm && \
     rpm -i rpmfusion-free-release-rawhide.noarch.rpm && \
@@ -39,13 +42,9 @@ RUN curl -L -O https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-
     luajit-devel openal-soft-devel openblas-devel physfs-devel SDL2-devel SDL2_image-devel suitesparse-devel \
 # Install utilities
     git ffmpeg libevent lua nano ncurses python3-pyyaml python3-mutagen readline tar xz unzip zip && \
-    microdnf clean all
-
-# Add luarocks to PATH
-ENV PATH "$PATH:/opt/luarocks/bin"
-
+    microdnf clean all && \
 # Verify tool versions and install locations.
-RUN echo "Verifying python install" && \
+    echo "Verifying python install" && \
     command -v python3 && \
     python3 --version && \
     echo "Verifying luacheck install" && \
