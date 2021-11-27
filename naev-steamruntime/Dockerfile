@@ -2,7 +2,7 @@ FROM registry.gitlab.steamos.cloud/steamrt/soldier/sdk:latest
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
-LABEL org.opencontainers.image.description "Steam runtime (Soldier) development environment for Naev, various dependencies for testing meson and autotools as well as additional Naev functionality."
+LABEL org.opencontainers.image.description "Steam runtime (Soldier) build environment for Naev."
 
 # Allows for determining what container scripts are run in.
 ENV IMAGE_NAME "naev-steamruntime"
