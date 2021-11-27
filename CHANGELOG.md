@@ -9,6 +9,11 @@
 - `naev-windows` (Used to cross compile Windows releases, and CI)
 
 ### v1.5.2
+Slim down `naev-linux-lts` image considerably.
+Shrink `naev-steamruntime` slightly
+Add luacheck to `naev-linux-latest`
+
+### v1.5.2
 Slim down `naev-macos` image considerably. (Changed image base to `fedora-minimal`)
 Slim down `naev-docs` image considerably.
 Add GitHub CLI client, and Meson to `naev-release`
