@@ -8,6 +8,9 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.5.4
+Replace gh with github-asset-uploader in `naev-release`
+
 ### v1.5.3
 Slim down `naev-linux-lts` image considerably.
 Slim down `naev-windows` image by ~5x.

@@ -1,3 +1,18 @@
+# Build luarocks in build container to save space.
+FROM registry.fedoraproject.org/fedora-minimal:latest AS build 
+
+WORKDIR /tmp
+# Install luarocks deps
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install git golang && \
+    microdnf clean all && \
+# Build luarocks
+    git clone https://github.com/wangyoucao577/assets-uploader.git && \
+    cd assets-uploader/cmd/github-assets-uploader && \
+    go build  && \
+    ./github-assets-uploader -version
+
+# Build final container
+
 FROM registry.fedoraproject.org/fedora-minimal:latest
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
@@ -7,6 +22,12 @@ LABEL org.opencontainers.image.description "Used for packaging releases"
 # Allows for determining what container scripts are run in.
 ENV IMAGE_NAME "naev-release"
 
+WORKDIR /
+COPY --from=build /tmp/assets-uploader/cmd/github-assets-uploader/github-assets-uploader /opt/github-assets-uploader/github-assets-uploader
+
+# Add github-assets-uploader to PATH
+ENV PATH "$PATH:/opt/github-assets-uploader"
+
 # Add SteamCMD to PATH
 ENV PATH "$PATH:/opt/steamcmd"
 
@@ -15,15 +36,10 @@ ENV PATH "$PATH:/opt/butler"
 
 WORKDIR /tmp
 # Install GH CLI repository and utilities
-RUN gpg --recv-keys C99B11DEB97541F0 && \
-    gpg --export -a -o GH-RPM-GPG-KEY C99B11DEB97541F0 && \
-    rpm --import GH-RPM-GPG-KEY && \
-    curl -L -o /etc/yum.repos.d/gh-cli.repo https://cli.github.com/packages/rpm/gh-cli.repo && \
-    microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build gcc python3-pyyaml git gh tar xz unzip zip \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build gcc python3-pyyaml git tar xz unzip zip \
 # Install SteamCMD and friends
     glibc.i686 SDL2.i686 && \
     microdnf clean all && \
-    rm GH-RPM-GPG-KEY && \
 # Download and install SteamCMD
     curl -L -O http://media.steampowered.com/installer/steamcmd_linux.tar.gz && \
     mkdir -p /opt/steamcmd && \
@@ -43,7 +59,10 @@ RUN gpg --recv-keys C99B11DEB97541F0 && \
     steamcmd +quit && \
     echo "Verifying butler install" && \
     command -v butler && \
-    butler -V
+    butler -V && \
+    echo "Verifying github-assets-uploader install" && \
+    command -v github-assets-uploader && \
+    github-assets-uploader -version
 
 # Force appimages to run in extract mode since FUSE is not available
 ENV APPIMAGE_EXTRACT_AND_RUN 1
@@ -51,3 +70,6 @@ ENV APPIMAGE_EXTRACT_AND_RUN 1
 # Set WORKDIR when you spin up the image.
 RUN mkdir -p naevBuild
 WORKDIR /tmp/naevBuild
+
+COPY naev source
+COPY build build
