@@ -17,4 +17,5 @@ These images are used by the [Naev Project](https://github.com/naev/naev) in CI 
 
 
 ### Build Status:
-[![Naev Infrastructure Testing](https://github.com/naev/naev-infrastructure/actions/workflows/test_docker.yml/badge.svg)](https://github.com/naev/naev-infrastructure/actions/workflows/test_docker.yml)
+[![Naev Infrastructure Testing](https://github.com/naev/naev-infrastructure/actions/workflows/test_docker.yml/badge.svg)](https://github.com/naev/naev-infrastructure/actions/workflows/test_docker.yml) \
+[![Naev Infrastructure Deployment](https://github.com/naev/naev-infrastructure/actions/workflows/deploy_docker.yml/badge.svg)](https://github.com/naev/naev-infrastructure/actions/workflows/deploy_docker.yml)
