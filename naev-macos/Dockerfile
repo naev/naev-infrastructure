@@ -37,7 +37,7 @@ ENV OSXCROSS_MP_INC "1"
 
 # Install required build dependencies
 RUN UNATTENDED=1 osxcross-macports install binutils freetype glpk libsdl2 libsdl2_image libpng \
-    libvorbis openal-soft OpenBLAS physfs SuiteSparse_CHOLMOD SuiteSparse_CXSparse webp && \
+    libvorbis openal-soft OpenBLAS pcre2 physfs SuiteSparse_CHOLMOD SuiteSparse_CXSparse webp && \
     UNATTENDED=1 osxcross-macports clear-cache
 
 # Build final container

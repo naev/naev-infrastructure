@@ -12,7 +12,7 @@ WORKDIR /tmp
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install gcc gettext git meson ninja-build python3-pyyaml tar xz unzip zip \
 # Install mingw64 packages
     mingw64-gcc mingw64-freetype mingw64-libvorbis mingw64-libxml2 mingw64-openal-soft \
-    mingw64-SDL2 mingw64-SDL2_image mingw64-libpng mingw32-nsis && \
+    mingw64-SDL2 mingw64-SDL2_image mingw64-libpng mingw32-nsis mingw64-pcre2 && \
     microdnf clean all && \
 # Install openblas for mingw (building this from source is an option but probably painful)
     curl -L -O https://github.com/xianyi/OpenBLAS/releases/download/v0.3.18/OpenBLAS-0.3.18-x64.zip && \

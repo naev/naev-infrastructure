@@ -46,7 +46,7 @@ ENV PATH "$PATH:/opt/ffmpeg"
 # Install Build dependencies.
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build gcc binutils-devel fontconfig-devel freetype-devel \
     gettext-devel glpk-devel file libpng12-devel libxml2-devel libvorbis-devel libwebp-devel libunibreak-devel \
-    luajit-devel openal-soft-devel openblas-devel physfs-devel SDL2-devel SDL2_image-devel suitesparse-devel \
+    luajit-devel openal-soft-devel openblas-devel pcre2-devel physfs-devel SDL2-devel SDL2_image-devel suitesparse-devel \
 # Install utilities
     git libevent lua nano ncurses python3-pyyaml python3-mutagen readline tar xz unzip zip && \
     microdnf clean all && \

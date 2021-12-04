@@ -16,7 +16,7 @@ RUN yum -y install epel-release && \
 # Install Build dependencies.
     yum -y install meson ninja-build gcc binutils-devel fontconfig-devel freetype-devel \
     gettext-devel glpk-devel file libpng12-devel libxml2-devel libvorbis-devel libwebp-devel \
-    libunibreak-devel luajit-devel openal-soft-devel openblas-devel SDL2-devel \
+    libunibreak-devel luajit-devel openal-soft-devel openblas-devel pcre2-devel SDL2-devel \
     SDL2_image-devel \
 # Install utilities
     git nano tar xz unzip zip && \
