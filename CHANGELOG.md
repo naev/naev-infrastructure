@@ -8,6 +8,9 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.5.5
+Add pcre2 to `naev-linux-latest`, `naev-linux-lts`, `naev-macos`, and `naev-windows` images.
+
 ### v1.5.4
 Replace gh with github-asset-uploader in `naev-release`
 
@@ -24,7 +27,7 @@ Add GitHub CLI client, and Meson to `naev-release`
 
 ### v1.5.1
 2nd time's the charm!
-added xz to `naev-docs` since our dist is xz'ed.
+Added xz to `naev-docs` since our dist is xz'ed.
 
 ### v1.5.0
 Changed image base of `naev-linux-latest` to `fedora-minimal`, and slimmed down image considerably.
