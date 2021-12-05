@@ -10,6 +10,7 @@
 
 ### v1.5.5
 Add pcre2 to `naev-linux-latest`, `naev-linux-lts`, `naev-macos`, and `naev-windows` images.
+Add ARM64-ready version of `naev-macos` image.
 
 ### v1.5.4
 Replace gh with github-asset-uploader in `naev-release`
