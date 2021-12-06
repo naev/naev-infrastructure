@@ -32,7 +32,7 @@ jobs:
             arch: amd64
             imagename: "naev-macos"
           - context: "naev-macos"
-            arch: arm64
+            arch: aarch64
             imagename: "naev-macos"
 
     runs-on: ubuntu-latest
