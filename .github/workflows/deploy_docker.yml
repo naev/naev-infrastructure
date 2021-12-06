@@ -52,7 +52,7 @@ jobs:
           - context: "naev-macos"
             arch: aarch64
             imagename: "naev-macos"
-            
+
     runs-on: ubuntu-latest
 
     steps:
@@ -60,14 +60,14 @@ jobs:
         uses: actions/checkout@master
 
       - name: Docker meta (amd64 versions)
-        id: docker_meta
+        id: docker_meta_amd64
         if: ${{ matrix.arch == 'amd64' }}
         uses: crazy-max/ghaction-docker-meta@v3
         with:
           images: ghcr.io/naev/${{ matrix.imagename }}
 
-      - name: Docker meta (arm64 versions)
-        id: docker_meta
+      - name: Docker meta (aarch64 versions)
+        id: docker_meta_aarch64
         if: ${{ matrix.arch == 'aarch64' }}
         uses: crazy-max/ghaction-docker-meta@v3
         with:
@@ -89,7 +89,18 @@ jobs:
           password: ${{ secrets.CR_PAT }}
 
       - name: Build and push
-        id: docker_build
+        id: docker_build_amd64
+        if: ${{ matrix.arch == 'amd64' }}
+        uses: docker/build-push-action@v2
+        with:
+          context: ${{ matrix.context }}
+          file: "${{ matrix.context }}/Dockerfile.${{ matrix.arch }}"
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
+
+      - name: Build and push
+        id: docker_build_aarch64
+        if: ${{ matrix.arch == 'aarch64' }}
         uses: docker/build-push-action@v2
         with:
           context: ${{ matrix.context }}
