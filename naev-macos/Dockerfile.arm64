@@ -36,7 +36,7 @@ ENV PATH "$PATH:/usr/lib/osxcross/bin"
 ENV OSXCROSS_MP_INC "1"
 
 # Install required build dependencies
-RUN UNATTENDED=1 osxcross-macports install binutils freetype glpk libsdl2 libsdl2_image libpng \
+RUN UNATTENDED=1 osxcross-macports install -arm64 -v binutils freetype glpk libsdl2 libsdl2_image libpng \
     libvorbis openal-soft OpenBLAS pcre2 physfs SuiteSparse_CHOLMOD SuiteSparse_CXSparse webp && \
     UNATTENDED=1 osxcross-macports clear-cache
 
@@ -63,7 +63,7 @@ ENV OSXCROSS_MP_INC "1"
 ENV MACOSX_DEPLOYMENT_TARGET "11.0"
 
 # Set HOST for bundle.py script
-ENV HOST "arm64-apple-darwin20.1"
+ENV HOST "aarch64-apple-darwin20.1"
 
 # Force appimages to extract to get around a lack of FUSE in docker. (without some ####ery at least.)
 ENV APPIMAGE_EXTRACT_AND_RUN 1
