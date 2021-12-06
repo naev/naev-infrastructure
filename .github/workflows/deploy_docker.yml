@@ -26,33 +26,54 @@ jobs:
       matrix:
         include:
           - context: "naev-linux-archaic"
+            arch: amd64
             imagename: "naev-linux-archaic"
           - context: "naev-docs"
+            arch: amd64
             imagename: "naev-docs"
           - context: "naev-linux-lts"
+            arch: amd64
             imagename: "naev-linux-lts"
           - context: "naev-linux-latest"
+            arch: amd64
             imagename: "naev-linux-latest"
           - context: "naev-release"
+            arch: amd64
             imagename: "naev-release"
           - context: "naev-steamruntime"
+            arch: amd64
             imagename: "naev-steamruntime"
           - context: "naev-windows"
+            arch: amd64
             imagename: "naev-windows"
           - context: "naev-macos"
+            arch: amd64
             imagename: "naev-macos"
-
+          - context: "naev-macos"
+            arch: aarch64
+            imagename: "naev-macos"
+            
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@master
 
-      - name: Docker meta
+      - name: Docker meta (amd64 versions)
         id: docker_meta
+        if: ${{ matrix.arch == 'amd64' }}
         uses: crazy-max/ghaction-docker-meta@v3
         with:
-          images: ghcr.io/projectsynchro/${{ matrix.imagename }}
+          images: ghcr.io/naev/${{ matrix.imagename }}
+
+      - name: Docker meta (arm64 versions)
+        id: docker_meta
+        if: ${{ matrix.arch == 'aarch64' }}
+        uses: crazy-max/ghaction-docker-meta@v3
+        with:
+          images: ghcr.io/naev/${{ matrix.imagename }}
+          flavor: |
+            suffix=-${{ matrix.arch }},onlatest=true
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -72,6 +93,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ${{ matrix.context }}
-          file: ${{ matrix.context }}/Dockerfile.amd64
+          file: "${{ matrix.context }}/Dockerfile.${{ matrix.arch }}"
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
