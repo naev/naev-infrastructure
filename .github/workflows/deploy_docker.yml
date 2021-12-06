@@ -96,7 +96,7 @@ jobs:
           context: ${{ matrix.context }}
           file: "${{ matrix.context }}/Dockerfile.${{ matrix.arch }}"
           push: true
-          tags: ${{ steps.docker_meta.outputs.tags }}
+          tags: ${{ steps.docker_meta_amd64.outputs.tags }}
 
       - name: Build and push
         id: docker_build_aarch64
@@ -106,4 +106,4 @@ jobs:
           context: ${{ matrix.context }}
           file: "${{ matrix.context }}/Dockerfile.${{ matrix.arch }}"
           push: true
-          tags: ${{ steps.docker_meta.outputs.tags }}
+          tags: ${{ steps.docker_meta_aarch64.outputs.tags }}
