@@ -12,7 +12,7 @@ This repository contains Dockerfiles for all of the [Naev Project](https://githu
 - `naev-windows` (Used to cross compile for Windows.)
 
 
-Images are available from the Github Package Registry [HERE](https://github.com/ProjectSynchro?tab=packages).
+Publicly available images are available from the Github Package Registry [HERE](https://github.com/orgs/naev/packages?repo_name=naev-infrastructure).
 These images are used by the [Naev Project](https://github.com/naev/naev) in CI and CD workflows to provide standard build environments, and limit 'moving parts'.
 
 
