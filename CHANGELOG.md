@@ -8,6 +8,9 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.5.6
+Add pcre2 to `naev-steamruntime`, requires 'steamruntime' meson option to be set to true.
+
 ### v1.5.5
 Add pcre2 to `naev-linux-latest`, `naev-linux-lts`, `naev-macos`, and `naev-windows` images.
 Add aarch64 version of `naev-macos` image for building Apple Silicon binaries. Tags will have the suffix of *-aarch64.
