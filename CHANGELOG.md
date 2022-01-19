@@ -8,6 +8,8 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.5.7
+Add genisoimage to naev-macos image for generating DMG images.
 ### v1.5.6
 Add pcre2 to `naev-steamruntime`, requires 'steamruntime' meson option to be set to true.
 
