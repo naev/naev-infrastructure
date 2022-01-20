@@ -8,8 +8,13 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.5.8
+Rollback nanoc `4.12.4` to `4.12.3` in `naev-docs` to avoid an issue with parsing YAML in Ruby 
+See: https://github.com/nanoc/nanoc/commit/b3755eca87b4372c8755dfc170f38653fb15a710#commitcomment-64201618
+
 ### v1.5.7
-Add genisoimage to naev-macos image for generating DMG images.
+Add genisoimage to `naev-macos` image for generating DMG images.
+
 ### v1.5.6
 Add pcre2 to `naev-steamruntime`, requires 'steamruntime' meson option to be set to true.
 
