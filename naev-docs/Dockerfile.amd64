@@ -19,9 +19,9 @@ ENV PATH "$PATH:/opt/luarocks/bin"
 RUN luarocks install ldoc
 
 # Build Ruby
-RUN curl -L -O https://cache.ruby-lang.org/pub/ruby/snapshot/snapshot-ruby_3_1.tar.gz && \
-    tar zxpf snapshot-ruby_3_1.tar.gz && \
-    cd snapshot-ruby_3_1 && \
+RUN curl -L -O https://cache.ruby-lang.org/pub/ruby/snapshot/snapshot-ruby_3_0.tar.gz && \
+    tar zxpf snapshot-ruby_3_0.tar.gz && \
+    cd snapshot-ruby_3_0 && \
     ./configure --prefix=/opt/ruby && \
     make -j"$(nproc --all)" && \
     make install
