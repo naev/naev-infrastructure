@@ -75,8 +75,8 @@ jobs:
         if: ${{ matrix.arch == 'amd64' }}
         uses: docker/build-push-action@v2
         with:
-          context: ${{ matrix.context }}
-          file: "${{ matrix.context }}/Dockerfile.${{ matrix.arch }}"
+          context: docker/${{ matrix.context }}
+          file: "docker/${{ matrix.context }}/Dockerfile.${{ matrix.arch }}"
           push: false
           tags: ${{ steps.docker_meta_amd64.outputs.tags }}
 
@@ -85,7 +85,7 @@ jobs:
         if: ${{ matrix.arch == 'aarch64' }}
         uses: docker/build-push-action@v2
         with:
-          context: ${{ matrix.context }}
-          file: "${{ matrix.context }}/Dockerfile.${{ matrix.arch }}"
+          context: docker/${{ matrix.context }}
+          file: "docker/${{ matrix.context }}/Dockerfile.${{ matrix.arch }}"
           push: false
           tags: ${{ steps.docker_meta_aarch64.outputs.tags }}
