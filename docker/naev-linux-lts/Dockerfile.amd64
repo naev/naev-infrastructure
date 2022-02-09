@@ -10,9 +10,11 @@ ENV IMAGE_NAME "naev-linux-lts"
 WORKDIR /tmp
 # Enable the EPEL and End Point repositories for additional up-to-date tools.
 RUN yum -y install epel-release && \
-    curl -L -O https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm && \
-    rpm -i endpoint-repo-1.7-1.x86_64.rpm && \
-    rm -rf /tmp/endpoint-repo-1.7-1.x86_64.rpm && \
+    curl -L -O https://packages.endpointdev.com/endpoint-rpmsign-7.pub &&\
+    rpm --import endpoint-rpmsign-7.pub && \
+    curl -L -O https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm && \
+    rpm -i endpoint-repo.x86_64.rpm && \
+    rm -rf /tmp/endpoint-repo.x86_64.rpm && \
 # Install Build dependencies.
     yum -y install meson ninja-build gcc binutils-devel fontconfig-devel freetype-devel \
     gettext-devel glpk-devel file libpng12-devel libxml2-devel libvorbis-devel libwebp-devel \
