@@ -1,0 +1,86 @@
+name: "Build Website" 
+on:
+  workflow_call:
+    inputs:
+      publish_type:
+        required: true
+        type: string
+jobs:
+  website_publish:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.publish_type == 'website'
+    container:
+      image: "ghcr.io/naev/naev-docs:latest"
+    steps:
+      - name: "Checkout `naev.org`"
+        uses: actions/checkout@v2
+        with:
+          path: /__w/naev.github.io/naev.github.io/prod
+      - name: "Clone `naev-website`"
+        uses: actions/checkout@v2
+        with:
+          repository: 'naev/naev-website'
+          path: /__w/naev.github.io/naev.github.io/staging
+      - name: "Build Website"
+        run: make
+        working-directory: ${{ github.workspace }}/staging
+      - name: "Stage Updated Files"
+        run: rsync -avzh output/ /__w/naev.github.io/naev.github.io/prod
+        working-directory: ${{ github.workspace }}/staging
+      - name: "Add Updated Files"
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Actions"
+          git add *
+        working-directory: /__w/naev.github.io/naev.github.io/prod
+      - name: "Commit Updated Files"
+        run: |
+          git commit -m "Website Updates" -a
+          git pull
+        working-directory: /__w/naev.github.io/naev.github.io/prod
+      - name: "Push Updates to `naev.org`"
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+          directory: /__w/naev.github.io/naev.github.io/prod   
+  api_publish:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.publish_type == 'api'
+    container:
+      image: "ghcr.io/naev/naev-docs:latest"
+    steps:
+      - name: "Checkout `naev.org`"
+        uses: actions/checkout@v2
+        with:
+          path: /__w/naev.github.io/naev.github.io/prod
+      - name: "Checkout `naev`"
+        uses: actions/checkout@v2
+        with:
+          repository: 'naev/naev'
+          path: /__w/naev.github.io/naev.github.io/staging
+      - name: "Build API Docs"
+        run: |
+          meson setup build . -Dexecutable=disabled
+          meson compile -C build
+        working-directory: ${{ github.workspace }}/staging
+      - name: "Stage Updated Files"
+        run: rsync -avzh build/docs/lua/ /__w/naev.github.io/naev.github.io/prod/api
+        working-directory: ${{ github.workspace }}/staging
+      - name: "Add Updated Files"
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Actions"
+          git add *
+        working-directory: /__w/naev.github.io/naev.github.io/prod
+      - name: "Commit Updated Files"
+        run: |
+          git commit -m "API Documentation Updates" -a
+          git pull
+        working-directory: /__w/naev.github.io/naev.github.io/prod
+      - name: "Push Updates to `naev.org`"
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+          directory: /__w/naev.github.io/naev.github.io/prod

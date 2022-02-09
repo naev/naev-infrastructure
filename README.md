@@ -1,5 +1,5 @@
 # Naev Build Infrastructure
-This repository contains Dockerfiles for all of the [Naev Project](https://github.com/naev/naev)'s CI and CD build images.
+This repository contains Dockerfiles for all of the [Naev Project](https://github.com/naev/naev)'s CI and CD build images, and Github Actions workflows.
 
 ### Overview:
 - `naev-docs` (Used for building website and docs.)
