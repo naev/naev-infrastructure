@@ -1,9 +1,9 @@
 # Build luarocks and ruby in build container to save space.
 FROM registry.fedoraproject.org/fedora-minimal:latest AS build 
 
-# Install luarocks deps
+# Install luarocks and ruby deps
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install findutils gcc git gzip compat-lua \
-    compat-lua-devel make ncurses-devel libevent-devel openssl openssl-devel readline-devel tar unzip automake findutils g++ && \
+    compat-lua-devel make ncurses-devel libevent-devel openssl openssl-devel readline-devel tar unzip automake findutils g++ zlib-devel && \
     microdnf clean all
 
 # Build luarocks
@@ -19,10 +19,10 @@ ENV PATH "$PATH:/opt/luarocks/bin"
 RUN luarocks install ldoc
 
 # Build Ruby
-RUN curl -L -O https://cache.ruby-lang.org/pub/ruby/snapshot/snapshot-ruby_3_0.tar.gz && \
-    tar zxpf snapshot-ruby_3_0.tar.gz && \
-    cd snapshot-ruby_3_0 && \
-    ./configure --prefix=/opt/ruby && \
+RUN curl -L -O https://cache.ruby-lang.org/pub/ruby/snapshot/snapshot-ruby_3_1.tar.gz && \
+    tar zxpf snapshot-ruby_3_1.tar.gz && \
+    cd snapshot-ruby_3_1 && \
+    ./configure --prefix=/opt/ruby --disable-install-rdoc --disable-install-capi && \
     make -j"$(nproc --all)" && \
     make install
 
@@ -58,7 +58,7 @@ ENV PATH "$PATH:/opt/luarocks/bin"
 ENV PATH "$PATH:/opt/ruby/bin"
 
 # Install utilities
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make meson ninja-build gcc git GraphicsMagick openssl optipng \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make meson ninja-build gcc git GraphicsMagick openssl optipng zlib \
     python3-pyyaml rsync tidy tar unzip xz zip \
 # Install luarocks deps
     compat-lua ncurses libevent readline && \
