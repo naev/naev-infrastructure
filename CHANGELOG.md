@@ -8,6 +8,13 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.5.9
+Update EndPoint repository URL for `naev-linux-lts`
+Bump Ruby to 3.1 series
+Bump nanoc to `4.12.5`as https://github.com/nanoc/nanoc/pull/1566 is now merged.
+Pull in package updates.
+Use RPMFusion for ffmpeg for the sake of maintenance
+
 ### v1.5.8
 Rollback nanoc `4.12.4` to `4.12.3` in `naev-docs` to avoid an issue with parsing YAML in Ruby 
 See: https://github.com/nanoc/nanoc/commit/b3755eca87b4372c8755dfc170f38653fb15a710#commitcomment-64201618
