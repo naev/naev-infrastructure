@@ -14,7 +14,7 @@ RUN yum -y install epel-release && \
     rpm --import endpoint-rpmsign-7.pub && \
     curl -L -O https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm && \
     rpm -i endpoint-repo.x86_64.rpm && \
-    rm -rf /tmp/endpoint-repo.x86_64.rpm && \
+    rm -rf /tmp/endpoint-repo.x86_64.rpm endpoint-rpmsign-7.pub && \
 # Install Build dependencies.
     yum -y install meson ninja-build gcc binutils-devel fontconfig-devel freetype-devel \
     gettext-devel glpk-devel file libpng12-devel libxml2-devel libvorbis-devel libwebp-devel \
