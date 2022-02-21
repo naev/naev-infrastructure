@@ -21,3 +21,4 @@ jobs:
         bodyFile: "CHANGELOG.md"
         token: ${{ secrets.GITHUB_TOKEN }}
         prerelease: false
+        allowUpdates: true
