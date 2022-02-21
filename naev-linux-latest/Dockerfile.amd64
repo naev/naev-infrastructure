@@ -17,12 +17,6 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install findutils gcc gzip
 ENV PATH "$PATH:/opt/luarocks/bin"
 RUN luarocks install luacheck
 
-# Copy ffmpeg tarball to image.
-COPY ffmpeg-release-amd64-static.tar.xz /tmp
-# Download and extract ffmpeg
-RUN mkdir /opt/ffmpeg && \
-    tar xvf ffmpeg-release-amd64-static.tar.xz --strip-components 1 -C /opt/ffmpeg
-
 # Build final container
 FROM registry.fedoraproject.org/fedora-minimal:rawhide
 
@@ -35,17 +29,18 @@ ENV IMAGE_NAME "naev-linux-latest"
 
 WORKDIR /
 COPY --from=build /opt/luarocks /opt/luarocks 
-COPY --from=build /opt/ffmpeg /opt/ffmpeg 
 
 # Add luarocks to PATH
 ENV PATH "$PATH:/opt/luarocks/bin"
 
-# Add ffmpeg to PATH
-ENV PATH "$PATH:/opt/ffmpeg"
+# Add RPMFusion repository
+RUN curl -L -O https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm && \
+    rpm -i --noverify rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm && \
+    rm -rf /tmp/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 
 # Install Build dependencies.
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build gcc binutils-devel fontconfig-devel freetype-devel \
-    gettext-devel glpk-devel file libpng12-devel libxml2-devel libvorbis-devel libwebp-devel libunibreak-devel \
+    gettext-devel glpk-devel file ffmpeg libpng12-devel libxml2-devel libvorbis-devel libwebp-devel libunibreak-devel \
     luajit-devel openal-soft-devel openblas-devel pcre2-devel physfs-devel SDL2-devel SDL2_image-devel suitesparse-devel \
 # Install utilities
     git libevent lua nano ncurses python3-pyyaml python3-mutagen readline tar xz unzip zip && \
