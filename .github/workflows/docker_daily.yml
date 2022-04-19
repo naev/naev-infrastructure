@@ -1,0 +1,34 @@
+name: Naev Infrastructure Daily Build
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 12 * * *"
+
+jobs:
+  update_tag:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    - name: Update 'daily' tag
+      uses: EndBug/latest-tag@latest
+      with:
+        tag-name: daily
+  deploy_images:
+    needs: update_tag
+    uses: naev/naev-infrastructure/.github/workflows/docker_build.yml@main
+    with:
+      publish: true
+  create_release:
+    runs-on: ubuntu-latest
+    needs: deploy_images
+    steps:
+    - name: Create Release
+      uses: ncipollo/release-action@v1
+      with:
+        bodyFile: "CHANGELOG.md"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        prerelease: true
+        allowUpdates: true
+        name: Daily Build
+        tag: daily
