@@ -13,7 +13,7 @@ jobs:
     - name: Update 'daily' tag
       uses: EndBug/latest-tag@latest
       with:
-        tag-name: daily
+        tag-name: nightly
   deploy_images:
     needs: update_tag
     uses: naev/naev-infrastructure/.github/workflows/docker_build.yml@main
@@ -33,4 +33,4 @@ jobs:
         prerelease: true
         allowUpdates: true
         name: Daily Build
-        tag: daily
+        tag: nightly
