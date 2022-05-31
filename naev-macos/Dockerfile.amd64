@@ -40,8 +40,8 @@ RUN sed -i 's/\bopenssl rmd160\b/openssl rmd160 -provider legacy/g' $(command -v
     sed -i 's/\bopenssl dgst -ripemd160 -verify\b/openssl dgst -provider default -provider legacy -ripemd160 -verify/g' $(command -v osxcross-macports)
 
 # Install required build dependencies
-RUN UNATTENDED=1 osxcross-macports install binutils freetype glpk libsdl2 libsdl2_image libpng \
-    libvorbis openal-soft OpenBLAS pcre2 physfs SuiteSparse_CHOLMOD SuiteSparse_CXSparse webp && \
+RUN UNATTENDED=1 osxcross-macports install freetype glpk libsdl2 libsdl2_image libpng \
+    libvorbis luajit openal-soft OpenBLAS pcre2 physfs SuiteSparse_CHOLMOD SuiteSparse_CXSparse webp -v && \
     UNATTENDED=1 osxcross-macports clear-cache
 
 # Build final container
