@@ -8,10 +8,14 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.5.11
+Update OpenBLAS to 0.3.20 for `naev-windows`
+Add `dmg` tool for compressing DMGs for `naev-macos`
+
 ### v1.5.10
-Fix osxcross-macports script file validation
-Remove binutils from macports package list (not used or needed)
-Add luajit from macports (is actively maintained.)
+Fix osxcross-macports script file validation for `naev-macos`
+Remove binutils from macports package list (not used or needed) for `naev-macos`
+Add luajit from macports (is actively maintained.) for `naev-macos`
 
 ### v1.5.9
 Update EndPoint repository URL for `naev-linux-lts`
