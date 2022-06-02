@@ -15,9 +15,9 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install gcc gettext git me
     mingw64-SDL2 mingw64-SDL2_image mingw64-libpng mingw32-nsis mingw64-pcre2 && \
     microdnf clean all && \
 # Install openblas for mingw (building this from source is an option but probably painful)
-    curl -L -O https://github.com/xianyi/OpenBLAS/releases/download/v0.3.19/OpenBLAS-0.3.19-x64.zip && \
-    unzip /tmp/OpenBLAS-0.3.19-x64.zip -d /usr/x86_64-w64-mingw32/sys-root/mingw && \
-    rm -rf /tmp/OpenBLAS-0.3.19-x64.zip
+    curl -L -O https://github.com/xianyi/OpenBLAS/releases/download/v0.3.20/OpenBLAS-0.3.20-x64.zip && \
+    unzip OpenBLAS-0.3.20-x64.zip -d /usr/x86_64-w64-mingw32/sys-root/mingw && \
+    rm -rf OpenBLAS-0.3.20-x64.zip
 
 # Force appimages to run in extract mode since FUSE is not available
 ENV APPIMAGE_EXTRACT_AND_RUN 1
