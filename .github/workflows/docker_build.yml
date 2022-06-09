@@ -12,9 +12,9 @@ jobs:
       fail-fast: true
       matrix:
         include:
-          - context: "naev-linux-archaic"
-            arch: amd64
-            imagename: "naev-linux-archaic"
+#          - context: "naev-linux-archaic"
+#            arch: amd64
+#            imagename: "naev-linux-archaic"
           - context: "naev-docs"
             arch: amd64
             imagename: "naev-docs"
