@@ -44,9 +44,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
           directory: /__w/naev.github.io/naev.github.io/prod   
-  api_publish:
+  docs_publish:
     runs-on: ubuntu-latest
-    if: github.event.inputs.publish_type == 'api'
+    if: github.event.inputs.publish_type == 'docs'
     container:
       image: "ghcr.io/naev/naev-docs:latest"
     steps:
@@ -64,8 +64,14 @@ jobs:
           meson setup build . -Dexecutable=disabled
           meson compile -C build
         working-directory: ${{ github.workspace }}/staging
+      - name: "Build Manual PDF"
+        run: |
+          make naev_dev_manual.pdf
+        working-directory: ${{ github.workspace }}/staging/docs/manual
       - name: "Stage Updated Files"
-        run: rsync -avzh build/docs/lua/ /__w/naev.github.io/naev.github.io/prod/api
+        run: 
+          rsync -avzh build/docs/lua/ /__w/naev.github.io/naev.github.io/prod/api
+          rsync -avzh docs/manual/naev_dev_manual.pdf /__w/naev.github.io/naev.github.io/prod/devmanual
         working-directory: ${{ github.workspace }}/staging
       - name: "Add Updated Files"
         run: |
@@ -75,7 +81,7 @@ jobs:
         working-directory: /__w/naev.github.io/naev.github.io/prod
       - name: "Commit Updated Files"
         run: |
-          git commit -m "API Documentation Updates" -a
+          git commit -m "Documentation Updates" -a
           git pull
         working-directory: /__w/naev.github.io/naev.github.io/prod
       - name: "Push Updates to `naev.org`"
