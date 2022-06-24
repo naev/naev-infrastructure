@@ -2,21 +2,10 @@
 FROM registry.fedoraproject.org/fedora-minimal:latest AS build 
 
 # Install luarocks and ruby deps
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install findutils gcc git gzip compat-lua \
-    compat-lua-devel make ncurses-devel libevent-devel openssl openssl-devel readline-devel tar unzip automake findutils g++ zlib-devel && \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install findutils gcc git gzip \
+    make openssl openssl-devel tar unzip automake findutils g++ zlib-devel && \
     microdnf clean all
 
-# Build luarocks
-RUN curl -L -O https://luarocks.org/releases/luarocks-3.8.0.tar.gz && \
-    tar zxpf luarocks-3.8.0.tar.gz && \
-    cd luarocks-3.8.0 && \
-    ./configure --prefix=/opt/luarocks --lua-version=5.1 --lua-suffix=-5.1 --versioned-rocks-dir && \
-    make -j"$(nproc --all)" && \
-    make install
-
-# Add luarocks to PATH and install luacheck
-ENV PATH "$PATH:/opt/luarocks/bin"
-RUN luarocks install ldoc
 
 # Build Ruby
 RUN curl -L -O https://cache.ruby-lang.org/pub/ruby/snapshot/snapshot-ruby_3_1.tar.gz && \
@@ -48,11 +37,7 @@ LABEL org.opencontainers.image.description "Used for building website and docs."
 ENV IMAGE_NAME "naev-docs"
 
 WORKDIR /
-COPY --from=build /opt/luarocks /opt/luarocks 
 COPY --from=build /opt/ruby /opt/ruby
-
-# Add luarocks to PATH
-ENV PATH "$PATH:/opt/luarocks/bin"
 
 # Add ruby to PATH
 ENV PATH "$PATH:/opt/ruby/bin"
@@ -60,8 +45,8 @@ ENV PATH "$PATH:/opt/ruby/bin"
 # Install utilities
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make meson ninja-build gcc git GraphicsMagick openssl optipng zlib \
     python3-pyyaml rsync tidy tar unzip xz zip \
-# Install luarocks deps
-    compat-lua ncurses libevent readline \
+# Install ldoc
+    lua-ldoc \
 # Install LaTeX packages
     latexmk texlive-luahbtex texlive-roboto texlive-preprint texlive-parskip texlive-sfmath \
     texlive-markdown texlive-csvsimple texlive-gobble texlive-microtype texlive-minted texlive-newunicodechar && \

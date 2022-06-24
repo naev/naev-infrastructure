@@ -10,6 +10,8 @@
 
 ### v1.5.13
 Add LaTeX packages for generating the devmanual PDF for `naev-docs`
+Change to Fedora packaged ldoc for `naev-docs` 
+(More or less the same size footprint, and there should be less maintenance involved.)
 
 ### v1.5.12
 Move to the `ffmpeg-free` package in favour of the `ffmpeg` package provided by RPMFusion in `naev-linux-latest`
