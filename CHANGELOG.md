@@ -8,6 +8,9 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.5.13
+Add LaTeX packages for generating the devmanual PDF for `naev-docs`
+
 ### v1.5.12
 Move to the `ffmpeg-free` package in favour of the `ffmpeg` package provided by RPMFusion in `naev-linux-latest`
 As a side-benefit, this package should be less prone to breakages as it is maintained by the Fedora Project.
