@@ -8,6 +8,9 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.5.14
+Bump the Meson version on naev-macos to a pre-release, due to a bug cross-compiling with link-time optimization enabled.
+
 ### v1.5.13
 Add LaTeX packages for generating the devmanual PDF for `naev-docs`
 Change to Fedora packaged ldoc for `naev-docs` 

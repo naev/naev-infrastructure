@@ -83,8 +83,10 @@ ENV HOST "aarch64-apple-darwin20.1"
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
 # Install build tools.
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettext genisoimage git llvm meson ninja-build python3-pyyaml unzip tar xz zlib zip && \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettext genisoimage git llvm meson ninja-build python3-pip python3-pyyaml unzip tar xz zlib zip && \
     microdnf clean all && \
+# Update Meson to a pre-release, due to a bug cross-compiling with link-time optimization enabled. (python3-pip is unnecessary once this step is.)
+    python3 -m pip install git+https://github.com/UncombedCoconut/meson.git@8170743261d50420c1519bf27c4301086db59fa3 && \
 # Verify tool version.
     echo "Verifying meson install" && \
     command -v meson && \
