@@ -86,7 +86,7 @@ ENV APPIMAGE_EXTRACT_AND_RUN 1
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettext genisoimage git llvm meson ninja-build python3-pip python3-pyyaml unzip tar xz zlib zip && \
     microdnf clean all && \
 # Update Meson to a pre-release, due to a bug cross-compiling with link-time optimization enabled. (python3-pip is unnecessary once this step is.)
-    python3 -m pip install git+https://github.com/UncombedCoconut/meson.git@014053932b41f59e539cd1a6d1bd8b5121258fe6 && \
+    python3 -m pip install git+https://github.com/mesonbuild/meson.git@ec388fe7c2b93879499ad782c2da41ec22d003b2 && \
 # Verify tool version.
     echo "Verifying meson install" && \
     command -v meson && \
