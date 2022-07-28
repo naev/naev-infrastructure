@@ -12,9 +12,10 @@ jobs:
       fail-fast: true
       matrix:
         include:
-#          - context: "naev-linux-archaic"
-#            arch: amd64
-#            imagename: "naev-linux-archaic"
+          - context: "naev-artwork/blender2.79b"
+            arch: amd64
+            imagename: "naev-artwork"
+            blender: "blender2.79b"
           - context: "naev-docs"
             arch: amd64
             imagename: "naev-docs"
@@ -59,6 +60,14 @@ jobs:
           images: ghcr.io/naev/${{ matrix.imagename }}
           flavor: |
             suffix=-${{ matrix.arch }},onlatest=true
+      - name: Generate image metadata (artwork)
+        id: docker_meta_artwork
+        if: ${{ matrix.imagename == 'naev-artwork' }}
+        uses: crazy-max/ghaction-docker-meta@v3
+        with:
+          images: ghcr.io/naev/${{ matrix.imagename }}
+          flavor: |
+            suffix=-${{ matrix.blender }},onlatest=true
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx

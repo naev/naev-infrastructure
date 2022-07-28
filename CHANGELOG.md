@@ -1,4 +1,5 @@
 ### Overview:
+- `naev-artwork` (Used to render naev artwork.)
 - `naev-docs` (Used for building website and docs.)
 - `naev-linux-archaic` (Used for old release builds)
 - `naev-linux-latest` (Used for CI, testing and soundtrack builds.)
@@ -7,6 +8,9 @@
 - `naev-release` (Used for packaging releases)
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
+
+### v1.6
+Added `naev-artwork` image, rocking some ImageMagick, GraphicsMagick, Blender 2.79b
 
 ### v1.5.14
 Bump the Meson version on naev-macos to a pre-release, due to a bug cross-compiling with link-time optimization enabled.
