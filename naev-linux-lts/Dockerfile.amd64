@@ -21,7 +21,7 @@ RUN yum -y install epel-release && \
     libunibreak-devel luajit-devel openal-soft-devel openblas-devel pcre2-devel SDL2-devel \
     SDL2_image-devel \
 # Install utilities
-    git nano tar xz unzip zip && \
+    git nano tar texinfo xz unzip zip && \
     yum clean all && \
 # Install pyyaml
     python3 -m pip install PyYAML && \

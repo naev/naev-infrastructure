@@ -9,6 +9,9 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.6.1
+Added texinfo to the build images, accidentally needed to build libbfd for CI.
+
 ### v1.6
 Added `naev-artwork` image, rocking some ImageMagick, GraphicsMagick, Blender 2.79b
 

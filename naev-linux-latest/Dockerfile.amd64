@@ -38,7 +38,7 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build 
     gettext-devel glpk-devel file ffmpeg-free libpng12-devel libxml2-devel libvorbis-devel libwebp-devel libunibreak-devel \
     luajit-devel openal-soft-devel openblas-devel pcre2-devel physfs-devel SDL2-devel SDL2_image-devel suitesparse-devel \
 # Install utilities
-    git libevent lua nano ncurses python3-pyyaml python3-mutagen readline tar xz unzip zip && \
+    git libevent lua nano ncurses python3-pyyaml python3-mutagen readline tar texinfo xz unzip zip && \
     microdnf clean all && \
 # Verify tool versions and install locations.
     echo "Verifying python install" && \
