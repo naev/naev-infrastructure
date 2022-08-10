@@ -91,6 +91,7 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettex
     echo "Verifying meson install" && \
     command -v meson && \
     meson --version && \
+    echo "Verifying dmg install" && \
     command -v dmg && \
 # Horrible hack: ensure a hardcoded header file path resolves.  
     rmdir /opt && ln -s /usr/lib/osxcross/macports/pkgs/opt /opt && \

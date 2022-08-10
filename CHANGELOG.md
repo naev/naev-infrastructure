@@ -9,6 +9,9 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.6.2
+Do the v1.6.1 change without bungling naev-macos/Dockerfile.amd64.
+
 ### v1.6.1
 Added texinfo to the build images, accidentally needed to build libbfd for CI.
 
