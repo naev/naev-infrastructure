@@ -9,6 +9,9 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.6.3
+Add the enet library (used in a friendly fork). For Windows, add mingw64-dlfcn and mingw64-physfs.
+
 ### v1.6.2
 Do the v1.6.1 change without bungling naev-macos/Dockerfile.amd64.
 

@@ -10,7 +10,7 @@ ENV IMAGE_NAME "naev-steamruntime"
 # Install pip from steam/debian repositories.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip \
 # Naughty: we need libwebp, ,libpcre2 and libopenblas, not in the SDK.... All are statically linked when building with the steamruntime option in meson set to true. Also, texinfo is an accidental build dependency for libbfd.
-    libopenblas-dev libwebp-dev libpcre2-dev texinfo && \
+    libenet-dev libopenblas-dev libwebp-dev libpcre2-dev texinfo && \
     apt-get clean && \
 # Upgrade meson via pip.
     python3 -m pip install meson --upgrade && \
