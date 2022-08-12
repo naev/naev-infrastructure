@@ -9,6 +9,9 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.6.5
+Document why mingw64-dlfcn is... interesting.
+
 ### v1.6.4
 Document why mingw64-physfs is a horrible idea.
 
