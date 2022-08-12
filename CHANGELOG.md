@@ -9,6 +9,9 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.6.4
+Document why mingw64-physfs is a horrible idea.
+
 ### v1.6.3
 Add the enet library (used in a friendly fork). For Windows, add mingw64-dlfcn and mingw64-physfs.
 
