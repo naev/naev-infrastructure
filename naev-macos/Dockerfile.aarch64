@@ -49,7 +49,7 @@ RUN sed -i 's/\bopenssl rmd160\b/openssl rmd160 -provider legacy/g' $(command -v
 
 
 # Install required build dependencies
-RUN UNATTENDED=1 osxcross-macports install -arm64 freetype glpk libenet libsdl2 libsdl2_image libpng \
+RUN UNATTENDED=1 osxcross-macports install -arm64 freetype glpk libsdl2 libsdl2_image libpng \
     libvorbis luajit openal-soft OpenBLAS pcre2 physfs SuiteSparse_CHOLMOD SuiteSparse_CXSparse webp -v && \
     UNATTENDED=1 osxcross-macports clear-cache
 

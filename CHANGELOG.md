@@ -9,6 +9,9 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.6.6
+Clean up macOS Meson tweaks; fill gaps in enet packages. Give up on naev-macos unless macports gets v1.3.x.
+
 ### v1.6.5
 Document why mingw64-dlfcn is... interesting.
 
