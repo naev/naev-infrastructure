@@ -48,8 +48,8 @@ includedir=/usr/include
 Name: libenet
 Description: Low-latency UDP networking library supporting optional reliability
 Version: 1.3.11
-Cflags: -I${includedir}
-Libs: -L${libdir} -lenet
+Cflags: -I\${includedir}
+Libs: -L\${libdir} -lenet
 EOF
     
 # Force appimages to run in extract mode since FUSE is not available
