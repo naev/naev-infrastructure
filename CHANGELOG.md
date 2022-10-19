@@ -9,6 +9,9 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.6.8
+Ping Ruby to v3.1.2. This makes sense for repoducable builds, and for stability.
+
 ### v1.6.7
 That last one was more like version 6.6.6. Try again.
 
