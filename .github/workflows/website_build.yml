@@ -13,11 +13,11 @@ jobs:
       image: "ghcr.io/naev/naev-docs:latest"
     steps:
       - name: "Checkout `naev.org`"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: /__w/naev.github.io/naev.github.io/prod
       - name: "Clone `naev-website`"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: 'naev/naev-website'
           path: /__w/naev.github.io/naev.github.io/staging
@@ -51,11 +51,11 @@ jobs:
       image: "ghcr.io/naev/naev-docs:latest"
     steps:
       - name: "Checkout `naev.org`"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: /__w/naev.github.io/naev.github.io/prod
       - name: "Checkout `naev`"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: 'naev/naev'
           submodules: 'recursive'
