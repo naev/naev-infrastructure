@@ -1,5 +1,5 @@
 # Build luarocks in build container to save space.
-FROM registry.fedoraproject.org/fedora-minimal:rawhide AS build 
+FROM registry.fedoraproject.org/fedora-minimal:latest AS build 
 
 WORKDIR /tmp
 # Install luarocks deps
@@ -18,7 +18,7 @@ ENV PATH "$PATH:/opt/luarocks/bin"
 RUN luarocks install luacheck
 
 # Build final container
-FROM registry.fedoraproject.org/fedora-minimal:rawhide
+FROM registry.fedoraproject.org/fedora-minimal:latest
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
