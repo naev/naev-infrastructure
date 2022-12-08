@@ -5,9 +5,12 @@ on:
       publish:
         required: true
         type: boolean
+permissions: {}
 
 jobs:
   image_build:
+    permissions:
+      contents: write
     strategy:
       fail-fast: true
       matrix:

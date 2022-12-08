@@ -3,13 +3,18 @@ on:
   push:
     tags:
       - "v*.*.*"
+permissions: {}
 
 jobs:
   deploy_images:
+    permissions:
+      contents: write
     uses: naev/naev-infrastructure/.github/workflows/docker_build.yml@main
     with:
       publish: true
   create_release:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     needs: deploy_images
     steps:
