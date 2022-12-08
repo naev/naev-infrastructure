@@ -6,11 +6,17 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install findutils gcc git 
     make openssl openssl-devel tar unzip automake findutils g++ zlib-devel && \
     microdnf clean all
 
+# Build ruby download URL
+# Update these to update the version of ruby we bundle.
+ENV RUBY_MAJOR 3.1
+ENV RUBY_MINOR 3
+ENV RUBY_VERSION "$RUBY_MAJOR.$RUBY_MINOR"
+ENV RUBY_TGZ_URL "https://cache.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-$RUBY_VERSION.tar.gz"
 
 # Build Ruby
-RUN curl -L -O https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.2.tar.gz && \
-    tar zxpf ruby-3.1.2.tar.gz && \
-    cd ruby-3.1.2 && \
+RUN curl -L -O "$RUBY_TGZ_URL" && \
+    tar zxpf ruby-"$RUBY_VERSION".tar.gz && \
+    cd ruby-"$RUBY_VERSION" && \
     ./configure --prefix=/opt/ruby --disable-install-rdoc --disable-install-capi && \
     make -j"$(nproc --all)" && \
     make install
