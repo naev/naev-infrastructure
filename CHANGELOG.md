@@ -9,13 +9,9 @@
 - `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
 - `naev-windows` (Used to cross compile for Windows.)
 
-### v1.6.9
-Nice. However in all seriousness:
-Stop using `rawhide` tag in favour of `latest` for naev-linux-latest, this is just bound to cause random build failures when Fedora rebases, and issues like that can persist for days.
-Bump Ruby to latest stable upstream version 3.1.3
-
 ### v1.6.8
-Pin Ruby to v3.1.2. This makes sense for repoducable builds, and for stability.
+Stop using `rawhide` tag in favour of `latest` for naev-linux-latest, this is just bound to cause random build failures when Fedora rebases, and issues like that can persist for days.
+Pin Ruby to v3.1.3. This makes sense for repoducable builds, and for stability.
 
 ### v1.6.7
 That last one was more like version 6.6.6. Try again.
