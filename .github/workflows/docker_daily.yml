@@ -20,6 +20,7 @@ jobs:
   deploy_images:
     permissions:
       contents: write
+      packages: write
     needs: update_tag
     uses: naev/naev-infrastructure/.github/workflows/docker_build.yml@main
     with:

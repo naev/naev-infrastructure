@@ -11,6 +11,7 @@ jobs:
   image_build:
     permissions:
       contents: write
+      packages: write
     strategy:
       fail-fast: true
       matrix:
