@@ -1,19 +1,18 @@
-FROM registry.gitlab.steamos.cloud/steamrt/soldier/sdk:latest
+FROM registry.gitlab.steamos.cloud/steamrt/sniper/sdk:latest
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
-LABEL org.opencontainers.image.description "Used for linux steam builds in the steamruntime (soldier) environment"
+LABEL org.opencontainers.image.description "Used for testing linux steam builds in the steamruntime (sniper) environment"
 
 # Allows for determining what container scripts are run in.
 ENV IMAGE_NAME "naev-steamruntime"
 
 # Install pip from steam/debian repositories.
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip \
-# Naughty: we need libwebp, ,libpcre2 and libopenblas, not in the SDK.... All are statically linked when building with the steamruntime option in meson set to true. Also, texinfo is an accidental build dependency for libbfd.
-    libenet-dev libopenblas-dev libwebp-dev libpcre2-dev texinfo && \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+# Naughty: we need libenet-dev, libphysfs-dev, libluajit-5.1-dev, libglpk-dev and libsuitesparse-dev, not in the SDK.... All are statically linked when building with the steamruntime option in meson set to true. Also, texinfo is an accidental build dependency for libbfd.
+    libenet-dev libphysfs-dev libluajit-5.1-dev libglpk-dev libsuitesparse-dev texinfo && \
     apt-get clean && \
-# Upgrade meson via pip.
-    python3 -m pip install meson --upgrade && \
+# Verify meson and python.
     echo "Verifying python install" && \
     command -v python3 && \
     python3 --version && \
