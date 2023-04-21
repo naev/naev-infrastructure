@@ -35,6 +35,9 @@ jobs:
           - context: "naev-steamruntime"
             arch: amd64
             imagename: "naev-steamruntime"
+          - context: "naev-steamfrankenruntime"
+            arch: amd64
+            imagename: "naev-steamfrankenruntime"
           - context: "naev-windows"
             arch: amd64
             imagename: "naev-windows"
