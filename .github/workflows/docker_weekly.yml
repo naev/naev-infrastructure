@@ -1,8 +1,8 @@
-name: Naev Infrastructure Daily Build
+name: Naev Infrastructure Weekly Build
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 12 * * *"
+    - cron: "0 12 * * 0"
 permissions: {}
 
 jobs:
@@ -13,10 +13,10 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-    - name: Update 'daily' tag
+    - name: Update 'weekly' tag
       uses: EndBug/latest-tag@latest
       with:
-        ref: nightly
+        ref: weekly
   deploy_images:
     permissions:
       contents: write
@@ -40,5 +40,5 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         prerelease: true
         allowUpdates: true
-        name: Daily Build
-        tag: nightly
+        name: Weekly Build
+        tag: weekly
