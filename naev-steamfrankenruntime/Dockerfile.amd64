@@ -5,7 +5,7 @@ WORKDIR /tmp
 RUN mkdir -p /opt
 
 # Prep builder for building tools
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y gfortran-4.8
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y gfortran-4.8 liblzma-dev
 
 # Grab and compile Python 3.6 (Why 3.6 you might ask?: OpenSSL requirements changed with Python 3.7 and we are in an A N C I E N T environment, so one can connect the dots.)
 RUN curl -L -O https://www.python.org/ftp/python/3.6.15/Python-3.6.15.tgz && \
@@ -75,7 +75,7 @@ RUN echo "deb https://ppa.launchpadcontent.net/git-core/ppa/ubuntu precise main 
 
 # Install additional packaged deps from steamrt/debian repositories.
 # Naughty: we need libluajit-5.1, and gfortran (extended dependency of OpenBLAS), not in the SDK.... All are statically linked when building with the steamruntime option in meson set to true. Also, texinfo is an accidental build dependency for libbfd.
-    DEBIAN_FRONTEND=noninteractive apt-get install -y gfortran-4.8 libluajit-5.1-dev texinfo && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y gfortran-4.8 libluajit-5.1-dev liblzma-dev texinfo && \
     apt-get clean && \
 # Upgrade meson via pip.
     update-alternatives --install /usr/local/bin/python3 python3 /usr/local/bin/python3.6 10 && \
