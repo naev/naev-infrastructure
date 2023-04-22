@@ -39,12 +39,12 @@ RUN curl -L -O https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.
     make PREFIX=/opt install
 
 # Due to age of the image base, build libenet from source..
-RUN curl -L -O https://github.com/libnet/libnet/releases/download/v1.2/libnet-1.2.tar.gz && \
-    tar zxpf libnet-1.2.tar.gz && \
-    cd libnet-1.2 && \
+RUN curl -L -O http://enet.bespin.org/download/enet-1.3.17.tar.gz && \
+    tar zxpf enet-1.3.17.tar.gz && \
+    cd enet-1.3.17 && \
     ./configure --prefix=/opt && \
     make -j"$(nproc --all)" && \
-    make PREFIX=/opt install
+    make PREFIX=/opt install 
 
 # Due to age of the image base, build libphyfsfs from source..
 RUN curl -L -O https://github.com/icculus/physfs/archive/refs/tags/release-3.2.0.tar.gz && \

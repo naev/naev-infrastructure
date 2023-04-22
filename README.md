@@ -2,13 +2,15 @@
 This repository contains Dockerfiles for all of the [Naev Project](https://github.com/naev/naev)'s CI and CD build images, and Github Actions workflows.
 
 ### Overview:
+- `naev-artwork` (Used to render naev artwork.)
 - `naev-docs` (Used for building website and docs.)
-- `naev-linux-archaic` (Used for old release builds)
-- `naev-linux-latest` (Used for CI, testing and soundtrack builds.)
-- `naev-linux-lts` (Used for release builds. oldest targetted glibc platform)
+- `naev-linux-archaic` (Used for old release builds) ***DEPRECATED***
+- `naev-linux-latest` (Used for CI, testing and soundtrack builds.) ***DEPRECATED***
+- `naev-linux-lts` (Used for release builds. oldest targetted glibc platform) ***DEPRECATED***
 - `naev-macos` (Used to cross compile for macOS.)
 - `naev-release` (Used for packaging releases)
-- `naev-steamruntime` (Used for linux steam builds in the steamruntime (soldier) environment)
+- `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
+- `naev-steamfrankenruntime` (Used for building linux builds in the steamruntime (scout) environment with tools and extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
 

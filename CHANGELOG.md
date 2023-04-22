@@ -12,7 +12,7 @@
 
 ### v1.7
 - Add `naev-steamfrankenruntime`
-   - This is Valve's 'scout' runtime with Python 3.6, OpenBLAS compiled from source, and a 'new-ish' version of git installed.
+   - This is Valve's 'scout' runtime with Python 3.6, OpenBLAS, libenet, physfs, libunibreak compiled from source, and a 'new-ish' version of git installed.
 - Update `naev-steamruntime` to 'sniper' runtime.
    -  In the future this will be the image used to build binaries for Steam, as the `soldier` runtime is not a supported environment on Steam.
 - Deprecate `naev-linux-archaic`, `naev-linux-latest`, `naev-linux-lts` in favour of `naev-steamruntime`, and `naev-steamfrankenruntime`.
