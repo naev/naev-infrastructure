@@ -10,6 +10,10 @@
 - `naev-steamfrankenruntime` (Used for building linux builds in the steamruntime (scout) environment with tools and extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.7.1
+- Fix static libraries by installing compiled libs to the `/usr` prefix instead of `/usr/local`
+   - This may cause issues, but we need static libraries to show up in Meson.
+   
 ### v1.7
 - Add `naev-steamfrankenruntime`
    - This is Valve's 'scout' runtime with Python 3.6, OpenBLAS, libenet, physfs, libunibreak compiled from source, and a 'new-ish' version of git installed.

@@ -56,7 +56,7 @@ RUN curl -L -O https://github.com/icculus/physfs/archive/refs/tags/release-3.2.0
 
 FROM registry.gitlab.steamos.cloud/steamrt/scout/sdk:latest
 
-COPY --from=build /opt /usr/local 
+COPY --from=build /opt /usr
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
@@ -78,7 +78,7 @@ RUN echo "deb https://ppa.launchpadcontent.net/git-core/ppa/ubuntu precise main 
     DEBIAN_FRONTEND=noninteractive apt-get install -y gfortran-4.8 libluajit-5.1-dev liblzma-dev texinfo && \
     apt-get clean && \
 # Upgrade meson via pip.
-    update-alternatives --install /usr/local/bin/python3 python3 /usr/local/bin/python3.6 10 && \
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 10 && \
     python3 -m pip install meson --upgrade && \
 # Install pyyaml
     python3 -m pip install pyyaml && \
