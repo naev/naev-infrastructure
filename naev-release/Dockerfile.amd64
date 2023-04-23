@@ -35,8 +35,8 @@ ENV PATH "$PATH:/opt/steamcmd"
 ENV PATH "$PATH:/opt/butler"
 
 WORKDIR /tmp
-# Install GH CLI repository and utilities
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build gcc python3-pyyaml git tar xz unzip zip \
+# Install utilities
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build gcc python3-pyyaml file git tar xz unzip zip \
 # Install SteamCMD and friends
     glibc.i686 SDL2.i686 && \
     microdnf clean all && \
