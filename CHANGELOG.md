@@ -10,6 +10,10 @@
 - `naev-steamfrankenruntime` (Used for building linux builds in the steamruntime (scout) environment with tools and extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.7.2
+- Add `file` to `naev-release`.
+   -  This is apparently the one utility that we do not have that appimagetool (A self contained tool) needs.
+
 ### v1.7.1
 - Fix static libraries by installing compiled libs to the `/usr` prefix instead of `/usr/local`
    - This may cause issues, but we need static libraries to show up in Meson.
