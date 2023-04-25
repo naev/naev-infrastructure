@@ -10,6 +10,11 @@
 - `naev-steamfrankenruntime` (Used for building linux builds in the steamruntime (scout) environment with tools and extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.7.3
+- Compile enet, physfs, libunibreak from source for `naev-steamruntime`.
+   -  This is because the packages for physfs, libunibreak are too old to build Naev with.
+   -  Debian's libenet-dev package doesn't include static libraries which are needed to ship Steam builds.
+
 ### v1.7.2
 - Add `file` to `naev-release`.
    -  This is apparently the one utility that we do not have that appimagetool (A self contained tool) needs.
