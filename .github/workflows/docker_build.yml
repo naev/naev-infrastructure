@@ -23,21 +23,12 @@ jobs:
           - context: "naev-docs"
             arch: amd64
             imagename: "naev-docs"
-          - context: "naev-linux-lts"
-            arch: amd64
-            imagename: "naev-linux-lts"
-          - context: "naev-linux-latest"
-            arch: amd64
-            imagename: "naev-linux-latest"
           - context: "naev-release"
             arch: amd64
             imagename: "naev-release"
           - context: "naev-steamruntime"
             arch: amd64
             imagename: "naev-steamruntime"
-          - context: "naev-steamfrankenruntime"
-            arch: amd64
-            imagename: "naev-steamfrankenruntime"
           - context: "naev-windows"
             arch: amd64
             imagename: "naev-windows"

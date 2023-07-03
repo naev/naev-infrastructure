@@ -2,13 +2,14 @@
 - `naev-artwork` (Used to render naev artwork.)
 - `naev-docs` (Used for building website and docs.)
 - `naev-linux-archaic` (Used for old release builds) ***DEPRECATED***
-- `naev-linux-latest` (Used for CI, testing and soundtrack builds.) ***DEPRECATED***
-- `naev-linux-lts` (Used for release builds. oldest targetted glibc platform) ***DEPRECATED***
 - `naev-macos` (Used to cross compile for macOS.)
 - `naev-release` (Used for packaging releases)
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
-- `naev-steamfrankenruntime` (Used for building linux builds in the steamruntime (scout) environment with tools and extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
+
+### v1.8.0
+- Remove deprecated images `naev-linux-lts` and `naev-linux-latest`
+- Remove unused image `naev-steamruntime`
 
 ### v1.7.3
 - Compile enet, physfs, libunibreak from source for `naev-steamruntime`.
