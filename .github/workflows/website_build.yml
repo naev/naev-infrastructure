@@ -80,7 +80,7 @@ jobs:
         working-directory: ${{ github.workspace }}/staging/docs/manual
       - name: "Stage Updated Files"
         run: 
-          cp -Ru build/docs/lua/* ../prod/api # && mkdir -p ../prod/devmanual && cp docs/manual/*.pdf ../prod/devmanual
+          cp -Ru build/docs/lua/* ../prod/api  && mkdir -p ../prod/devmanual && cp docs/manual/*.pdf ../prod/devmanual
         working-directory: ${{ github.workspace }}/staging
       - name: "Add Updated Files"
         run: |
