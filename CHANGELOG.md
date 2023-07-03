@@ -10,6 +10,7 @@
 ### v1.8.0
 - Remove deprecated images `naev-linux-lts` and `naev-linux-latest`
 - Remove unused image `naev-steamruntime`
+- Re-enable DevManual builds
 
 ### v1.7.3
 - Compile enet, physfs, libunibreak from source for `naev-steamruntime`.
