@@ -7,6 +7,11 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.8.1
+- Fix `naev-macos` aarch64 build image.
+- Bump Ruby to stable version 3.2.2 in `naev-docs`.
+- Fix missing yaml header for `naev-docs`.
+
 ### v1.8.0
 - Remove deprecated images `naev-linux-lts` and `naev-linux-latest`
 - Remove unused image `naev-steamruntime`
