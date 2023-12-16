@@ -3,13 +3,13 @@ FROM registry.fedoraproject.org/fedora-minimal:latest AS build
 
 # Install luarocks and ruby deps
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install findutils gcc git gzip \
-    make openssl openssl-devel tar unzip automake findutils g++ zlib-devel && \
+    libyaml libyaml-devel make openssl openssl-devel tar unzip automake findutils g++ zlib-devel && \
     microdnf clean all
 
 # Build ruby download URL
 # Update these to update the version of ruby we bundle.
-ENV RUBY_MAJOR 3.1
-ENV RUBY_MINOR 3
+ENV RUBY_MAJOR 3.2
+ENV RUBY_MINOR 2
 ENV RUBY_VERSION "$RUBY_MAJOR.$RUBY_MINOR"
 ENV RUBY_TGZ_URL "https://cache.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-$RUBY_VERSION.tar.gz"
 
@@ -49,7 +49,7 @@ COPY --from=build /opt/ruby /opt/ruby
 ENV PATH "$PATH:/opt/ruby/bin"
 
 # Install utilities
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make meson ninja-build gcc git GraphicsMagick openssl optipng zlib \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make meson ninja-build gcc git GraphicsMagick libyaml openssl optipng zlib \
     python3-pyyaml rsync tidy tar unzip xz zip \
 # Install ldoc
     lua-ldoc \
