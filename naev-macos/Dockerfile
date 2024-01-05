@@ -71,7 +71,6 @@ FROM registry.fedoraproject.org/fedora-minimal:latest
 WORKDIR /
 COPY --from=build /usr/lib/osxcross /usr/lib/osxcross 
 COPY --from=build /usr/local/bin/dmg /usr/bin
-# Copy Entrypoint
 COPY macports-configure.sh /usr/bin
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
@@ -111,3 +110,6 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettex
 # Set WORKDIR when you spin up the image.
     mkdir -p /tmp/naevBuild
 WORKDIR /tmp/naevBuild
+
+ENTRYPOINT [ "/usr/bin/macports-configure.sh" ]
+CMD [ "/bin/bash" ]

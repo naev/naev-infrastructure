@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # Set HOST and MACOSX_DEPLOYMENT_TARGET depending on which BUILD_ARCH is selected.
 # Also configure the macports directory for the right libraries since we build for two different targets.
@@ -22,3 +22,5 @@ else
     rm -f /usr/lib/osxcross/macports
     ln -s /usr/lib/osxcross/macports.x86_64 /usr/lib/osxcross/macports
 fi
+
+exec "$@"
