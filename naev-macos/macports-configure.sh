@@ -8,16 +8,17 @@
 if [[ "$BUILDARCH" == "aarch64" ]] then
     export HOST="aarch64-apple-darwin23"
     export MACOSX_DEPLOYMENT_TARGET="$AARCH64_DEPLOYMENT_TARGET"
-    mv /usr/lib/osxcross/macports.aarch64 /usr/lib/osxcross/macports
+    rm -f /usr/lib/osxcross/macports
+    ln -s /usr/lib/osxcross/macports.aarch64 /usr/lib/osxcross/macports
 elif [[ "$BUILDARCH" == "x86_64" ]] then
     export HOST="x86_64-apple-darwin23"
     export MACOSX_DEPLOYMENT_TARGET="$X86_64_DEPLOYMENT_TARGET"
-    mv /usr/lib/osxcross/macports.x86_64 /usr/lib/osxcross/macports
+    rm -f /usr/lib/osxcross/macports
+    ln -s /usr/lib/osxcross/macports.x86_64 /usr/lib/osxcross/macports
 # Fallback
 else
     export HOST="x86_64-apple-darwin23"
     export MACOSX_DEPLOYMENT_TARGET="$X86_64_DEPLOYMENT_TARGET"
-    mv /usr/lib/osxcross/macports.x86_64 /usr/lib/osxcross/macports
+    rm -f /usr/lib/osxcross/macports
+    ln -s /usr/lib/osxcross/macports.x86_64 /usr/lib/osxcross/macports
 fi
-
-exec "$@"

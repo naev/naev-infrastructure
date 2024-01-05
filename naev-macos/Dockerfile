@@ -72,7 +72,7 @@ WORKDIR /
 COPY --from=build /usr/lib/osxcross /usr/lib/osxcross 
 COPY --from=build /usr/local/bin/dmg /usr/bin
 # Copy Entrypoint
-COPY docker-entrypoint.sh /tmp
+COPY macports-configure.sh /usr/bin
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
@@ -111,5 +111,3 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettex
 # Set WORKDIR when you spin up the image.
     mkdir -p /tmp/naevBuild
 WORKDIR /tmp/naevBuild
-ENTRYPOINT ["/tmp/docker-entrypoint.sh"]
-CMD ["bash"]
