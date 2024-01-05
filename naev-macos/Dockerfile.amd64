@@ -26,13 +26,13 @@ RUN mkdir build && cd build && \
 
 # Git clone osxcross repo
 WORKDIR /usr/local/src
-RUN git clone https://github.com/tpoechtrager/osxcross.git
+#RUN git clone https://github.com/tpoechtrager/osxcross.git
+
+# Use my fork of OSXCross until https://github.com/tpoechtrager/osxcross/pull/409 is pulled upstream.
+RUN git clone https://github.com/ProjectSynchro/osxcross.git
 
 # Copy MacOS SDK tarball
-COPY MacOSX10.13.sdk.tar.xz /usr/local/src/osxcross/tarballs
-
-# Set MACOSX_DEPLOYMENT_TARGET
-ENV MACOSX_DEPLOYMENT_TARGET "10.13"
+COPY MacOSX14.sdk.tar.xz /usr/local/src/osxcross/tarballs
 
 # Build toolchain
 WORKDIR /usr/local/src/osxcross
@@ -47,10 +47,23 @@ ENV OSXCROSS_MP_INC "1"
 RUN sed -i 's/\bopenssl rmd160\b/openssl rmd160 -provider legacy/g' $(command -v osxcross-macports) && \
     sed -i 's/\bopenssl dgst -ripemd160 -verify\b/openssl dgst -provider default -provider legacy -ripemd160 -verify/g' $(command -v osxcross-macports)
 
+# Set MACOSX_DEPLOYMENT_TARGET
+ENV MACOSX_DEPLOYMENT_TARGET "10.13"
+
 # Install required build dependencies
 RUN UNATTENDED=1 osxcross-macports install freetype glpk libsdl2 libsdl2_image libpng \
     libvorbis luajit openal-soft OpenBLAS pcre2 physfs SuiteSparse_CHOLMOD SuiteSparse_CXSparse webp -v && \
-    UNATTENDED=1 osxcross-macports clear-cache
+    UNATTENDED=1 osxcross-macports clear-cache && \
+    mv /usr/lib/osxcross/macports /usr/lib/osxcross/macports.x86_64
+
+# Set MACOSX_DEPLOYMENT_TARGET for AARCH64
+ENV MACOSX_DEPLOYMENT_TARGET "11.0"
+
+# Install required build dependencies
+RUN UNATTENDED=1 osxcross-macports install -arm64 freetype glpk libsdl2 libsdl2_image libpng \
+    libvorbis luajit openal-soft OpenBLAS pcre2 physfs SuiteSparse_CHOLMOD SuiteSparse_CXSparse webp -v && \
+    UNATTENDED=1 osxcross-macports clear-cache && \
+    mv /usr/lib/osxcross/macports /usr/lib/osxcross/macports.aarch64
 
 # Build final container
 FROM registry.fedoraproject.org/fedora-minimal:latest
@@ -58,10 +71,17 @@ FROM registry.fedoraproject.org/fedora-minimal:latest
 WORKDIR /
 COPY --from=build /usr/lib/osxcross /usr/lib/osxcross 
 COPY --from=build /usr/local/bin/dmg /usr/bin
+# Copy Entrypoint
+COPY docker-entrypoint.sh /tmp
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
 LABEL org.opencontainers.image.description "Used to cross compile for macOS."
+
+# Set deployment target for AARCH64 and x86_64 for use with entrypoint
+# Make sure these follow the values in the build container above ^
+ENV AARCH64_DEPLOYMENT_TARGET "11.0"
+ENV X86_64_DEPLOYMENT_TARGET "10.13"
 
 # Allows for determining what container scripts are run in.
 ENV IMAGE_NAME "naev-macos"
@@ -71,12 +91,6 @@ ENV PATH "$PATH:/usr/lib/osxcross/bin"
 
 # Ensure macports includes are enabled by default
 ENV OSXCROSS_MP_INC "1"
-
-# Set MACOSX_DEPLOYMENT_TARGET
-ENV MACOSX_DEPLOYMENT_TARGET "10.13"
-
-# Set HOST for bundle.py script
-ENV HOST "x86_64-apple-darwin17"
 
 # Force appimages to extract to get around a lack of FUSE in docker. (without some ####ery at least.)
 ENV APPIMAGE_EXTRACT_AND_RUN 1
@@ -97,3 +111,5 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettex
 # Set WORKDIR when you spin up the image.
     mkdir -p /tmp/naevBuild
 WORKDIR /tmp/naevBuild
+ENTRYPOINT ["/tmp/docker-entrypoint.sh"]
+CMD ["bash"]
