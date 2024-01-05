@@ -7,6 +7,12 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.9.0
+- `naev-macos`: Update SDK, merge aarch64 and x86_64 images.
+   - Pass $BUILD_ARCH when starting this image to configure the correct macports packages.
+   - "aarch64" or "x86_64" are valid, otherwise it will default to x86_64 by default (docker run -e BUILD_ARCH=aarch64 naev-macos)
+- Drop the concept of multiple arcitectures when building and tagging images.
+
 ### v1.8.2
 - Fix missing header for dlfcn (dlfcn.h) in `naev-windows`
 - Add Fedora packaged mingw64-physfs pacakge to `naev-windows`
