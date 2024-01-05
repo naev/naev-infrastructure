@@ -110,6 +110,4 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettex
 # Set WORKDIR when you spin up the image.
     mkdir -p /tmp/naevBuild
 WORKDIR /tmp/naevBuild
-
-ENTRYPOINT [ "/usr/bin/macports-configure.sh" ]
-CMD [ "/bin/bash" ]
+CMD [ "/usr/bin/macports-configure.sh", "/bin/bash" ]
