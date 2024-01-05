@@ -35,20 +35,11 @@ jobs:
         uses: actions/checkout@v3
       - name: Generate image metadata
         id: docker_meta
-        if: ${{ matrix.imagename == 'naev-artwork' }}
         uses: docker/metadata-action@v4
         with:
           images: ghcr.io/naev/${{ matrix.imagename }}
           flavor: |
             latest=${{ inputs.publish }}
-      - name: Generate image metadata (artwork)
-        id: docker_meta_artwork
-        if: ${{ matrix.imagename == 'naev-artwork' }}
-        uses: docker/metadata-action@v4
-        with:
-          images: ghcr.io/naev/${{ matrix.imagename }}
-          flavor: |
-            suffix=-${{ matrix.blender }},onlatest=true
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
