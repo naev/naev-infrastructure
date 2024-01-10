@@ -34,8 +34,8 @@ ENV PATH "$PATH:/opt/steamcmd"
 # Add Butler to PATH
 ENV PATH "$PATH:/opt/butler"
 
-# Add Butler to PATH
-ENV PATH "$PATH:/opt/butler"
+# Add rcodesign to PATH
+ENV PATH "$PATH:/opt/apple-codesign"
 
 WORKDIR /tmp
 # Install utilities
