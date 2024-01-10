@@ -9,6 +9,8 @@
 
 ### v1.9.1
 - Update OpenBLAS to v0.3.26 in `naev-windows`.
+- Add rcodesign to `naev-macos` and `naev-release`.
+   - This is useful for signing macos binaries as well as app bundles. This is required for ARM64 and universal builds to work.
 
 ### v1.9.0
 - `naev-macos`: Update SDK, merge aarch64 and x86_64 images.

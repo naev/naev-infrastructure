@@ -34,6 +34,9 @@ ENV PATH "$PATH:/opt/steamcmd"
 # Add Butler to PATH
 ENV PATH "$PATH:/opt/butler"
 
+# Add Butler to PATH
+ENV PATH "$PATH:/opt/butler"
+
 WORKDIR /tmp
 # Install utilities
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build gcc python3-pyyaml file git tar xz unzip zip \
@@ -53,6 +56,11 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build 
     unzip butler.zip -d /opt/butler && \
     chmod +x /opt/butler && \
     rm butler.zip && \
+# Download and install rcodesign
+    curl -L -O https://github.com/indygreg/apple-platform-rs/releases/download/apple-codesign%2F0.26.0/apple-codesign-0.26.0-x86_64-unknown-linux-musl.tar.gz && \
+    mkdir -p /opt/apple-codesign && \
+    tar --strip-components=1 -xvzf apple-codesign-0.26.0-x86_64-unknown-linux-musl.tar.gz -C /opt/apple-codesign && \
+    rm apple-codesign-0.26.0-x86_64-unknown-linux-musl.tar.gz && \
 # Verify tool versions and installation locations.
     echo "Verifying steamcmd install" && \
     command -v steamcmd && \
@@ -60,6 +68,9 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build 
     echo "Verifying butler install" && \
     command -v butler && \
     butler -V && \
+    echo "Verifying rcodesign install" && \
+    command -v rcodesign && \
+    rcodesign -V && \
     echo "Verifying github-assets-uploader install" && \
     command -v github-assets-uploader && \
     github-assets-uploader -version
