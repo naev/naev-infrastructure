@@ -20,7 +20,7 @@
 
 ### v1.8.2
 - Fix missing header for dlfcn (dlfcn.h) in `naev-windows`
-- Add Fedora packaged mingw64-physfs pacakge to `naev-windows`
+- Add Fedora packaged mingw64-physfs package to `naev-windows`
 ### v1.8.1
 - Fix `naev-macos` aarch64 build image.
 - Bump Ruby to stable version 3.2.2 in `naev-docs`.
