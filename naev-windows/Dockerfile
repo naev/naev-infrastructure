@@ -18,9 +18,9 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install gcc gettext git me
     mingw64-SDL2 mingw64-SDL2_image mingw64-libpng mingw32-nsis mingw64-pcre2 mingw64-physfs && \
     microdnf clean all && \
 # Install openblas for mingw (building this from source is an option but probably painful)
-    curl -L -O https://github.com/xianyi/OpenBLAS/releases/download/v0.3.20/OpenBLAS-0.3.20-x64.zip && \
-    unzip OpenBLAS-0.3.20-x64.zip -d /usr/x86_64-w64-mingw32/sys-root/mingw && \
-    rm -rf OpenBLAS-0.3.20-x64.zip && \
+    curl -L -O https://github.com/OpenMathLib/OpenBLAS/releases/download/v0.3.26/OpenBLAS-0.3.26-x64.zip && \
+    unzip OpenBLAS-0.3.26-x64.zip -d /usr/x86_64-w64-mingw32/sys-root/mingw && \
+    rm -rf OpenBLAS-0.3.26-x64.zip && \
 # Install cross-build of enet
     curl -L -O http://enet.bespin.org/download/enet-1.3.17.tar.gz && \
     tar zxf enet-1.3.17.tar.gz && \

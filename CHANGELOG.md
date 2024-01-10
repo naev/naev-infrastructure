@@ -7,6 +7,9 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.9.1
+- Update OpenBLAS to v0.3.26 in `naev-windows`.
+
 ### v1.9.0
 - `naev-macos`: Update SDK, merge aarch64 and x86_64 images.
    - Pass $BUILD_ARCH when starting this image to configure the correct macports packages.
