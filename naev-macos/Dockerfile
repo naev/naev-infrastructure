@@ -57,7 +57,7 @@ RUN UNATTENDED=1 osxcross-macports install freetype glpk libsdl2 libsdl2_image l
     mv /usr/lib/osxcross/macports /usr/lib/osxcross/macports.x86_64
 
 # Set MACOSX_DEPLOYMENT_TARGET for AARCH64
-ENV MACOSX_DEPLOYMENT_TARGET "11.0"
+ENV MACOSX_DEPLOYMENT_TARGET "12.0"
 
 # Install required build dependencies
 RUN UNATTENDED=1 osxcross-macports install -arm64 freetype glpk libsdl2 libsdl2_image libpng \

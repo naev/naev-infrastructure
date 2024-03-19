@@ -7,6 +7,9 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.10.0
+- Bump minimum macOS version for arm64 to 12.0, due to issues with gettext packaging.
+
 ### v1.9.1
 - Update OpenBLAS to v0.3.26 in `naev-windows`.
 - Add rcodesign to `naev-macos` and `naev-release`.
