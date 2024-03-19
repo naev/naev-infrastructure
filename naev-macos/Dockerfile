@@ -86,7 +86,7 @@ LABEL org.opencontainers.image.description "Used to cross compile for macOS."
 
 # Set deployment target for AARCH64 and x86_64 for use with entrypoint
 # Make sure these follow the values in the build container above ^
-ENV AARCH64_DEPLOYMENT_TARGET "11.0"
+ENV AARCH64_DEPLOYMENT_TARGET "12.0"
 ENV X86_64_DEPLOYMENT_TARGET "10.13"
 
 # Allows for determining what container scripts are run in.
