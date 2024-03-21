@@ -7,6 +7,9 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.10.1
+- Checkout `upcoming` branch of naev-website when building naev-docs
+
 ### v1.10.0
 - Bump minimum macOS version for arm64 to 12.0, due to issues with gettext packaging.
 

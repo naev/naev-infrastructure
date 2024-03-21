@@ -1,7 +1,7 @@
-# Build luarocks and ruby in build container to save space.
+# Build ruby in build container to save space.
 FROM registry.fedoraproject.org/fedora-minimal:latest AS build 
 
-# Install luarocks and ruby deps
+# Install ruby deps
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install findutils gcc git gzip \
     libyaml libyaml-devel make openssl openssl-devel tar unzip automake findutils g++ zlib-devel && \
     microdnf clean all
@@ -29,6 +29,7 @@ RUN mkdir websiteTemp && \
     git clone --recurse https://github.com/naev/naev-website.git websiteTemp && \
 # Install Website Build gems.
     cd websiteTemp && \
+    git checkout upcoming && \
     bundle install -j"$(nproc --all)" && \
     rm -rf /tmp/websiteTemp
 
