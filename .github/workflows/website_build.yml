@@ -67,6 +67,7 @@ jobs:
           submodules: 'recursive'
           path: /__w/naev.github.io/naev.github.io/staging
       - name: "Build API Docs"
+        id: "build"
         run: |
           meson setup build . -Dexecutable=disabled
           meson compile -C build
