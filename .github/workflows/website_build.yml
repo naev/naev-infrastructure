@@ -71,6 +71,12 @@ jobs:
           meson setup build . -Dexecutable=disabled
           meson compile -C build
         working-directory: ${{ github.workspace }}/staging
+      - name: "Upload Build Log"
+        uses: actions/upload-artifact@v1
+        if: ${{ success() || steps.build.outcome == 'failure' }}
+        with:
+          name: meson-build-log
+          path: ${{ github.workspace }}/staging/build/meson-logs/meson-log.txt
       - name: "Build Manual PDF"
         run: |
           OLDHOME="$HOME"
