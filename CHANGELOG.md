@@ -7,6 +7,9 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.10.3
+- It's naev-steamruntime that needs the Meson bump.
+
 ### v1.10.2
 - Require modern Meson for naev-linux as well; install C++ compiler for Windows.
 

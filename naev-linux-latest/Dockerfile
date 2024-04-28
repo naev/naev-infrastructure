@@ -40,8 +40,6 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build 
 # Install utilities
     git libevent lua nano ncurses python3-pyyaml python3-mutagen readline tar texinfo xz unzip zip && \
     microdnf clean all && \
-# Need Meson >=1.2.0 for fancy wrap files.
-    python3 -m pip install meson --upgrade
 # Verify tool versions and install locations.
     echo "Verifying python install" && \
     command -v python3 && \
