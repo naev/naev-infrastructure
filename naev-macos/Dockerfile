@@ -104,7 +104,7 @@ ENV APPIMAGE_EXTRACT_AND_RUN 1
 # Install build tools.
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettext genisoimage git llvm meson ninja-build python3-pip python3-pyyaml unzip tar texinfo xz zlib zip && \
     microdnf clean all && \
-# Need Meson >=0.63.1 to avoid passing linker args which don't work.
+# Need Meson >=1.2.0 for fancy wrap files.
     python3 -m pip install meson --upgrade && \
 # Verify tool version.
     echo "Verifying meson install" && \

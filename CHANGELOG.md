@@ -7,6 +7,9 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.10.2
+- Require modern Meson for naev-linux as well; install C++ compiler for Windows.
+
 ### v1.10.1
 - Checkout `upcoming` branch of naev-website when building naev-docs
 
