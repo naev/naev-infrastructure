@@ -7,6 +7,9 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.10.4
+- Add ffmpeg, luarocks, luacheck, and mutagen module to `naev-steamruntime`
+
 ### v1.10.3
 - It's naev-steamruntime that needs the Meson bump.
 
