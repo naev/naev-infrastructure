@@ -42,7 +42,7 @@ ENV IMAGE_NAME "naev-steamruntime"
 # Install pip from steam/debian repositories.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 # Naughty: we need libluajit-5.1-dev, libglpk-dev and libsuitesparse-dev, not in the SDK.... All are statically linked when building with the steamruntime option in meson set to true. Also, texinfo is an accidental build dependency for libbfd.
-    libluajit-5.1-dev libglpk-dev libsuitesparse-dev texinfo && \
+    libluajit-5.1-dev libglpk-dev libsuitesparse-dev texinfo python3-pip && \
     apt-get clean && \
 # Need Meson >=1.2.0 for fancy wrap files.
     python3 -m pip install meson --upgrade && \
