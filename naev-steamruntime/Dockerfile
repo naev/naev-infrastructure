@@ -1,5 +1,5 @@
 # Build dependencies in build container to save space.
-FROM registry.gitlab.steamos.cloud/steamrt/sniper/sdk:latest AS build 
+FROM registry.gitlab.steamos.cloud/steamrt/sniper/sdk:latest AS build
 
 WORKDIR /tmp
 RUN mkdir -p /opt
@@ -26,7 +26,7 @@ RUN curl -L -O http://enet.bespin.org/download/enet-1.3.17.tar.gz && \
     cd enet-1.3.17 && \
     ./configure --prefix=/opt && \
     make -j"$(nproc --all)" && \
-    make PREFIX=/opt install 
+    make PREFIX=/opt install
 
 FROM registry.gitlab.steamos.cloud/steamrt/sniper/sdk:latest
 
@@ -45,7 +45,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libluajit-5.1-dev libglpk-dev libsuitesparse-dev texinfo && \
     apt-get clean && \
 # Need Meson >=1.2.0 for fancy wrap files.
-    python3 -m pip install meson --upgrade
+    python3 -m pip install meson --upgrade && \
 # Verify meson and python.
     echo "Verifying python install" && \
     command -v python3 && \
@@ -53,7 +53,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     echo "Verifying meson install" && \
     command -v meson && \
     meson --version
-    
+
 # Force appimages to run in extract mode since FUSE is not available
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
