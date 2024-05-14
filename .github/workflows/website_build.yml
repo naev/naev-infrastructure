@@ -39,23 +39,11 @@ jobs:
       - name: "Stage Updated Files"
         run: rsync -avzh output/ ${{ github.workspace }}/prod
         working-directory: ${{ github.workspace }}/staging
-      - name: "Add Updated Files"
-        run: |
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "GitHub Actions"
-          git add *
-        working-directory: ${{ github.workspace }}/prod
       - name: "Commit Updated Files"
-        run: |
-          git commit -m "Website Updates" -a
-          git pull
-        working-directory: ${{ github.workspace }}/prod
-      - name: "Push Updates to `naev.org`"
-        uses: ad-m/github-push-action@master
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
-          directory: ${{ github.workspace }}/prod   
+          commit_message: "Website Updates"
+          repository: ${{ github.workspace }}/prod
   docs_publish:
     permissions:
       contents: write
@@ -97,20 +85,8 @@ jobs:
         run: 
           cp -Ru build/docs/lua/* ../prod/api  && mkdir -p ../prod/devmanual && cp docs/manual/*.pdf ../prod/devmanual
         working-directory: ${{ github.workspace }}/staging
-      - name: "Add Updated Files"
-        run: |
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "GitHub Actions"
-          git add *
-        working-directory: /__w/naev.github.io/naev.github.io/prod
       - name: "Commit Updated Files"
-        run: |
-          git commit -m "Documentation Updates" -a
-          git pull
-        working-directory: /__w/naev.github.io/naev.github.io/prod
-      - name: "Push Updates to `naev.org`"
-        uses: ad-m/github-push-action@master
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
-          directory: /__w/naev.github.io/naev.github.io/prod
+          commit_message: "Documentation Updates"
+          repository: /__w/naev.github.io/naev.github.io/prod
