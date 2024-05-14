@@ -7,7 +7,7 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
-### v1.10.45
+### v1.10.5
 - Remove ruby and bundler from `naev-docs` in favour of using Github Actions bundled tool.
 
 ### v1.10.4
