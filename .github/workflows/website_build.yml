@@ -25,6 +25,11 @@ jobs:
         with:
           repository: 'naev/naev-website'
           path: /__w/naev.github.io/naev.github.io/staging
+      - name: "Setup ruby"
+        uses: ruby/setup-ruby@v1
+        with:
+          working-directory: ${{ github.workspace }}/staging
+          bundler-cache: true
       - name: "Build Website"
         run: make
         working-directory: ${{ github.workspace }}/staging
