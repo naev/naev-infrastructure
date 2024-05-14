@@ -13,8 +13,6 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     if: github.event.inputs.publish_type == 'website'
-    container:
-      image: "ghcr.io/naev/naev-docs:latest"
     steps:
       - name: "Checkout `naev.org`"
         uses: actions/checkout@v3
@@ -25,6 +23,11 @@ jobs:
         with:
           repository: 'naev/naev-website'
           path: /__w/naev.github.io/naev.github.io/staging
+      - name: "Setup APT Packages"
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: graphicsmagick optipng tidy
+          version: website_1.0
       - name: "Setup ruby"
         uses: ruby/setup-ruby@v1
         with:
