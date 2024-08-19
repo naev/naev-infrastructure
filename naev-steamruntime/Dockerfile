@@ -26,6 +26,50 @@ RUN curl -L -O https://github.com/adah1972/libunibreak/releases/download/libunib
     make -j"$(nproc --all)" && \
     make PREFIX=/opt install
 
+# Install ffmpeg build requirements
+RUN apt-get -y install \
+        autoconf \
+        automake \
+        build-essential \
+        cmake \
+        git-core \
+        libass-dev \
+        libfreetype6-dev \
+        libgnutls28-dev \
+        libmp3lame-dev \
+        libsdl2-dev \
+        libtool \
+        libva-dev \
+        libvdpau-dev \
+        libvorbis-dev \
+        libxcb1-dev \
+        libxcb-shm0-dev \
+        libxcb-xfixes0-dev \
+        meson \
+        ninja-build \
+        pkg-config \
+        texinfo \
+        wget \
+        yasm \
+        zlib1g-dev && \
+# Due to missing packaging shenanigans, build ffmpeg from source..
+    curl -L -O https://www.ffmpeg.org/releases/ffmpeg-7.0.2.tar.gz && \
+    tar zxpf ffmpeg-7.0.2.tar.gz && \
+    cd ffmpeg-7.0.2 && \
+    ./configure --prefix=/opt/ffmpeg \
+        --pkg-config-flags="--static" \
+        --extra-libs="-lpthread -lm -lz" \
+        --extra-ldexeflags="-static" \
+        --disable-shared \
+        --enable-static \
+        --disable-doc \
+        --disable-ffplay \
+        --disable-devices \
+        --enable-libmp3lame \
+        --enable-libvorbis && \
+    make -j"$(nproc --all)" && \
+    make install
+
 # Due to age of the packaged version of physfs, build libphyfsfs from source..
 RUN curl -L -O https://github.com/icculus/physfs/archive/refs/tags/release-3.2.0.tar.gz && \
     tar zxpf release-3.2.0.tar.gz && \
@@ -46,9 +90,10 @@ FROM registry.gitlab.steamos.cloud/steamrt/sniper/sdk:latest
 
 COPY --from=build /opt/libs /usr
 COPY --from=build /opt/luarocks /opt/luarocks
+COPY --from=build /opt/ffmpeg /opt/ffmpeg
 
 # Add luarocks and friends to PATH
-ENV PATH "$PATH:/opt/luarocks/bin"
+ENV PATH "$PATH:/opt/luarocks/bin:/opt/ffmpeg/bin"
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
@@ -61,8 +106,6 @@ ENV IMAGE_NAME "naev-steamruntime"
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip \
 # Install runtime dependencies for luarocks
     lua5.4 \
-# Install ffmpeg and python mutagen module for soundtrack generation
-    ffmpeg \
 # Naughty: we need libluajit-5.1-dev, libglpk-dev and libsuitesparse-dev, not in the SDK.... All are statically linked when building with the steamruntime option in meson set to true. Also, texinfo is an accidental build dependency for libbfd.
     libluajit-5.1-dev libglpk-dev libsuitesparse-dev texinfo && \
     apt-get clean && \
