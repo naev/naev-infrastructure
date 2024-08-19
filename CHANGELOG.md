@@ -7,6 +7,11 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.10.6
+- `naev-macos`: Disable hacks and workaround upstream OSXCross issue. (https://github.com/tpoechtrager/osxcross/pull/428)
+- `naev-steamruntime`: Build our own static ffmpeg binary to avoid broken dependencies.
+
+
 ### v1.10.5
 - Remove ruby and bundler from `naev-docs` in favour of using Github Actions bundled tool.
 
