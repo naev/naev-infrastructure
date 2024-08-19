@@ -28,8 +28,9 @@ RUN mkdir build && cd build && \
 WORKDIR /usr/local/src
 #RUN git clone https://github.com/tpoechtrager/osxcross.git
 
-# Use my fork of OSXCross until https://github.com/tpoechtrager/osxcross/pull/409 is pulled upstream.
-RUN git clone https://github.com/ProjectSynchro/osxcross.git
+# Use my fork of OSXCross until https://github.com/tpoechtrager/osxcross/pull/428 is pulled upstream.
+RUN git clone https://github.com/ProjectSynchro/osxcross.git && \
+    cd osxcross && git checkout osxcross-any-arch
 
 # Copy MacOS SDK tarball
 COPY MacOSX14.sdk.tar.xz /usr/local/src/osxcross/tarballs
@@ -42,10 +43,6 @@ RUN TARGET_DIR=/usr/lib/osxcross UNATTENDED=1 ./build.sh
 ENV PATH "$PATH:/usr/lib/osxcross/bin"
 
 ENV OSXCROSS_MP_INC "1"
-
-# Patch osxcross-macports script to workaround openssl or fedora moving ripemd-160 encryption to the 'legacy' provider
-RUN sed -i 's/\bopenssl rmd160\b/openssl rmd160 -provider legacy/g' $(command -v osxcross-macports) && \
-    sed -i 's/\bopenssl dgst -ripemd160 -verify\b/openssl dgst -provider default -provider legacy -ripemd160 -verify/g' $(command -v osxcross-macports)
 
 # Set MACOSX_DEPLOYMENT_TARGET
 ENV MACOSX_DEPLOYMENT_TARGET "10.13"
