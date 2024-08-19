@@ -14,8 +14,8 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install gcc gettext git me
 # Note to selves: mingw64-dlfcn is:
 # - to be added with great caution in any case: Fedora's hardened build flags make it depend on libssp-0.dll,
 #   and test-runs under Wine 7.12 showed a startup hang if libssp-0.dll was bundled (as our installer does).
-    mingw64-gcc mingw64-gcc-c++ mingw64-dlfcn mingw64-freetype mingw64-libvorbis mingw64-libxml2 mingw64-openal-soft \
-    mingw64-SDL2 mingw64-SDL2_image mingw64-libpng mingw32-nsis mingw64-pcre2 mingw64-physfs && \
+    mingw64-clang mingw64-gcc mingw64-gcc-c++ mingw64-dlfcn mingw64-freetype mingw64-libvorbis mingw64-libxml2 \
+    mingw64-openal-soft mingw64-SDL2 mingw64-SDL2_image mingw64-libpng mingw32-nsis mingw64-pcre2 mingw64-physfs && \
     microdnf clean all && \
 # Install openblas for mingw (building this from source is an option but probably painful)
     curl -L -O https://github.com/OpenMathLib/OpenBLAS/releases/download/v0.3.26/OpenBLAS-0.3.26-x64.zip && \
