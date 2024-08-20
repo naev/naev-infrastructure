@@ -1,0 +1,11 @@
+[copr:copr.fedorainfracloud.org:jackgreiner:ucrt64-libraries]
+name=Copr repo for ucrt64-libraries owned by jackgreiner
+baseurl=https://download.copr.fedorainfracloud.org/results/jackgreiner/ucrt64-libraries/fedora-$releasever-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://download.copr.fedorainfracloud.org/results/jackgreiner/ucrt64-libraries/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
+module_hotfixes=1
