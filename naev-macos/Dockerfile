@@ -26,11 +26,11 @@ RUN mkdir build && cd build && \
 
 # Git clone osxcross repo
 WORKDIR /usr/local/src
-#RUN git clone https://github.com/tpoechtrager/osxcross.git
+RUN git clone https://github.com/tpoechtrager/osxcross.git
 
 # Use my fork of OSXCross until https://github.com/tpoechtrager/osxcross/pull/428 is pulled upstream.
-RUN git clone https://github.com/ProjectSynchro/osxcross.git && \
-    cd osxcross && git checkout osxcross-any-arch
+#RUN git clone https://github.com/ProjectSynchro/osxcross.git && \
+#    cd osxcross && git checkout osxcross-any-arch
 
 # Copy MacOS SDK tarball
 COPY MacOSX14.sdk.tar.xz /usr/local/src/osxcross/tarballs
