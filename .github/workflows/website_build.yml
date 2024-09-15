@@ -15,11 +15,11 @@ jobs:
     if: github.event.inputs.publish_type == 'website'
     steps:
       - name: "Checkout `naev.org`"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: ${{ github.workspace }}/prod
       - name: "Clone `naev-website`"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: 'naev/naev-website'
           path: ${{ github.workspace }}/staging
@@ -53,11 +53,11 @@ jobs:
       image: "ghcr.io/naev/naev-docs:latest"
     steps:
       - name: "Checkout `naev.org`"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: /__w/naev.github.io/naev.github.io/prod
       - name: "Checkout `naev`"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: 'naev/naev'
           submodules: 'recursive'
@@ -69,7 +69,7 @@ jobs:
           meson compile -C build
         working-directory: ${{ github.workspace }}/staging
       - name: "Upload Build Log"
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         if: ${{ success() || steps.build.outcome == 'failure' }}
         with:
           name: meson-build-log
