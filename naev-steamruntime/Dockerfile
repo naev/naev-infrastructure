@@ -26,6 +26,10 @@ RUN curl -L -O https://github.com/adah1972/libunibreak/releases/download/libunib
     make -j"$(nproc --all)" && \
     make PREFIX=/opt install
 
+# Install Rust
+RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
+ENV PATH "$PATH:/root/.cargo/bin"
+
 # Install ffmpeg build requirements
 RUN apt-get -y install \
         autoconf \

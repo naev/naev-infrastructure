@@ -1,5 +1,5 @@
 # Build toolchain in build container to save space.
-FROM registry.fedoraproject.org/fedora-minimal:latest AS build 
+FROM registry.fedoraproject.org/fedora-minimal:latest AS build
 
 # Install Build dependencies and utilities.
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install bzip2 clang cmake git file findutils patch python3 \
@@ -15,6 +15,10 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install bzip2 clang cmake 
     echo "Verifying python install" && \
     command -v python3 && \
     python3 --version
+
+# Install Rust
+RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
+ENV PATH "$PATH:/root/.cargo/bin"
 
 # Git clone libdmg-hfsplus repo
 WORKDIR /usr/local/src
@@ -72,7 +76,7 @@ RUN curl -L -O https://github.com/indygreg/apple-platform-rs/releases/download/a
 FROM registry.fedoraproject.org/fedora-minimal:latest
 
 WORKDIR /
-COPY --from=build /usr/lib/osxcross /usr/lib/osxcross 
+COPY --from=build /usr/lib/osxcross /usr/lib/osxcross
 COPY --from=build /usr/local/bin/dmg /usr/bin
 COPY --from=build /opt/apple-codesign/rcodesign /usr/bin
 COPY macports-configure.sh /usr/bin
@@ -109,7 +113,7 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettex
     meson --version && \
     echo "Verifying dmg install" && \
     command -v dmg && \
-# Horrible hack: ensure a hardcoded header file path resolves.  
+# Horrible hack: ensure a hardcoded header file path resolves.
     rmdir /opt && ln -s /usr/lib/osxcross/macports/pkgs/opt /opt && \
 # Set WORKDIR when you spin up the image.
     mkdir -p /tmp/naevBuild
