@@ -7,6 +7,9 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### rust
+- 'steam-macos`, `naev-steamruntime`, `naev-release`, `naev-window`: Added rust support
+
 ### v1.10.6
 - `naev-macos`: Disable hacks and workaround upstream OSXCross issue. (https://github.com/tpoechtrager/osxcross/pull/428)
 - `naev-steamruntime`: Build our own static ffmpeg binary to avoid broken dependencies.
@@ -66,7 +69,7 @@
 ### v1.7.1
 - Fix static libraries by installing compiled libs to the `/usr` prefix instead of `/usr/local`
    - This may cause issues, but we need static libraries to show up in Meson.
-   
+
 ### v1.7
 - Add `naev-steamfrankenruntime`
    - This is Valve's 'scout' runtime with Python 3.6, OpenBLAS, libenet, physfs, libunibreak compiled from source, and a 'new-ish' version of git installed.
@@ -193,8 +196,8 @@
 - Add rsync to naev-linux-latest and lts images. Add OpenBLAS.
 
 ### v1.4.9
-- Added more SuiteSparse libraries to `naev-macos`. 
-- Added additional website build dependencies. 
+- Added more SuiteSparse libraries to `naev-macos`.
+- Added additional website build dependencies.
 - Give up on libwebp in steamruntime.
 
 ### v1.4.8
@@ -204,7 +207,7 @@
 - Added `naev-linux-archaic` image used for building *very* old Naev releases. Added webp to steamruntime too.
 
 ### v1.4.6
-- Add webp library to non-"ancient" images. 
+- Add webp library to non-"ancient" images.
 
 ### v1.4.5
 - Added [SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD) and [itch.io butler](https://itch.io/docs/butler/) to `naev-linux-latest` and ``naev-linux-lts`` images. (Available on PATH)
@@ -229,8 +232,8 @@
 - Add `APPIMAGE_EXTRACT_AND_RUN` to ENV of all images since this is required to run any appimage in a docker container.
 
 ### v1.3.2:
-- Pinned the version of Meson to use in Ubuntu 16.04. 
-- This situation is temporary; 16.04 will stop being the base system for AppImage builds by late April. 
+- Pinned the version of Meson to use in Ubuntu 16.04.
+- This situation is temporary; 16.04 will stop being the base system for AppImage builds by late April.
    - Refs: https://packages.ubuntu.com/source/xenial-backports/ninja-build https://docs.appimage.org/reference/best-practices.html#binaries-compiled-on-old-enough-base-system
 
 ### v1.3.1:
