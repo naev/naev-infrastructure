@@ -7,8 +7,8 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
-### rust
-- 'steam-macos`, `naev-steamruntime`, `naev-release`, `naev-window`: Added rust support
+### v1.11.0
+- 'naev-macos`, `naev-steamruntime`, `naev-release`, `naev-docs`, `naev-windows`: Added rust support
 
 ### v1.10.6
 - `naev-macos`: Disable hacks and workaround upstream OSXCross issue. (https://github.com/tpoechtrager/osxcross/pull/428)
