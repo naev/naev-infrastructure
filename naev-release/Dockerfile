@@ -37,13 +37,9 @@ ENV PATH "$PATH:/opt/butler"
 # Add rcodesign to PATH
 ENV PATH "$PATH:/opt/apple-codesign"
 
-# Install Rust
-RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
-ENV PATH "$PATH:/root/.cargo/bin"
-
 WORKDIR /tmp
 # Install utilities
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build gcc python3-pyyaml file git tar xz unzip zip \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install cargo meson ninja-build gcc python3-pyyaml file git rust tar xz unzip zip \
 # Install SteamCMD and friends
     glibc.i686 SDL2.i686 && \
     microdnf clean all && \

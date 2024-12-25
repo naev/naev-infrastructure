@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.description "Used for building website and docs."
 ENV IMAGE_NAME "naev-docs"
 
 # Install utilities
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make meson ninja-build gcc git GraphicsMagick libyaml openssl optipng zlib \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install cargo make meson ninja-build gcc git GraphicsMagick libyaml openssl optipng rust zlib \
     python3-pyyaml rsync tidy tar unzip xz zip \
 # Install ldoc
     lua-ldoc \

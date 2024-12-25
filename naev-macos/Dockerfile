@@ -16,10 +16,6 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install bzip2 clang cmake 
     command -v python3 && \
     python3 --version
 
-# Install Rust
-RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
-ENV PATH "$PATH:/root/.cargo/bin"
-
 # Git clone libdmg-hfsplus repo
 WORKDIR /usr/local/src
 RUN git clone https://github.com/fanquake/libdmg-hfsplus.git
@@ -103,7 +99,7 @@ ENV OSXCROSS_MP_INC "1"
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
 # Install build tools.
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettext genisoimage git llvm meson ninja-build python3-pip python3-pyyaml unzip tar texinfo xz zlib zip && \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install cargo clang cmake gettext genisoimage git llvm meson ninja-build python3-pip python3-pyyaml rust unzip tar texinfo xz zlib zip && \
     microdnf clean all && \
 # Need Meson >=1.2.0 for fancy wrap files.
     python3 -m pip install meson --upgrade && \

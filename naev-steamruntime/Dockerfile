@@ -26,10 +26,6 @@ RUN curl -L -O https://github.com/adah1972/libunibreak/releases/download/libunib
     make -j"$(nproc --all)" && \
     make PREFIX=/opt install
 
-# Install Rust
-RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
-ENV PATH "$PATH:/root/.cargo/bin"
-
 # Install ffmpeg build requirements
 RUN apt-get -y install \
         autoconf \
@@ -130,6 +126,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip \
     echo "Verifying ffmpeg install" && \
     command -v ffmpeg && \
     ffmpeg -version
+
+
+# Install Rust
+RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
+ENV PATH "$PATH:/root/.cargo/bin"
 
 # Force appimages to run in extract mode since FUSE is not available
 ENV APPIMAGE_EXTRACT_AND_RUN 1
