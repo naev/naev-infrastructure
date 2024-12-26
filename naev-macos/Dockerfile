@@ -99,7 +99,7 @@ ENV OSXCROSS_MP_INC "1"
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
 # Install build tools.
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install cargo clang cmake gettext genisoimage git llvm meson ninja-build python3-pip python3-pyyaml rust unzip tar texinfo xz zlib zip && \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install bindgen clang cmake gettext genisoimage git llvm meson ninja-build python3-pip python3-pyyaml rustup unzip tar texinfo xz zlib zip && \
     microdnf clean all && \
 # Need Meson >=1.2.0 for fancy wrap files.
     python3 -m pip install meson --upgrade && \
@@ -113,5 +113,10 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install cargo clang cmake 
     rmdir /opt && ln -s /usr/lib/osxcross/macports/pkgs/opt /opt && \
 # Set WORKDIR when you spin up the image.
     mkdir -p /tmp/naevBuild
+
+# Install cross compilation rust toolchain
+RUN rustup-init -y -t x86_64-apple-darwin -t aarch64-apple-darwin --default-toolchain stable
+ENV PATH=/root/.cargo/bin:$PATH
+
 WORKDIR /tmp/naevBuild
 CMD [ "/usr/bin/macports-configure.sh", "/bin/bash" ]

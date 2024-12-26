@@ -30,6 +30,7 @@ RUN curl -L -O https://github.com/adah1972/libunibreak/releases/download/libunib
 RUN apt-get -y install \
         autoconf \
         automake \
+        bindgen \
         build-essential \
         cmake \
         git-core \
@@ -126,7 +127,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip \
     echo "Verifying ffmpeg install" && \
     command -v ffmpeg && \
     ffmpeg -version
-
 
 # Install Rust
 RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y

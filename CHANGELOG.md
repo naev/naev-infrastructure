@@ -7,6 +7,9 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.11.1
+- Added bindgen where necessary, and set up crosscompiling rust targets
+
 ### v1.11.0
 - 'naev-macos`, `naev-steamruntime`, `naev-release`, `naev-docs`, `naev-windows`: Added rust support
 
