@@ -7,11 +7,14 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.11.2
+- Added readline-devel to `naev-release` so that lua compilesa.
+
 ### v1.11.1
-- Added bindgen where necessary, and set up crosscompiling rust targets
+- Added bindgen where necessary, and set up crosscompiling rust targets.
 
 ### v1.11.0
-- 'naev-macos`, `naev-steamruntime`, `naev-release`, `naev-docs`, `naev-windows`: Added rust support
+- 'naev-macos`, `naev-steamruntime`, `naev-release`, `naev-docs`, `naev-windows`: Added preliminary rust support.
 
 ### v1.10.6
 - `naev-macos`: Disable hacks and workaround upstream OSXCross issue. (https://github.com/tpoechtrager/osxcross/pull/428)

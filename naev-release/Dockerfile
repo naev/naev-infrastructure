@@ -39,7 +39,7 @@ ENV PATH "$PATH:/opt/apple-codesign"
 
 WORKDIR /tmp
 # Install utilities
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install cargo meson ninja-build gcc python3-pyyaml file git rust tar xz unzip zip \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install cargo meson ninja-build gcc python3-pyyaml file git readline-devel rust tar xz unzip zip \
 # Install SteamCMD and friends
     glibc.i686 SDL2.i686 && \
     microdnf clean all && \
