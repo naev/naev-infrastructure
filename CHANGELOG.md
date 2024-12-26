@@ -8,7 +8,7 @@
 - `naev-windows` (Used to cross compile for Windows.)
 
 ### v1.11.2
-- Added readline-devel to `naev-release` so that lua compilesa.
+- Added readline-devel to `naev-release` so that lua compiles.
 
 ### v1.11.1
 - Added bindgen where necessary, and set up crosscompiling rust targets.
