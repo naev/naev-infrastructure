@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.description "Used for building website and docs."
 ENV IMAGE_NAME "naev-docs"
 
 # Install utilities
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install cargo make meson ninja-build gcc git GraphicsMagick libyaml openssl optipng rust zlib \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make meson ninja-build gcc git GraphicsMagick libyaml openssl optipng rustup zlib \
     python3-pyyaml rsync tidy tar unzip xz zip \
 # Install ldoc
     lua-ldoc \
@@ -16,6 +16,8 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install cargo make meson n
     latexmk texlive-luahbtex texlive-roboto texlive-preprint texlive-parskip texlive-sfmath \
     texlive-markdown texlive-csvsimple texlive-gobble texlive-microtype texlive-minted texlive-newunicodechar && \
     microdnf clean all && \
+# Install rust toolchain
+    rustup-init -y --default-toolchain stable && \
 # Verify tool versions and install locations.
     echo "Verifying latexmk install" && \
     command -v latexmk && \
@@ -25,7 +27,9 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install cargo make meson n
     lualatex -v && \
     echo "Verifying ldoc install" && \
     command -v ldoc
-    
+
+# Add rust toolchain to PATH
+ENV PATH=/root/.cargo/bin:$PATH
 # Force appimages to run in extract mode since FUSE is not available
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 

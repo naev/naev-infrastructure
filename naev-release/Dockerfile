@@ -39,10 +39,12 @@ ENV PATH "$PATH:/opt/apple-codesign"
 
 WORKDIR /tmp
 # Install utilities
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install cargo meson ninja-build gcc python3-pyyaml file git readline-devel rust tar xz unzip zip \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build gcc python3-pyyaml file git readline-devel rustup tar xz unzip zip \
 # Install SteamCMD and friends
     glibc.i686 SDL2.i686 && \
     microdnf clean all && \
+# Install rust toolchain
+    rustup-init -y --default-toolchain stable && \
 # Download and install SteamCMD
     curl -L -O http://media.steampowered.com/installer/steamcmd_linux.tar.gz && \
     mkdir -p /opt/steamcmd && \
@@ -75,6 +77,8 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install cargo meson ninja-
     command -v github-assets-uploader && \
     github-assets-uploader -version
 
+# Add rust toolchain to PATH
+ENV PATH=/root/.cargo/bin:$PATH
 # Force appimages to run in extract mode since FUSE is not available
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
