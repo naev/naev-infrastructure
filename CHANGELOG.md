@@ -7,6 +7,9 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.11.3
+- Added Rust toolchain to `naev-release` and `naev-docs` and fixed bindgen on `naev-steamruntime`
+
 ### v1.11.2
 - Added readline-devel to `naev-release` so that lua compiles.
 
