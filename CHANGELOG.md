@@ -1,5 +1,5 @@
 ### Overview:
-- `naev-artwork` (Used to render naev artwork.)
+- `naev-artwork` (Used to render naev artwork.) ***DEPRECATED***
 - `naev-docs` (Used for building website and docs.)
 - `naev-linux-archaic` (Used for old release builds) ***DEPRECATED***
 - `naev-macos` (Used to cross compile for macOS.)
@@ -9,6 +9,7 @@
 
 ### v1.11.4
 - Added clang to `naev-docs`, `naev-release` and `naev-windows` to fix issues with bindgen
+- Disabled blender2.79b builds (for now)
 
 ### v1.11.3
 - Added Rust toolchain to `naev-release` and `naev-docs` and fixed bindgen on `naev-steamruntime`

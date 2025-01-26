@@ -16,9 +16,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - context: "naev-artwork/blender2.79b"
-            imagename: "naev-artwork"
-            blender: "blender2.79b"
+          #- context: "naev-artwork/blender2.79b"
+          #  imagename: "naev-artwork"
+          #  blender: "blender2.79b"
           - context: "naev-docs"
             imagename: "naev-docs"
           - context: "naev-release"
