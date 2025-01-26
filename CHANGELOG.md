@@ -7,6 +7,9 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.11.5
+- Remove Rust and bindgen installation from `naev-steamruntime`, `naev-macos` and `naev-windows` Dockerfiles
+
 ### v1.11.4
 - Added clang to `naev-docs`, `naev-release` and `naev-windows` to fix issues with bindgen
 - Disabled blender2.79b builds (for now)
