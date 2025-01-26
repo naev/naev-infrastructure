@@ -10,6 +10,7 @@
 ### v1.11.4
 - Added clang to `naev-docs`, `naev-release` and `naev-windows` to fix issues with bindgen
 - Disabled blender2.79b builds (for now)
+- Remove bindgen installation from `naev-steamruntime` Dockerfile
 
 ### v1.11.3
 - Added Rust toolchain to `naev-release` and `naev-docs` and fixed bindgen on `naev-steamruntime`

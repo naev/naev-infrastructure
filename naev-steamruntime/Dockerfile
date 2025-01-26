@@ -106,8 +106,6 @@ ENV IMAGE_NAME "naev-steamruntime"
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip \
 # Install runtime dependencies for luarocks
     lua5.4 \
-# Install bindgen for building naev
-    bindgen \
 # Naughty: we need libluajit-5.1-dev, libglpk-dev and libsuitesparse-dev, not in the SDK.... All are statically linked when building with the steamruntime option in meson set to true. Also, texinfo is an accidental build dependency for libbfd.
     libluajit-5.1-dev libglpk-dev libsuitesparse-dev texinfo && \
     apt-get clean && \
