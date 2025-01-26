@@ -127,10 +127,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip \
     command -v ffmpeg && \
     ffmpeg -version
 
-# Install Rust
-RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
-ENV PATH "$PATH:/root/.cargo/bin"
-
 # Force appimages to run in extract mode since FUSE is not available
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
