@@ -13,7 +13,7 @@ jobs:
       contents: write
       packages: write
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         include:
           #- context: "naev-artwork/blender2.79b"
