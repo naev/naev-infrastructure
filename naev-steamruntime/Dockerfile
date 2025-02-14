@@ -4,6 +4,21 @@ FROM registry.gitlab.steamos.cloud/steamrt/sniper/sdk:latest AS build
 WORKDIR /tmp
 RUN mkdir -p /opt
 
+# Install llvm and lld build tools
+RUN apt-get -y install \
+        lld llvm
+
+ENV CC clang
+ENV CXX clang++
+ENV AR llvm-ar
+ENV NM llvm-nm
+ENV RANLIB llvm-ranlib
+ENV STRIP llvm-strip
+ENV LD ld.lld
+
+ENV CFLAGS "-fPIC" 
+ENV CXXFLAGS "-fPIC"
+
 # Install luarocks deps
 RUN apt-get -y install lua5.4 liblua5.4-dev make libncurses-dev libevent-dev libreadline-dev && \
 # Build luarocks
@@ -19,12 +34,12 @@ ENV PATH "$PATH:/opt/luarocks/bin"
 RUN luarocks install luacheck
 
 # Due to Debian packaging shenanigans, build libunibreak from source..
-RUN curl -L -O https://github.com/adah1972/libunibreak/releases/download/libunibreak_5_0/libunibreak-5.0.tar.gz && \
-    tar zxpf libunibreak-5.0.tar.gz && \
-    cd libunibreak-5.0 && \
+RUN curl -L -O https://github.com/adah1972/libunibreak/releases/download/libunibreak_6_1/libunibreak-6.1.tar.gz && \
+    tar zxpf libunibreak-6.1.tar.gz && \
+    cd libunibreak-6.1 && \
     ./configure --prefix=/opt/libs && \
     make -j"$(nproc --all)" && \
-    make PREFIX=/opt install
+    make install
 
 # Install ffmpeg build requirements
 RUN apt-get -y install \
@@ -104,6 +119,8 @@ ENV IMAGE_NAME "naev-steamruntime"
 
 # Install pip from steam/debian repositories.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip \
+# Install LLVM and LLD for clang and friends
+    lld llvm \
 # Install runtime dependencies for luarocks
     lua5.4 \
 # Naughty: we need libluajit-5.1-dev, libglpk-dev and libsuitesparse-dev, not in the SDK.... All are statically linked when building with the steamruntime option in meson set to true. Also, texinfo is an accidental build dependency for libbfd.
