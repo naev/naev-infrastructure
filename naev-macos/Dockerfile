@@ -75,7 +75,7 @@ WORKDIR /
 COPY --from=build /usr/lib/osxcross /usr/lib/osxcross
 COPY --from=build /usr/local/bin/dmg /usr/bin
 COPY --from=build /opt/apple-codesign/rcodesign /usr/bin
-COPY macports-configure.sh /usr/bin
+COPY setup-devenv.sh /usr/bin
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
 LABEL org.opencontainers.image.source "https://github.com/naev/naev-infrastructure"
@@ -115,4 +115,4 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettex
     mkdir -p /tmp/naevBuild
 
 WORKDIR /tmp/naevBuild
-CMD [ "/usr/bin/macports-configure.sh", "/bin/bash" ]
+CMD [ "/usr/bin/setup-devenv.sh", "/bin/bash" ]
