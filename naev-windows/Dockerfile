@@ -11,9 +11,10 @@ WORKDIR /tmp
 # Install build requirements
 # Add COPR repository for missing upstream UCRT64 packages.
 COPY _copr:copr.fedorainfracloud.org:jackgreiner:ucrt64-libraries.repo /etc/yum.repos.d
+COPY setup-devenv.sh /usr/bin
 
 RUN microdnf update -y && \
-    microdnf --nodocs --setopt=install_weak_deps=0 -y install clang gcc gettext git meson ninja-build python3-pyyaml rustup tar texinfo xz unzip zip \
+    microdnf --nodocs --setopt=install_weak_deps=0 -y install clang gcc gettext git lld llvm meson ninja-build python3-pyyaml rustup tar texinfo xz unzip zip \
 # Install mingw64 packages
     ucrt64-gcc ucrt64-gcc-c++ ucrt64-dlfcn ucrt64-enet ucrt64-freetype ucrt64-libvorbis ucrt64-libxml2 ucrt64-libtiff \
     ucrt64-openal-soft ucrt64-SDL2 ucrt64-SDL2_image ucrt64-libpng mingw32-nsis ucrt64-pcre2 ucrt64-physfs && \
@@ -29,3 +30,4 @@ ENV APPIMAGE_EXTRACT_AND_RUN 1
 # Set WORKDIR when you spin up the image.
 RUN mkdir -p /tmp/naevBuild
 WORKDIR /tmp/naevBuild
+CMD [ "/usr/bin/setup-devenv.sh", "/bin/bash" ]
