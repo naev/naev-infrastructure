@@ -106,6 +106,7 @@ FROM registry.gitlab.steamos.cloud/steamrt/sniper/sdk:latest
 COPY --from=build /opt/libs /usr
 COPY --from=build /opt/luarocks /opt/luarocks
 COPY --from=build /opt/ffmpeg /opt/ffmpeg
+COPY setup-devenv.sh /usr/bin
 
 # Add luarocks and friends to PATH
 ENV PATH "$PATH:/opt/luarocks/bin:/opt/ffmpeg/bin"
@@ -150,3 +151,4 @@ ENV APPIMAGE_EXTRACT_AND_RUN 1
 # Set WORKDIR when you spin up the image.
 RUN mkdir -p /tmp/naevBuild
 WORKDIR /tmp/naevBuild
+CMD [ "/usr/bin/setup-devenv.sh", "/bin/bash" ]
