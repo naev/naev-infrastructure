@@ -82,3 +82,4 @@ ENV APPIMAGE_EXTRACT_AND_RUN 1
 # Set WORKDIR when you spin up the image.
 RUN mkdir -p naevBuild
 WORKDIR /tmp/naevBuild
+CMD [ "/usr/bin/setup-devenv.sh", "/bin/bash" ]
