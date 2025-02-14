@@ -63,10 +63,10 @@ RUN UNATTENDED=1 osxcross-macports install -arm64 freetype glpk libsdl2 libsdl2_
     mv /usr/lib/osxcross/macports /usr/lib/osxcross/macports.aarch64
 
 # Download and install rcodesign
-RUN curl -L -O https://github.com/indygreg/apple-platform-rs/releases/download/apple-codesign%2F0.27.0/apple-codesign-0.27.0-x86_64-unknown-linux-musl.tar.gz && \
+RUN curl -L -O https://github.com/indygreg/apple-platform-rs/releases/download/apple-codesign%2F0.29.0/apple-codesign-0.29.0-x86_64-unknown-linux-musl.tar.gz && \
     mkdir -p /opt/apple-codesign && \
-    tar --strip-components=1 -xvzf apple-codesign-0.27.0-x86_64-unknown-linux-musl.tar.gz -C /opt/apple-codesign && \
-    rm apple-codesign-0.27.0-x86_64-unknown-linux-musl.tar.gz
+    tar --strip-components=1 -xvzf apple-codesign-0.29.0-x86_64-unknown-linux-musl.tar.gz -C /opt/apple-codesign && \
+    rm apple-codesign-0.29.0-x86_64-unknown-linux-musl.tar.gz
 
 # Build final container
 FROM registry.fedoraproject.org/fedora-minimal:latest
