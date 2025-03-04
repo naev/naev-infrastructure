@@ -1,9 +1,9 @@
 #!/bin/sh
 
-# Print a message 
+# Print a message
 echo "Configuring the development environment"
 
-rustup-init -y -t x86_64-pc-windows-gnu
+rustup-init -y -t x86_64-pc-windows-gnullvm
 
 # Source the environment file
 source ~/.cargo/env
@@ -17,4 +17,3 @@ cargo install bindgen-cli
 # Print a "Ready to use" message
 echo "Ready to use"
 exec "$@"
-
