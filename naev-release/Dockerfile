@@ -8,7 +8,8 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install git golang && \
 # Build luarocks
     git clone https://github.com/wangyoucao577/assets-uploader.git && \
     cd assets-uploader/cmd/github-assets-uploader && \
-    go build  && \
+    go mod tidy && \
+    go build && \
     ./github-assets-uploader -version
 
 # Build final container
