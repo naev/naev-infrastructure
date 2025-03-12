@@ -1,19 +1,3 @@
-# Build luarocks in build container to save space.
-FROM registry.fedoraproject.org/fedora-minimal:latest AS build
-
-WORKDIR /tmp
-# Install luarocks deps
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install git golang && \
-    microdnf clean all && \
-# Build luarocks
-    git clone https://github.com/wangyoucao577/assets-uploader.git && \
-    cd assets-uploader/cmd/github-assets-uploader && \
-    go mod tidy && \
-    go build && \
-    ./github-assets-uploader -version
-
-# Build final container
-
 FROM registry.fedoraproject.org/fedora-minimal:latest
 
 LABEL org.opencontainers.image.authors "Naev Dev Team"
@@ -24,11 +8,7 @@ LABEL org.opencontainers.image.description "Used for packaging releases"
 ENV IMAGE_NAME "naev-release"
 
 WORKDIR /
-COPY --from=build /tmp/assets-uploader/cmd/github-assets-uploader/github-assets-uploader /opt/github-assets-uploader/github-assets-uploader
 COPY setup-devenv.sh /usr/bin
-
-# Add github-assets-uploader to PATH
-ENV PATH "$PATH:/opt/github-assets-uploader"
 
 # Add SteamCMD to PATH
 ENV PATH "$PATH:/opt/steamcmd"
@@ -41,7 +21,9 @@ ENV PATH "$PATH:/opt/apple-codesign"
 
 WORKDIR /tmp
 # Install utilities
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build clang gcc python3-pyyaml file git readline-devel rustup tar xz unzip zip \
+RUN curl -L -O https://cli.github.com/packages/rpm/gh-cli.repo --output-dir /etc/yum.repos.d && \
+    microdnf update -y && \
+    microdnf --nodocs --setopt=install_weak_deps=0 -y install gh meson ninja-build clang gcc python3-pyyaml file git readline-devel rustup tar xz unzip zip \
 # Install SteamCMD and friends
     glibc.i686 SDL2.i686 && \
     microdnf clean all && \
@@ -73,9 +55,9 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install meson ninja-build 
     echo "Verifying rcodesign install" && \
     command -v rcodesign && \
     rcodesign -V && \
-    echo "Verifying github-assets-uploader install" && \
-    command -v github-assets-uploader && \
-    github-assets-uploader -version
+    echo "Verifying GH CLI install" && \
+    command -v gh && \
+    gh version
 
 # Force appimages to run in extract mode since FUSE is not available
 ENV APPIMAGE_EXTRACT_AND_RUN 1
