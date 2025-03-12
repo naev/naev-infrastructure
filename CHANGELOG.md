@@ -7,10 +7,12 @@
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
 
+### v1.12.1
+- Replace github-assets-uploader with the native GitHub CLI in `naev-release`
+
 ### v1.12.0
 - Ensure that clang and llvm tools are available on all build containers.
 - Add autoconfiguration script to preinstall the rust toolchains for local builds.
-
 
 ### v1.11.5
 - Remove Rust and bindgen installation from `naev-steamruntime`, `naev-macos` and `naev-windows` Dockerfiles
