@@ -15,6 +15,12 @@ COPY setup-devenv.sh /usr/bin
 
 RUN microdnf update -y && \
     microdnf --nodocs --setopt=install_weak_deps=0 -y install clang gcc gettext git lld llvm meson ninja-build python3-pyyaml rustup tar texinfo xz unzip zip \
+# OK, seems like the rust is a bit a of mess as it is trying to compile some things internally with hardcoded mingw64 paths
+# We have to toss the dependencies here so that it works. In particular, mlua-sys seems to want to build luajit
+# Would make sense to try to use either only ucrt64 or mingw64 stuff someday
+    mingw64-binutils mingw64-gcc \
+    mingw64-libvorbis mingw64-win-iconv mingw64-openal-soft \
+    libvorbis-devel openal-soft-devel \
 # Install mingw64 packages
     ucrt64-gcc ucrt64-gcc-c++ ucrt64-dlfcn ucrt64-enet ucrt64-freetype ucrt64-libvorbis ucrt64-libxml2 ucrt64-libtiff \
     ucrt64-openal-soft ucrt64-SDL2 ucrt64-SDL2_image ucrt64-libpng mingw32-nsis ucrt64-pcre2 ucrt64-physfs && \

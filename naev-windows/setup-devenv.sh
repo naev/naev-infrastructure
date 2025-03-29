@@ -3,7 +3,7 @@
 # Print a message
 echo "Configuring the development environment"
 
-rustup-init -y -t x86_64-pc-windows-gnullvm
+rustup-init -y -t x86_64-pc-windows-gnu
 
 # Source the environment file
 source ~/.cargo/env
