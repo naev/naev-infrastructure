@@ -37,7 +37,7 @@ COPY MacOSX14.sdk.tar.xz /usr/local/src/osxcross/tarballs
 
 # Build toolchain
 WORKDIR /usr/local/src/osxcross
-RUN TARGET_DIR=/usr/lib/osxcross SDK_VERSION=14 UNATTENDED=1 ./build.sh
+RUN TARGET_DIR=/usr/lib/osxcross UNATTENDED=1 ./build.sh
 
 # Add osxcross to PATH
 ENV PATH "$PATH:/usr/lib/osxcross/bin"
