@@ -101,7 +101,7 @@ ENV APPIMAGE_EXTRACT_AND_RUN 1
 # Install build tools.
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettext genisoimage git llvm meson ninja-build python3-pip python3-pyyaml rustup unzip tar texinfo xz zlib zip && \
     microdnf clean all && \
-# Need Meson >=1.2.0 for fancy wrap files.
+# Need Meson >=1.7.0 for rust_std=2024, which needs Fedora 42
     python3 -m pip install meson --upgrade && \
 # Verify tool version.
     echo "Verifying meson install" && \

@@ -1,11 +1,14 @@
 ### Overview:
-- `naev-artwork` (Used to render naev artwork.) ***DEPRECATED***
 - `naev-docs` (Used for building website and docs.)
-- `naev-linux-archaic` (Used for old release builds) ***DEPRECATED***
 - `naev-macos` (Used to cross compile for macOS.)
 - `naev-release` (Used for packaging releases)
 - `naev-steamruntime` (Used for testing linux steam builds in the steamruntime (sniper) environment with extra dependencies installed.)
 - `naev-windows` (Used to cross compile for Windows.)
+- `naev-artwork` (Used to render naev artwork.) ***DEPRECATED***
+- `naev-linux-archaic` (Used for old release builds) ***DEPRECATED***
+
+### v1.12.4
+- `naev-windows`, `naev-release`, and `naev-docs` also try to use a recent meson as fedora 41 version is too old for rust
 
 ### v1.12.3
 - Update `naev-windows` to include more packages to help build Rust branch

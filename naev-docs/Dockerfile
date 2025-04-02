@@ -10,7 +10,7 @@ ENV IMAGE_NAME "naev-docs"
 COPY setup-devenv.sh /usr/bin
 
 # Install utilities
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make meson ninja-build clang gcc git GraphicsMagick llvm libyaml openssl optipng rustup zlib \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make python3-pip meson ninja-build clang gcc git GraphicsMagick llvm libyaml openssl optipng rustup zlib \
     python3-pyyaml rsync tidy tar unzip xz zip \
 # Install ldoc
     lua-ldoc \
@@ -18,6 +18,8 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make meson ninja-b
     latexmk texlive-luahbtex texlive-roboto texlive-preprint texlive-parskip texlive-sfmath \
     texlive-markdown texlive-csvsimple texlive-gobble texlive-microtype texlive-minted texlive-newunicodechar && \
     microdnf clean all && \
+# Need Meson >=1.7.0 for rust_std=2024, which needs Fedora 42
+    python3 -m pip install meson --upgrade && \
 # Verify tool versions and install locations.
     echo "Verifying latexmk install" && \
     command -v latexmk && \

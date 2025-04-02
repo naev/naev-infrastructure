@@ -16,7 +16,7 @@ ENV RANLIB llvm-ranlib
 ENV STRIP llvm-strip
 ENV LD ld.lld
 
-ENV CFLAGS "-fPIC" 
+ENV CFLAGS "-fPIC"
 ENV CXXFLAGS "-fPIC"
 
 # Install luarocks deps
@@ -143,7 +143,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip \
     apt-get clean && \
 # Install mutagen module for soundtrack generation
     python3 -m pip install mutagen && \
-# Need Meson >=1.2.0 for fancy wrap files.
+# Need Meson >=1.7.0 for rust_std=2024, which is obviously not up-to-date in steamOS
     python3 -m pip install meson --upgrade && \
 # Verify meson and python.
     echo "Verifying python install" && \

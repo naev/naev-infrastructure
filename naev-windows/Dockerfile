@@ -14,7 +14,7 @@ COPY _copr:copr.fedorainfracloud.org:jackgreiner:ucrt64-libraries.repo /etc/yum.
 COPY setup-devenv.sh /usr/bin
 
 RUN microdnf update -y && \
-    microdnf --nodocs --setopt=install_weak_deps=0 -y install clang gcc gettext git lld llvm meson ninja-build python3-pyyaml rustup tar texinfo xz unzip zip \
+    microdnf --nodocs --setopt=install_weak_deps=0 -y install clang gcc gettext git lld llvm python3-pip meson ninja-build python3-pyyaml rustup tar texinfo xz unzip zip \
 # OK, seems like the rust is a bit a of mess as it is trying to compile some things internally with hardcoded mingw64 paths
 # We have to toss the dependencies here so that it works. In particular, mlua-sys seems to want to build luajit
 # Would make sense to try to use either only ucrt64 or mingw64 stuff someday
@@ -25,6 +25,8 @@ RUN microdnf update -y && \
     ucrt64-gcc ucrt64-gcc-c++ ucrt64-dlfcn ucrt64-enet ucrt64-freetype ucrt64-libvorbis ucrt64-libxml2 ucrt64-libtiff \
     ucrt64-openal-soft ucrt64-SDL2 ucrt64-SDL2_image ucrt64-libpng mingw32-nsis ucrt64-pcre2 ucrt64-physfs && \
     microdnf clean all && \
+# Need Meson >=1.7.0 for rust_std=2024, which needs Fedora 42
+    python3 -m pip install meson --upgrade && \
 # Install openblas for mingw (building this from source is an option but probably painful)
     curl -L -O https://github.com/OpenMathLib/OpenBLAS/releases/download/v0.3.28/OpenBLAS-0.3.28-x64-64.zip && \
     unzip OpenBLAS-0.3.28-x64-64.zip -d /usr/x86_64-w64-mingw32ucrt/sys-root/mingw && \
