@@ -7,6 +7,9 @@
 - `naev-artwork` (Used to render naev artwork.) ***DEPRECATED***
 - `naev-linux-archaic` (Used for old release builds) ***DEPRECATED***
 
+### v1.12.5
+- Update `naev-macos` to target macOS 13 for ARM64 targets
+
 ### v1.12.4
 - `naev-windows`, `naev-release`, and `naev-docs` also try to use a recent meson as fedora 41 version is too old for rust
 

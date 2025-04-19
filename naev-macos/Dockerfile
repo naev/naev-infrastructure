@@ -54,7 +54,7 @@ RUN UNATTENDED=1 osxcross-macports install freetype glpk libsdl2 libsdl2_image l
     mv /usr/lib/osxcross/macports /usr/lib/osxcross/macports.x86_64
 
 # Set MACOSX_DEPLOYMENT_TARGET for AARCH64
-ENV MACOSX_DEPLOYMENT_TARGET "12.0"
+ENV MACOSX_DEPLOYMENT_TARGET "13.0"
 
 # Install required build dependencies
 RUN UNATTENDED=1 osxcross-macports install -arm64 freetype glpk libsdl2 libsdl2_image libpng \
@@ -83,7 +83,7 @@ LABEL org.opencontainers.image.description "Used to cross compile for macOS."
 
 # Set deployment target for AARCH64 and x86_64 for use with entrypoint
 # Make sure these follow the values in the build container above ^
-ENV AARCH64_DEPLOYMENT_TARGET "12.0"
+ENV AARCH64_DEPLOYMENT_TARGET "13.0"
 ENV X86_64_DEPLOYMENT_TARGET "10.13"
 
 # Allows for determining what container scripts are run in.
