@@ -15,6 +15,7 @@
 - Update dependencies in `naev-release`
 - Move away from ucrt64 packages to maintain ABI compatibility and help with rust compatibility in `naev-windows`
 - Update OpenBLAS to 0.3.29 in `naev-windows`
+- Fix `naev-steamruntime` installing packages during building
 
 ### v1.12.4
 - `naev-windows`, `naev-release`, and `naev-docs` also try to use a recent meson as fedora 41 version is too old for rust

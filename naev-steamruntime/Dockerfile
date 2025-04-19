@@ -20,7 +20,8 @@ ENV CFLAGS "-fPIC"
 ENV CXXFLAGS "-fPIC"
 
 # Install luarocks deps
-RUN apt-get -y install lua5.4 liblua5.4-dev make libncurses-dev libevent-dev libreadline-dev && \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    apt-get -y install lua5.4 liblua5.4-dev make libncurses-dev libevent-dev libreadline-dev && \
 # Build luarocks
     curl -L -O https://luarocks.org/releases/luarocks-3.8.0.tar.gz && \
     tar zxpf luarocks-3.8.0.tar.gz && \
@@ -128,9 +129,10 @@ LABEL org.opencontainers.image.description "Used for testing linux steam builds 
 ENV IMAGE_NAME "naev-steamruntime"
 
 # Remove libopenal-dev and libopenal1, as we want to use our own built version.
-RUN DEBIAN_FRONTEND=noninteractive apt-get remove -y libopenal*
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    apt-get remove -y libopenal* && \
+    apt-get clean
 COPY --from=build /opt/libs/usr/ /usr
-
 
 # Install pip from steam/debian repositories.
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip \
