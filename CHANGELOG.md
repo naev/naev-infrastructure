@@ -7,6 +7,11 @@
 - `naev-artwork` (Used to render naev artwork.) ***DEPRECATED***
 - `naev-linux-archaic` (Used for old release builds) ***DEPRECATED***
 
+### v1.12.7
+- Revert `naev-macos` to the cctools based OSXCross branch and pin Fedora to 41
+  - apple-libtapi seems to have issues building with Clang 20.
+  - llvm-install-name-tool can't deal with the libgcc shared library unfortunately so we can't make use of the pure llvm toolchain (yet!)
+
 ### v1.12.6
 - Add awk to all Fedora based images
 

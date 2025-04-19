@@ -1,5 +1,5 @@
 # Build toolchain in build container to save space.
-FROM registry.fedoraproject.org/fedora-minimal:latest AS build
+FROM registry.fedoraproject.org/fedora-minimal:41 AS build
 
 # Install Build dependencies and utilities.
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install bzip2 clang-devel cmake gawk git gzip lld file findutils patch python3 \
@@ -31,7 +31,7 @@ WORKDIR /usr/local/src
 
 # Use my fork of OSXCross until https://github.com/tpoechtrager/osxcross/pull/459 is pulled upstream.
 RUN git clone https://github.com/ProjectSynchro/osxcross.git && \
-    cd osxcross && git checkout 2.0-llvm-based
+    cd osxcross && git checkout master
 
 # Copy MacOS SDK tarball
 COPY MacOSX14.sdk.tar.xz /usr/local/src/osxcross/tarballs
@@ -70,7 +70,7 @@ RUN curl -L -O https://github.com/indygreg/apple-platform-rs/releases/download/a
     rm apple-codesign-0.29.0-x86_64-unknown-linux-musl.tar.gz
 
 # Build final container
-FROM registry.fedoraproject.org/fedora-minimal:latest
+FROM registry.fedoraproject.org/fedora-minimal:41
 
 WORKDIR /
 COPY --from=build /usr/lib/osxcross /usr/lib/osxcross
