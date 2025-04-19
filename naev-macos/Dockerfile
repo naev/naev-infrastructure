@@ -2,8 +2,8 @@
 FROM registry.fedoraproject.org/fedora-minimal:latest AS build
 
 # Install Build dependencies and utilities.
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install bzip2 clang cmake gawk git gzip file findutils patch python3 \
-    openssl openssl-devel xz-devel libxml2-devel llvm-devel uuid-devel unzip tar xz zlib-devel && \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install bzip2 clang-devel cmake gawk git gzip lld file findutils patch python3 \
+    openssl openssl-devel xz-devel libxml2-devel uuid-devel unzip tar xz zlib-devel && \
     microdnf clean all && \
 # Verify tool / language versions versions.
     echo "Verifying clang install" && \
@@ -26,11 +26,12 @@ RUN mkdir build && cd build && \
 
 # Git clone osxcross repo
 WORKDIR /usr/local/src
-RUN git clone https://github.com/tpoechtrager/osxcross.git
+#RUN git clone https://github.com/tpoechtrager/osxcross.git && \
+#    cd osxcross && git checkout 2.0-llvm-based
 
-# Use my fork of OSXCross until https://github.com/tpoechtrager/osxcross/pull/428 is pulled upstream.
-#RUN git clone https://github.com/ProjectSynchro/osxcross.git && \
-#    cd osxcross && git checkout osxcross-any-arch
+# Use my fork of OSXCross until https://github.com/tpoechtrager/osxcross/pull/459 is pulled upstream.
+RUN git clone https://github.com/ProjectSynchro/osxcross.git && \
+    cd osxcross && git checkout 2.0-llvm-based
 
 # Copy MacOS SDK tarball
 COPY MacOSX14.sdk.tar.xz /usr/local/src/osxcross/tarballs
@@ -99,10 +100,8 @@ ENV OSXCROSS_MP_INC "1"
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
 # Install build tools.
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettext genisoimage gawk git gzip llvm meson ninja-build python3-pip python3-pyyaml rustup unzip tar texinfo xz zlib zip && \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang clang-devel clang++ cmake gettext genisoimage gawk git gzip llvm lld meson ninja-build python3-pip python3-pyyaml rustup unzip tar texinfo xz zlib zip && \
     microdnf clean all && \
-# Need Meson >=1.7.0 for rust_std=2024, which needs Fedora 42
-    python3 -m pip install meson --upgrade && \
 # Verify tool version.
     echo "Verifying meson install" && \
     command -v meson && \
