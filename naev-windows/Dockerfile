@@ -14,7 +14,7 @@ COPY _copr:copr.fedorainfracloud.org:jackgreiner:mingw64-packages.repo /etc/yum.
 COPY setup-devenv.sh /usr/bin
 
 RUN microdnf update -y && \
-    microdnf --nodocs --setopt=install_weak_deps=0 -y install clang gcc gettext git gzip lld llvm python3-pip meson ninja-build python3-pyyaml rustup tar texinfo xz unzip zip \
+    microdnf --nodocs --setopt=install_weak_deps=0 -y install clang gawk gcc gettext git gzip lld llvm python3-pip meson ninja-build python3-pyyaml rustup tar texinfo xz unzip zip \
 # OK, seems like the rust is a bit a of mess as it is trying to compile some things internally with hardcoded mingw64 paths
 # We have to toss the dependencies here so that it works. In particular, mlua-sys seems to want to build luajit
     mingw64-binutils mingw64-gcc \

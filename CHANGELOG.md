@@ -7,6 +7,9 @@
 - `naev-artwork` (Used to render naev artwork.) ***DEPRECATED***
 - `naev-linux-archaic` (Used for old release builds) ***DEPRECATED***
 
+### v1.12.6
+- Add awk to all Fedora based images
+
 ### v1.12.5
 - Update `naev-macos` to target macOS 13 for ARM64 targets (See: https://trac.macports.org/ticket/72256)
 - Update dependencies and fix compiler quirks with OSXCross in `naev-macos`

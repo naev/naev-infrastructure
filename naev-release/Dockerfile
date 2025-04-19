@@ -23,7 +23,7 @@ WORKDIR /tmp
 # Install utilities
 RUN curl -L -O https://cli.github.com/packages/rpm/gh-cli.repo --output-dir /etc/yum.repos.d && \
     microdnf update -y && \
-    microdnf --nodocs --setopt=install_weak_deps=0 -y install gh python3-pip meson ninja-build clang gcc gzip python3-pyyaml file git readline-devel rustup tar xz unzip zip \
+    microdnf --nodocs --setopt=install_weak_deps=0 -y install gh python3-pip meson ninja-build clang gawk gcc gzip python3-pyyaml file git readline-devel rustup tar xz unzip zip \
 # Install SteamCMD and friends
     glibc.i686 sdl2-compat.i686 && \
     microdnf clean all && \
