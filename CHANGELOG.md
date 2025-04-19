@@ -8,7 +8,7 @@
 - `naev-linux-archaic` (Used for old release builds) ***DEPRECATED***
 
 ### v1.12.5
-- Update `naev-macos` to target macOS 13 for ARM64 targets
+- Update `naev-macos` to target macOS 13 for ARM64 targets (See: https://trac.macports.org/ticket/72256)
 - Update dependencies and fix compiler quirks with OSXCross in `naev-macos`
 - Revert to upstream Fedora Meson in `naev-windows`, `naev-macos`, `naev-release`, and `naev-docs` as Fedora 42 is now GA
 - Add gzip to Fedora based images
