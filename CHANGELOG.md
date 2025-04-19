@@ -9,6 +9,7 @@
 
 ### v1.12.5
 - Update `naev-macos` to target macOS 13 for ARM64 targets
+- Revert to upstream Fedora Meson in `naev-windows`, `naev-release`, and `naev-docs` as Fedora 42 is now GA
 
 ### v1.12.4
 - `naev-windows`, `naev-release`, and `naev-docs` also try to use a recent meson as fedora 41 version is too old for rust

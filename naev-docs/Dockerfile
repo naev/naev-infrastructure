@@ -18,8 +18,6 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make python3-pip m
     latexmk texlive-luahbtex texlive-roboto texlive-preprint texlive-parskip texlive-sfmath \
     texlive-markdown texlive-csvsimple texlive-gobble texlive-microtype texlive-minted texlive-newunicodechar && \
     microdnf clean all && \
-# Need Meson >=1.7.0 for rust_std=2024, which needs Fedora 42
-    python3 -m pip install meson --upgrade && \
 # Verify tool versions and install locations.
     echo "Verifying latexmk install" && \
     command -v latexmk && \

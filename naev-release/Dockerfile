@@ -27,8 +27,6 @@ RUN curl -L -O https://cli.github.com/packages/rpm/gh-cli.repo --output-dir /etc
 # Install SteamCMD and friends
     glibc.i686 SDL2.i686 && \
     microdnf clean all && \
-# Need Meson >=1.7.0 for rust_std=2024, which needs Fedora 42
-    python3 -m pip install meson --upgrade && \
 # Download and install SteamCMD
     curl -L -O http://media.steampowered.com/installer/steamcmd_linux.tar.gz && \
     mkdir -p /opt/steamcmd && \

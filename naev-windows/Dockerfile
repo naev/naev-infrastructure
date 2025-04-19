@@ -25,8 +25,6 @@ RUN microdnf update -y && \
     ucrt64-gcc ucrt64-gcc-c++ ucrt64-dlfcn ucrt64-enet ucrt64-freetype ucrt64-libvorbis ucrt64-libxml2 ucrt64-libtiff \
     ucrt64-openal-soft ucrt64-SDL2 ucrt64-SDL2_image ucrt64-libpng mingw32-nsis ucrt64-pcre2 ucrt64-physfs && \
     microdnf clean all && \
-# Need Meson >=1.7.0 for rust_std=2024, which needs Fedora 42
-    python3 -m pip install meson --upgrade && \
 # Install openblas for mingw (building this from source is an option but probably painful)
     curl -L -O https://github.com/OpenMathLib/OpenBLAS/releases/download/v0.3.28/OpenBLAS-0.3.28-x64-64.zip && \
     unzip OpenBLAS-0.3.28-x64-64.zip -d /usr/x86_64-w64-mingw32ucrt/sys-root/mingw && \
