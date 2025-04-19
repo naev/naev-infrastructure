@@ -100,7 +100,7 @@ ENV OSXCROSS_MP_INC "1"
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
 # Install build tools.
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang clang-devel clang++ cmake gettext genisoimage gawk git gzip llvm lld meson ninja-build python3-pip python3-pyyaml rustup unzip tar texinfo xz zlib zip && \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang-devel cmake gettext genisoimage gawk git gzip lld meson ninja-build python3-pip python3-pyyaml rustup unzip tar texinfo xz zlib zip && \
     microdnf clean all && \
 # Verify tool version.
     echo "Verifying meson install" && \
