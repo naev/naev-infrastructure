@@ -2,7 +2,7 @@
 FROM registry.fedoraproject.org/fedora-minimal:latest AS build
 
 # Install Build dependencies and utilities.
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install bzip2 clang cmake git gzip file findutils patch python3 \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install bzip2 clang cmake gawk git gzip file findutils patch python3 \
     openssl openssl-devel xz-devel libxml2-devel llvm-devel uuid-devel unzip tar xz zlib-devel && \
     microdnf clean all && \
 # Verify tool / language versions versions.
@@ -99,7 +99,7 @@ ENV OSXCROSS_MP_INC "1"
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
 # Install build tools.
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettext genisoimage git gzip llvm meson ninja-build python3-pip python3-pyyaml rustup unzip tar texinfo xz zlib zip && \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang cmake gettext genisoimage gawk git gzip llvm meson ninja-build python3-pip python3-pyyaml rustup unzip tar texinfo xz zlib zip && \
     microdnf clean all && \
 # Need Meson >=1.7.0 for rust_std=2024, which needs Fedora 42
     python3 -m pip install meson --upgrade && \
