@@ -1,0 +1,11 @@
+[copr:copr.fedorainfracloud.org:jackgreiner:mingw64-packages]
+name=Copr repo for mingw64-packages owned by jackgreiner
+baseurl=https://download.copr.fedorainfracloud.org/results/jackgreiner/mingw64-packages/fedora-$releasever-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://download.copr.fedorainfracloud.org/results/jackgreiner/mingw64-packages/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
+module_hotfixes=1

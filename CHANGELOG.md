@@ -10,6 +10,8 @@
 ### v1.12.5
 - Update `naev-macos` to target macOS 13 for ARM64 targets
 - Revert to upstream Fedora Meson in `naev-windows`, `naev-release`, and `naev-docs` as Fedora 42 is now GA
+- Move away from ucrt64 packages to maintain ABI compatibility and help with rust compatibility in `naev-windows`
+- Update OpenBLAS to 0.3.29 in `naev-windows`
 
 ### v1.12.4
 - `naev-windows`, `naev-release`, and `naev-docs` also try to use a recent meson as fedora 41 version is too old for rust
