@@ -2,7 +2,7 @@
 FROM registry.fedoraproject.org/fedora-minimal:latest AS build
 
 # Install Build dependencies and utilities.
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install bzip2 clang cmake git file findutils patch python3 \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install bzip2 clang cmake git gzip file findutils patch python3 \
     openssl openssl-devel xz-devel libxml2-devel llvm-devel uuid-devel unzip tar xz zlib-devel && \
     microdnf clean all && \
 # Verify tool / language versions versions.
