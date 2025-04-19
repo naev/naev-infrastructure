@@ -10,7 +10,7 @@ ENV IMAGE_NAME "naev-docs"
 COPY setup-devenv.sh /usr/bin
 
 # Install utilities
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make python3-pip meson ninja-build clang gcc git GraphicsMagick llvm libyaml openssl optipng rustup zlib \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make python3-pip meson ninja-build clang gcc git GraphicsMagick gzip llvm libyaml openssl optipng rustup zlib \
     python3-pyyaml rsync tidy tar unzip xz zip \
 # Install ldoc
     lua-ldoc \
