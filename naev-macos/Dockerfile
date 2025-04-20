@@ -102,6 +102,8 @@ ENV APPIMAGE_EXTRACT_AND_RUN 1
 # Install build tools.
 RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang-devel cmake gettext genisoimage gawk git gzip lld meson ninja-build python3-pip python3-pyyaml rustup unzip tar texinfo xz zlib zip && \
     microdnf clean all && \
+# Need Meson >=1.7.0 for rust_std=2024, which is obviously not up-to-date in steamOS
+    python3 -m pip install meson --upgrade && \
 # Verify tool version.
     echo "Verifying meson install" && \
     command -v meson && \
