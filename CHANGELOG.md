@@ -7,6 +7,9 @@
 - `naev-artwork` (Used to render naev artwork.) ***DEPRECATED***
 - `naev-linux-archaic` (Used for old release builds) ***DEPRECATED***
 
+### v1.12.8
+- Bump Meson to 1.7.0 in `naev-macos`
+
 ### v1.12.7
 - Revert `naev-macos` to the cctools based OSXCross branch and pin Fedora to 41
   - apple-libtapi seems to have issues building with Clang 20.
