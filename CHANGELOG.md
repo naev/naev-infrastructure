@@ -7,6 +7,10 @@
 - `naev-artwork` (Used to render naev artwork.) ***DEPRECATED***
 - `naev-linux-archaic` (Used for old release builds) ***DEPRECATED***
 
+### v1.12.9
+- Install git version of bindgen when running setup-devenv.sh
+   - This fixes build issues on non Linux platforms.
+
 ### v1.12.8
 - Bump Meson to 1.7.0 in `naev-macos`
 
