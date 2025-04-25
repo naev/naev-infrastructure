@@ -10,6 +10,8 @@
 ### v1.12.9
 - Install git version of bindgen when running setup-devenv.sh
    - This fixes build issues on non Linux platforms.
+- Use mingw packaged luajit
+   - TODO: package the rest of the windows libraries to avoid linking shenanigans.
 
 ### v1.12.8
 - Bump Meson to 1.7.0 in `naev-macos`
