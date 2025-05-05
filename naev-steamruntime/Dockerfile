@@ -145,8 +145,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip \
     apt-get clean && \
 # Install mutagen module for soundtrack generation
     python3 -m pip install mutagen && \
-# Need Meson >=1.7.0 for rust_std=2024, which is obviously not up-to-date in steamOS
-    python3 -m pip install meson --upgrade && \
+# Need Meson >=1.7.0 for rust_std=2024, but restrict to versions below 1.8.0.
+python3 -m pip install 'meson>=1.7.0,<1.8.0' --upgrade && \
 # Verify meson and python.
     echo "Verifying python install" && \
     command -v python3 && \
