@@ -100,11 +100,11 @@ ENV OSXCROSS_MP_INC "1"
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
 # Install build tools.
-RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang-devel cmake gettext genisoimage gawk git gzip lld meson ninja-build python3-pip python3-pyyaml rustup unzip tar texinfo xz zlib zip && \
+RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install clang-devel cmake gettext genisoimage gawk git gzip lld ninja-build python3-pip python3-pyyaml rustup unzip tar texinfo xz zlib zip && \
     microdnf clean all && \
-# Need Meson >=1.7.0 for rust_std=2024, which is obviously not up-to-date in steamOS
-    python3 -m pip install meson --upgrade && \
-# Verify tool version.
+# Need Meson >=1.7.0 for rust_std=2024, but restrict to versions below 1.8.0.
+    python3 -m pip install 'meson>=1.7.0,<1.8.0' --upgrade && \
+# Verify tool versions and installation locations.
     echo "Verifying meson install" && \
     command -v meson && \
     meson --version && \

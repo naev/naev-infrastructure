@@ -7,6 +7,9 @@
 - `naev-artwork` (Used to render naev artwork.) ***DEPRECATED***
 - `naev-linux-archaic` (Used for old release builds) ***DEPRECATED***
 
+### v1.12.10
+- Update Dockerfiles to restrict Meson version to <1.8.0 to avoid upstream bugs with subprojects and wraps
+
 ### v1.12.9
 - Install git version of bindgen when running setup-devenv.sh
    - This fixes build issues on non Linux platforms.

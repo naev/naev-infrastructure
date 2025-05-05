@@ -23,7 +23,7 @@ WORKDIR /tmp
 # Install utilities
 RUN curl -L -O https://cli.github.com/packages/rpm/gh-cli.repo --output-dir /etc/yum.repos.d && \
     microdnf update -y && \
-    microdnf --nodocs --setopt=install_weak_deps=0 -y install gh python3-pip meson ninja-build clang gawk gcc gzip python3-pyyaml file git readline-devel rustup tar xz unzip zip \
+    microdnf --nodocs --setopt=install_weak_deps=0 -y install gh python3-pip ninja-build clang gawk gcc gzip python3-pyyaml file git readline-devel rustup tar xz unzip zip \
 # Install SteamCMD and friends
     glibc.i686 sdl2-compat.i686 && \
     microdnf clean all && \
@@ -45,7 +45,12 @@ RUN curl -L -O https://cli.github.com/packages/rpm/gh-cli.repo --output-dir /etc
     mkdir -p /opt/apple-codesign && \
     tar --strip-components=1 -xvzf apple-codesign-0.29.0-x86_64-unknown-linux-musl.tar.gz -C /opt/apple-codesign && \
     rm apple-codesign-0.29.0-x86_64-unknown-linux-musl.tar.gz && \
+# Need Meson >=1.7.0 for rust_std=2024, but restrict to versions below 1.8.0.
+    python3 -m pip install 'meson>=1.7.0,<1.8.0' --upgrade && \
 # Verify tool versions and installation locations.
+    echo "Verifying meson install" && \
+    command -v meson && \
+    meson --version && \
     echo "Verifying steamcmd install" && \
     command -v steamcmd && \
     steamcmd +quit && \

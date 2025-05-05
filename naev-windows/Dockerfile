@@ -14,7 +14,7 @@ COPY _copr:copr.fedorainfracloud.org:jackgreiner:mingw64-packages.repo /etc/yum.
 COPY setup-devenv.sh /usr/bin
 
 RUN microdnf update -y && \
-    microdnf --nodocs --setopt=install_weak_deps=0 -y install clang gawk gcc gettext git gzip lld llvm python3-pip meson ninja-build python3-pyyaml rustup tar texinfo xz unzip zip \
+    microdnf --nodocs --setopt=install_weak_deps=0 -y install clang gawk gcc gettext git gzip lld llvm python3-pip ninja-build python3-pyyaml rustup tar texinfo xz unzip zip \
 # OK, seems like the rust is a bit a of mess as it is trying to compile some things internally with hardcoded mingw64 paths
 # We have to toss the dependencies here so that it works. In particular, mlua-sys seems to want to build luajit
     mingw64-binutils mingw64-gcc \
@@ -28,8 +28,13 @@ RUN microdnf update -y && \
 # Install openblas for mingw (building this from source is an option but probably painful)
     curl -L -O https://github.com/OpenMathLib/OpenBLAS/releases/download/v0.3.29/OpenBLAS-0.3.29_x64_64.zip  && \
     unzip OpenBLAS-0.3.29_x64_64.zip -d /usr/x86_64-w64-mingw32/sys-root/mingw && \
-    rm -rf OpenBLAS-0.3.29_x64_64.zip
-
+    rm -rf OpenBLAS-0.3.29_x64_64.zip && \
+# Need Meson >=1.7.0 for rust_std=2024, but restrict to versions below 1.8.0.
+    python3 -m pip install 'meson>=1.7.0,<1.8.0' --upgrade && \
+# Verify tool versions and installation locations.
+    echo "Verifying meson install" && \
+    command -v meson && \
+    meson --version
 # Force appimages to run in extract mode since FUSE is not available
 ENV APPIMAGE_EXTRACT_AND_RUN 1
 
