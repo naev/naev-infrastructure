@@ -143,10 +143,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip \
 # Naughty: we need libluajit-5.1-dev, libglpk-dev and libsuitesparse-dev, not in the SDK.... All are statically linked when building with the steamruntime option in meson set to true. Also, texinfo is an accidental build dependency for libbfd.
     libluajit-5.1-dev libglpk-dev libsuitesparse-dev texinfo && \
     apt-get clean && \
-# Install mutagen module for soundtrack generation
-    python3 -m pip install mutagen && \
+# Install mutagen module for soundtrack generation and xmltodict for outfit generation
+    python3 -m pip install mutagen xmltodict && \
 # Need Meson >=1.7.0 for rust_std=2024, but restrict to versions below 1.8.0.
-python3 -m pip install 'meson>=1.7.0,<1.8.0' --upgrade && \
+   python3 -m pip install 'meson>=1.7.0,<1.8.0' --upgrade && \
 # Verify meson and python.
     echo "Verifying python install" && \
     command -v python3 && \

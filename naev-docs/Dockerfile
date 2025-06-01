@@ -18,6 +18,8 @@ RUN microdnf --nodocs --setopt=install_weak_deps=0 -y install make python3-pip n
     latexmk texlive-luahbtex texlive-roboto texlive-preprint texlive-parskip texlive-sfmath \
     texlive-markdown texlive-csvsimple texlive-gobble texlive-microtype texlive-minted texlive-newunicodechar && \
     microdnf clean all && \
+# Install xmltodict for outfit generation
+    python3 -m pip install xmltodict && \
 # Need Meson >=1.7.0 for rust_std=2024, but restrict to versions below 1.8.0.
     python3 -m pip install 'meson>=1.7.0,<1.8.0' --upgrade && \
 # Verify tool versions and installation locations.

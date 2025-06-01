@@ -29,6 +29,8 @@ RUN microdnf update -y && \
     curl -L -O https://github.com/OpenMathLib/OpenBLAS/releases/download/v0.3.29/OpenBLAS-0.3.29_x64_64.zip  && \
     unzip OpenBLAS-0.3.29_x64_64.zip -d /usr/x86_64-w64-mingw32/sys-root/mingw && \
     rm -rf OpenBLAS-0.3.29_x64_64.zip && \
+# Install xmltodict for outfit generation
+    python3 -m pip install xmltodict && \
 # Need Meson >=1.7.0 for rust_std=2024, but restrict to versions below 1.8.0.
     python3 -m pip install 'meson>=1.7.0,<1.8.0' --upgrade && \
 # Verify tool versions and installation locations.

@@ -45,6 +45,8 @@ RUN curl -L -O https://cli.github.com/packages/rpm/gh-cli.repo --output-dir /etc
     mkdir -p /opt/apple-codesign && \
     tar --strip-components=1 -xvzf apple-codesign-0.29.0-x86_64-unknown-linux-musl.tar.gz -C /opt/apple-codesign && \
     rm apple-codesign-0.29.0-x86_64-unknown-linux-musl.tar.gz && \
+# Install xmltodict for outfit generation
+    python3 -m pip install xmltodict && \
 # Need Meson >=1.7.0 for rust_std=2024, but restrict to versions below 1.8.0.
     python3 -m pip install 'meson>=1.7.0,<1.8.0' --upgrade && \
 # Verify tool versions and installation locations.
