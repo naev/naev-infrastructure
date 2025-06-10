@@ -7,6 +7,9 @@
 - `naev-artwork` (Used to render naev artwork.) ***DEPRECATED***
 - `naev-linux-archaic` (Used for old release builds) ***DEPRECATED***
 
+### v1.12.12
+- Update `naev-macos` to Fedora 42
+
 ### v1.12.11
 - Add xmltodict via pip as dependency
 
