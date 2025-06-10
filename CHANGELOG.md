@@ -9,7 +9,8 @@
 
 ### v1.12.12
 - Update `naev-macos` to Fedora 42
-
+ - Install windows-targets' windows_x86_64_gnu crate to fix link errors with rust in `naev-windows`
+ 
 ### v1.12.11
 - Add xmltodict via pip as dependency
 

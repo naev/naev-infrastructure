@@ -29,6 +29,10 @@ RUN microdnf update -y && \
     curl -L -O https://github.com/OpenMathLib/OpenBLAS/releases/download/v0.3.29/OpenBLAS-0.3.29_x64_64.zip  && \
     unzip OpenBLAS-0.3.29_x64_64.zip -d /usr/x86_64-w64-mingw32/sys-root/mingw && \
     rm -rf OpenBLAS-0.3.29_x64_64.zip && \
+# Install windows-targets' windows_x86_64_gnu crate to fix link errors with rust
+    curl -L https://crates.io/api/v1/crates/windows_x86_64_gnu/0.52.6/download | tar -xzf - && \
+    cp windows_x86_64_gnu-0.52.6/lib/libwindows.0.52.0.a /usr/x86_64-w64-mingw32/sys-root/mingw/lib && \
+    rm -rf windows_x86_64_gnu-0.52.6 && \
 # Install xmltodict for outfit generation
     python3 -m pip install xmltodict && \
 # Need Meson >=1.7.0 for rust_std=2024, but restrict to versions below 1.8.0.
