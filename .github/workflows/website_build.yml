@@ -52,6 +52,17 @@ jobs:
     container:
       image: "ghcr.io/naev/naev-docs:latest"
     steps:
+      - name: Configure Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          target: "x86_64-unknown-linux-gnu"
+          override: true
+      - name: Install bindgen-cli
+        uses: baptiste0928/cargo-install@v3
+        with:
+          crate: bindgen-cli
+          git: https://github.com/rust-lang/rust-bindgen.git
+          commit: 97ab9152b5edb1fda1ced9bc1604f5e4dc9cfaa9
       - name: "Checkout `naev.org`"
         uses: actions/checkout@v4
         with:
