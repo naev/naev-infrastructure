@@ -49,7 +49,7 @@ ENV OSXCROSS_MP_INC "1"
 ENV MACOSX_DEPLOYMENT_TARGET "10.13"
 
 # Install required build dependencies
-RUN UNATTENDED=1 osxcross-macports install freetype glpk libsdl2 libsdl2_image libpng \
+RUN UNATTENDED=1 osxcross-macports install freetype glpk libsdl2 libsdl2_image SDL3 libpng \
     libvorbis luajit openal-soft OpenBLAS pcre2 physfs SuiteSparse_CHOLMOD SuiteSparse_CXSparse webp -v && \
     UNATTENDED=1 osxcross-macports clear-cache && \
     mv /usr/lib/osxcross/macports /usr/lib/osxcross/macports.x86_64
