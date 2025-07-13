@@ -10,6 +10,7 @@
 ### v1.12.13
 - Use upstream bindgen release in setup-devenv.sh
 - Add SDL3 to `naev-macos` and `naev-windows`
+- Update OpenBLAS to 0.3.30 in naev-windows
 
 ### v1.12.12
 - Update `naev-macos` to Fedora 42

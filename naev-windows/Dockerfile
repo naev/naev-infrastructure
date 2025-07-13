@@ -26,9 +26,9 @@ RUN microdnf update -y && \
     mingw64-openal-soft mingw64-SDL2 mingw64-SDL2_image mingw64-SDL3 mingw64-libpng mingw32-nsis mingw64-pcre2 mingw64-physfs && \
     microdnf clean all && \
 # Install openblas for mingw (building this from source is an option but probably painful)
-    curl -L -O https://github.com/OpenMathLib/OpenBLAS/releases/download/v0.3.29/OpenBLAS-0.3.29_x64_64.zip  && \
-    unzip OpenBLAS-0.3.29_x64_64.zip -d /usr/x86_64-w64-mingw32/sys-root/mingw && \
-    rm -rf OpenBLAS-0.3.29_x64_64.zip && \
+    curl -L -O https://github.com/OpenMathLib/OpenBLAS/releases/download/v0.3.30/OpenBLAS-0.3.30-x64-64.zip  && \
+    unzip OpenBLAS-0.3.30-x64-64.zip -d /usr/x86_64-w64-mingw32/sys-root/mingw && \
+    rm -rf OpenBLAS-0.3.30-x64-64.zip && \
 # Install windows-targets' windows_x86_64_gnu crate to fix link errors with rust
     curl -L https://crates.io/api/v1/crates/windows_x86_64_gnu/0.52.6/download | tar -xzf - && \
     cp windows_x86_64_gnu-0.52.6/lib/libwindows.0.52.0.a /usr/x86_64-w64-mingw32/sys-root/mingw/lib && \
