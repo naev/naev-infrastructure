@@ -46,7 +46,7 @@ ENV PATH "$PATH:/usr/lib/osxcross/bin"
 ENV OSXCROSS_MP_INC "1"
 
 # Set MACOSX_DEPLOYMENT_TARGET
-ENV MACOSX_DEPLOYMENT_TARGET "10.13"
+ENV MACOSX_DEPLOYMENT_TARGET "11.0"
 
 # Install required build dependencies
 RUN UNATTENDED=1 osxcross-macports install freetype glpk SDL3 libpng \
@@ -85,7 +85,7 @@ LABEL org.opencontainers.image.description "Used to cross compile for macOS."
 # Set deployment target for AARCH64 and x86_64 for use with entrypoint
 # Make sure these follow the values in the build container above ^
 ENV AARCH64_DEPLOYMENT_TARGET "13.0"
-ENV X86_64_DEPLOYMENT_TARGET "10.13"
+ENV X86_64_DEPLOYMENT_TARGET "11.0"
 
 # Allows for determining what container scripts are run in.
 ENV IMAGE_NAME "naev-macos"
