@@ -37,7 +37,7 @@ source ~/.cargo/env
 rustup install stable
 
 # Install bindgen-cli via cargo
-cargo install  bindgen-cli
+cargo install  bindgen-cli --git https://github.com/rust-lang/rust-bindgen.git --rev bd011d43e2d18078606350eb8c33048bf8a59bac
 # Print a "Ready to use" message
 echo "Ready to use"
 exec "$@"
