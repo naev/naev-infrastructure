@@ -141,7 +141,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip \
 # Install runtime dependencies for luarocks
     lua5.4 \
 # Naughty: we need libluajit-5.1-dev, libglpk-dev and libsuitesparse-dev, not in the SDK.... All are statically linked when building with the steamruntime option in meson set to true. Also, texinfo is an accidental build dependency for libbfd.
-    libluajit-5.1-dev libglpk-dev libsuitesparse-dev texinfo && \
+    libluajit-5.1-dev libglpk-dev libsuitesparse-dev texinfo \
+# Install appstream, desktop-file-utils and zsync for appimage generation
+    appstream desktop-file-utils zsync && \
     apt-get clean && \
 # Install mutagen module for soundtrack generation and xmltodict for outfit generation
     python3 -m pip install mutagen xmltodict && \

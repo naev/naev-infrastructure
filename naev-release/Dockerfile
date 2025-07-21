@@ -25,7 +25,9 @@ RUN curl -L -O https://cli.github.com/packages/rpm/gh-cli.repo --output-dir /etc
     microdnf update -y && \
     microdnf --nodocs --setopt=install_weak_deps=0 -y install gh python3-pip ninja-build clang gawk gcc gzip python3-pyyaml file git readline-devel rustup tar xz unzip zip \
 # Install SteamCMD and friends
-    glibc.i686 sdl2-compat.i686 && \
+    glibc.i686 sdl2-compat.i686 \
+# Install appstream, desktop-file-utils and zsync for appimage generation
+    appstream desktop-file-utils zsync && \
     microdnf clean all && \
 # Download and install SteamCMD
     curl -L -O http://media.steampowered.com/installer/steamcmd_linux.tar.gz && \

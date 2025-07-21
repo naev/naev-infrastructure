@@ -7,6 +7,9 @@
 - `naev-artwork` (Used to render naev artwork.) ***DEPRECATED***
 - `naev-linux-archaic` (Used for old release builds) ***DEPRECATED***
 
+### v1.12.14
+- Add appstream utilities and zsync for embedding update info to `naev-steamruntime` and `naev-release`
+
 ### v1.12.13
 - Use upstream bindgen release in setup-devenv.sh
 - Add SDL3 to `naev-macos` and `naev-windows`
